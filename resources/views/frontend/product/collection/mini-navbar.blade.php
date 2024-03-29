@@ -12,7 +12,7 @@
         <div class="filter-options">
             <div class="select-options">
                 <div class="page-view-filter">
-                    <div class="dropdown select-featured">
+                    <div class="dropdown select-featured d-none">
                         <select class="form-select" name="orderby" id="orderby">
                             <option value="-1" selected="">Default</option>
                             <option value="1">Available</option>
@@ -50,12 +50,12 @@
                                 class="img-fluid blur-up lazyload" alt="">
                         </a>
                     </li>
-                    <li class="list-btn">
+                    {{-- <li class="list-btn">
                         <a href="javascript:void(0)">
                             <img src="{{ asset('assets_users/svg/list.svg') }}"
                                 class="img-fluid blur-up lazyload" alt="">
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

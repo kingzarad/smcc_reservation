@@ -41,6 +41,23 @@
                 width: 50px !important;
             }
         }
+
+        .image-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+            /* This creates a square aspect ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures the image covers the container without stretching */
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('assets_users/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets_users/css/custom.css') }}">
@@ -51,7 +68,7 @@
     <style>
         .poster-section {
             height: 600px;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.1 ), rgba(0, 0, 0, 0.2)), url('{{ asset('assets/images/smcc-bg.jpg') }}');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2)), url('{{ asset('assets/images/smcc-bg.jpg') }}');
             background-repeat: no-repeat;
             background-size: cover;
             background-position: center;
@@ -151,6 +168,62 @@
     <script src="{{ asset('assets_users/js/bootstrap/bootstrap-notify.min.js') }}"></script>
     <script src="{{ asset('assets_users/js/theme-setting.js') }}"></script>
     <script src="{{ asset('assets_users/js/script.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function alertSwift(icon, position, title) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: position,
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: icon,
+                title: title
+            })
+        }
+
+        document.addEventListener('livewire:init', () => {
+
+            Livewire.on('messageModal', (event) => {
+                loadScript('{{ asset('assets_users/js/slick/custom_slick.js') }}', function() {
+                    alertSwift(event.status, event.position, event.message);
+                });
+
+            });
+
+            function loadScript(url, callback) {
+                var script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = url;
+
+                script.onload = function() {
+                    if (callback) callback();
+                };
+                document.body.appendChild(script);
+            }
+
+            function loadCSS(url, callback) {
+                var link = document.createElement('link');
+                link.rel = 'stylesheet';
+                link.type = 'text/css';
+                link.href = url;
+
+                link.onload = function() {
+                    if (callback) callback();
+                };
+
+                document.head.appendChild(link);
+            }
+
+        });
+    </script>
     <script>
         $(function() {
             $('[data-bs-toggle="tooltip"]').tooltip()

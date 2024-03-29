@@ -12,7 +12,7 @@
                @include('frontend.product.collection.product-section')
 
                {{-- Pagination --}}
-                @include('frontend.product.collection.pagination-collection')
+                {{-- @include('frontend.product.collection.pagination-collection') --}}
             </div>
         </div>
     </div>

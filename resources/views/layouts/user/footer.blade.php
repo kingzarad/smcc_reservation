@@ -50,31 +50,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-2 col-md-4 col-sm-6">
-                    <div class="footer-links">
-                        <div class="footer-title">
-                            <h3>About us</h3>
-                        </div>
-                        <div class="footer-content">
-                            <ul>
-                                <li>
-                                    <a href="index.htm" class="font-dark">Home</a>
-                                </li>
-                                <li>
-                                    <a href="shop.html" class="font-dark">Category</a>
-                                </li>
-                                <li>
-                                    <a href="shop.html" class="font-dark">Reservation</a>
-                                </li>
-                                <li>
-                                    <a href="shop.html" class="font-dark">Travel Order</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+
                 <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <div class="footer-links">
+                    <div class="footer-links d-none">
                         <div class="footer-title">
                             <h3>Get Help</h3>
                         </div>
@@ -92,6 +70,30 @@
                                 </li>
                                 <li>
                                     <a href="#" class="font-dark">Reservation FAQs</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-md-4 col-sm-6">
+                    <div class="footer-links">
+                        <div class="footer-title">
+                            <h3>About us</h3>
+                        </div>
+                        <div class="footer-content">
+                            <ul>
+                                <li>
+                                    <a href="{{ route('home') }}" class="font-dark">Home</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('collection') }}" class="font-dark">Category</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('myaccount.reservation') }}" class="font-dark">Reservation</a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('myaccount.travel') }}" class="font-dark">Travel Order</a>
                                 </li>
                             </ul>
                         </div>

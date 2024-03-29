@@ -52,7 +52,7 @@
                             <div class="mb-2">
                                 <label for="photos" class="form-label">Photos</label>
 
-                                <input class="form-control" type="file" wire:model="photos" multiple
+                                <input class="form-control" type="file" wire:model="photos"
                                     accept=".jpg, .jpeg, .png">
                                 @error('photos')
                                     <small class="text-danger">{{ $message }}</small>
@@ -136,7 +136,7 @@
                             <div class="mb-2">
                                 <label for="photos" class="form-label">Photos</label>
 
-                                <input class="form-control" type="file" wire:model="photos" multiple
+                                <input class="form-control" type="file" wire:model="photos"
                                     accept=".jpg, .jpeg, .png">
                                 @error('photos')
                                     <small class="text-danger">{{ $message }}</small>

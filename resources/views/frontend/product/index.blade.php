@@ -45,7 +45,7 @@
                 <div class="col-xl-2 col-lg-2 col-6">
                     <div class="product-box">
                         <div class="img-wrapper">
-                            <a href="{{ route('collection') }}">
+                            <a href="{{ url('collection', urlencode($product->category->slug) . '/' . urlencode($product->slug)) }}">
                                 @if ($product->productImages->isNotEmpty())
                                     @php $firstImage = $product->productImages->first(); @endphp
                                     <img src="{{ asset('storage/' . $firstImage->image) }}"
@@ -54,40 +54,17 @@
 
                             </a>
                             <div class="circle-shape"></div>
-                            <span class="background-text">Reservation</span>
-
-                            <div class="cart-wrap">
-                                <ul>
-                                    @if ($product->quantity > 0)
-                                        <li>
-                                            <a href="javascript:void(0)" class="addtocart-btn">
-                                                <i data-feather="shopping-cart"></i>
-                                            </a>
-                                        </li>
-                                    @endif
-                                    <li>
-                                        <a href="javascript:void(0)">
-                                            <i data-feather="eye"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)" class="wishlist">
-                                            <i data-feather="heart"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <span class="background-text">{{ $product->category->name }}</span>
                         </div>
                         <div class="product-style-3 product-style-chair">
                             <div class="product-title d-block mb-0">
                                 <div class="r-price d-flex justify-content-between">
-
                                     <div class="theme-color"> {{ $product->category->name }} </div>
                                     <div class="text-primary">{{ $product->quantity }}</div>
-
                                 </div>
-                                <p class="font-light mb-sm-2 mb-0">{{ $product->status == '1' ? 'Reserved' : 'Available' }}</p>
-                                <a href="" class="font-default">
+
+                                <p class="font-light mb-sm-2 mb-0">{{ $product->product_status == '1' ? 'Reserved' : 'Available' }}</p>
+                                <a href="{{ url('collection', urlencode($product->category->slug) . '/' . urlencode($product->slug)) }}" class="font-default">
                                     <h5>{{ $product->name }}</h5>
                                 </a>
                             </div>

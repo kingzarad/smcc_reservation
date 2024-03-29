@@ -11,7 +11,7 @@ class LoginController extends Controller
 {
     use AuthenticatesUsers;
 
-    // protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     public function __construct()
     {
@@ -34,15 +34,20 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            if ($user->role_as == '1') {
-                return redirect('admin/dashboard')->with('status', 'Welcome to Dashboard')->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                    ->header('Pragma', 'no-cache')
-                    ->header('Expires', '0');
-            } else {
+            if ($user->user_status == 0) {
+                if ($user->role_as == '1') {
+                    return redirect('admin/dashboard')->with('status', 'Welcome to Dashboard')->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                        ->header('Pragma', 'no-cache')
+                        ->header('Expires', '0');
+                } else {
 
-                return redirect('/home')->with('status', 'Logged In Successfully')->header('Cache-Control', 'no-cache, no-store, must-revalidate')
-                    ->header('Pragma', 'no-cache')
-                    ->header('Expires', '0');
+                    return redirect('/')->with('status', 'Logged In Successfully')->header('Cache-Control', 'no-cache, no-store, must-revalidate')
+                        ->header('Pragma', 'no-cache')
+                        ->header('Expires', '0');
+                }
+            } elseif ($user->user_status == 1){
+                $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'Your account is still pending; please contact the administrator or visit their office.');
+                return false;
             }
         }
 

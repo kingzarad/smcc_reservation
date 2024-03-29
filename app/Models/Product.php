@@ -18,6 +18,7 @@ class Product extends Model
         'description',
         'slug',
         'status',
+        'product_status',
         'quantity'
     ];
 

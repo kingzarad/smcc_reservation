@@ -28,11 +28,20 @@
                                             </div>
                                         </li>
                                         <li><a href="{{ route('home') }}" class="nav-link menu-title">Home</a></li>
-                                        <li ><a href="{{ route('collection') }}" class="nav-link menu-title">Category</a></li>
+                                        <li><a href="{{ route('collection') }}" class="nav-link menu-title">Category</a>
+                                        </li>
+                                        <li><a href="{{ route('reserved') }}"
+                                            class="nav-link menu-title">Reserved</a></li>
+                                        @auth
 
-                                        <li><a href="{{route('reservation_front')}}" class="nav-link menu-title">Reservation</a></li>
+                                            <li><a href="{{ route('myaccount.reservation') }}"
+                                                    class="nav-link menu-title">My Reservation</a></li>
 
-                                        <li><a href="{{route('travelorder')}}" class="nav-link menu-title">Travel Order</a></li>
+                                            <li><a href="{{ route('myaccount.travel') }}" class="nav-link menu-title">Travel
+                                                    Order</a></li>
+                                        @endauth
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -47,20 +56,20 @@
                                 </li>
                                 <li class="onhover-dropdown wislist-dropdown  ">
                                     <div class="cart-media ">
-                                        <a href="wishlist/list.html">
+                                        <a href="{{ route('wishlist') }}">
                                             <i data-feather="heart"></i>
                                             <span id="wishlist-count" class="label label-theme rounded-pill">
-                                                0
+                                                <livewire:frontend.wishtlist.wish-list-count />
                                             </span>
                                         </a>
                                     </div>
                                 </li>
                                 <li class="onhover-dropdown wislist-dropdown">
                                     <div class="cart-media">
-                                        <a href="cart/list.html">
+                                        <a href="{{ route('cart') }}">
                                             <i data-feather="shopping-cart"></i>
                                             <span id="cart-count" class="label label-theme rounded-pill">
-                                                0
+                                                <livewire:frontend.cart-list.cart-count />
                                             </span>
                                         </a>
                                     </div>
@@ -72,24 +81,28 @@
                                     <div class="onhover-div profile-dropdown">
                                         @guest
                                             <ul>
-                                                @if (Route::has('login'))
+                                                @if (Route::has('login.custom'))
                                                     <li>
-                                                        <a href="{{ route('login') }}"
+                                                        <a href="{{ route('login.custom') }}"
                                                             class="d-block">{{ __('Login') }}</a>
                                                     </li>
                                                 @endif
-                                                @if (Route::has('register'))
+                                                @if (Route::has('register.custom'))
                                                     <li>
-                                                        <a href="{{ route('register') }}"
+                                                        <a href="{{ route('register.custom') }}"
                                                             class="d-block">{{ __('Register') }}</a>
                                                     </li>
                                                 @endif
                                             </ul>
                                         @else
                                             <ul>
-                                                @if (Route::has('myaccount'))
+                                                @if (Route::has('myaccount.dashboard') ||
+                                                        Route::has('myaccount.reservation') ||
+                                                        Route::has('myaccount.profile') ||
+                                                        Route::has('myaccount.travel') ||
+                                                        Route::has('myaccount.security'))
                                                     <li>
-                                                        <a href="{{ route('myaccount') }}"
+                                                        <a href="{{ route('myaccount.dashboard') }}"
                                                             class="d-block">{{ __('My Account') }}</a>
                                                     </li>
                                                 @endif
@@ -135,31 +148,31 @@
 <div class="mobile-menu d-sm-none">
     <ul>
         <li>
-            <a href="demo3.php" class="active">
+            <a href="{{ route('home') }}" class="{{ Request::is('home') ? 'active' : '' }}">
                 <i data-feather="home"></i>
                 <span>Home</span>
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="{{ route('collection') }}" class="{{ Request::is('collection') ? 'active' : '' }}">
                 <i data-feather="align-justify"></i>
                 <span>Category</span>
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="{{ route('cart') }}" class="{{ Request::is('cart') ? 'active' : '' }}">
                 <i data-feather="shopping-bag"></i>
                 <span>Cart</span>
             </a>
         </li>
         <li>
-            <a href="javascript:void(0)">
+            <a href="{{ route('wishlist') }}" class="{{ Request::is('wishlist') ? 'active' : '' }}">
                 <i data-feather="heart"></i>
                 <span>Wishlist</span>
             </a>
         </li>
         <li>
-            <a href="user-dashboard.php">
+            <a href="{{ route('myaccount.dashboard') }}" class="{{ Request::is('myaccount/dashboard') ? 'active' : '' }}">
                 <i data-feather="user"></i>
                 <span>Account</span>
             </a>
