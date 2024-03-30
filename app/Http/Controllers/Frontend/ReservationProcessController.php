@@ -16,7 +16,12 @@ class ReservationProcessController extends Controller
 
     public function index()
     {
-
         return view('frontend.reservation_process.index');
+    }
+
+
+    public function thankyou()
+    {
+        return view('frontend.reservation_process.thankyou');
     }
 }

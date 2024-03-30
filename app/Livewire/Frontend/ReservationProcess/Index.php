@@ -16,6 +16,11 @@ class Index extends Component
     }
 
     public function goBack(){
-        return $this->redirect('/collection', navigate: true);
+        return $this->redirect('/cart', navigate: true);
+    }
+
+
+    public function ProcessSubmit(){
+
     }
 }

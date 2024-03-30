@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-7">
-                <form class="needs-validation" method="POST" action="place-order">
+                <form class="needs-validation" wire:submit.prevent="ProcessSubmit">
 
                     <div id="billingAddress" class="row g-4">
                         <h3 class="mb-3 theme-color">RESERVOR DETAILS</h3>
@@ -41,42 +41,69 @@
                         <h3 class="mb-3 theme-color">RESERVATION DETAILS</h3>
                         <div class="col-md-6">
                             <label for="name" class="form-label">DATE OF USAGE (FROM)</label>
-                            <input type="date" class="form-control">
+                            <input type="date" wire:model="dsfrom" class="form-control" id="dsfrom">
+                            @error('dsfrom')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="phone" class="form-label">DATE OF USAGE (TO)</label>
-                            <input type="date" class="form-control">
+                            <input type="date" wire:model="dsto" class="form-control" id="dsto">
+                            @error('dsto')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <label for="phone" class="form-label">DATE RETURN</label>
-                            <input type="date" class="form-control">
+                            <input type="date" wire:model="dsreturn" class="form-control" id="dsreturn">
+                            @error('dsreturn')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="locality" class="form-label">TIME OF USAGE (FROM)</label>
-                            <input type="time" class="form-control">
+                            <input type="time" wire:model="tsfrom" class="form-control" id="tsfrom">
+                            @error('tsfrom')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="landmark" class="form-label">TIME OF USAGE (TO)</label>
-                            <input type="time" class="form-control">
+                            <input type="time" wire:model="tsto" class="form-control" id="tsto">
+                            @error('tsto')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <label for="phone" class="form-label">TIME OF RETURN</label>
-                            <input type="time" class="form-control">
+                            <input type="time" wire:model="tsreturn" class="form-control" id="tsreturn">
+                            @error('tsreturn')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
                         <div class="col-md-12">
                             <label for="address" class="form-label">PURPOSE</label>
-                            <textarea class="form-control"></textarea>
-
+                            <textarea wire:model="purpose" class="form-control" id="purpose"></textarea>
+                            @error('purpose')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="col-md-12">
                             <label for="city" class="form-label">REMARKS</label>
-                            <input type="text" class="form-control">
+                            <input type="text" wire:model="remarks" class="form-control" id="remarks">
+                            @error('remarks')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
 
                         </div>
                         <div class="col-md-12">
                             <label for="city" class="form-label">Upload Signature</label>
-                            <input type="file" class="form-control">
+
+                            <input type="file" wire:model="signature" class="form-control" id="signature">
+                            @error('signature')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
 
                         </div>
 

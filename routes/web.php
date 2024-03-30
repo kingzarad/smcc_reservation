@@ -59,10 +59,11 @@ Route::get('collection/{category_slug}', [FrontendController::class, 'products']
 Route::get('collection/{category_slug}/{product_slug}', [FrontendController::class, 'productView']);
 Route::get('reserved', [FrontendController::class, 'reservedList'])->name('reserved');
 
-Route::middleware('[auth]')->group(function (){
+Route::middleware(['auth'])->group(function (){
     Route::get('wishlist', [WishlistController::class, 'wishlist'])->name('wishlist');
     Route::get('cart', [CartController::class, 'cart'])->name('cart');
     Route::get('reservation-process', [ReservationProcessController::class, 'index'])->name('reservation_process');
+    Route::get('place-reservation', [ReservationProcessController::class, 'thankyou'])->name('place_reservation');
 });
 
 

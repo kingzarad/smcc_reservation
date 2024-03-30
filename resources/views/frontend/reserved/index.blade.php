@@ -1,5 +1,6 @@
 @extends('layouts.user.index')
 
 @section('content')
-    <livewire:frontend.cart-list.cart-show />
+    @include('frontend.reserved.banner')
+   @include('frontend.reserved.items')
 @endsection
