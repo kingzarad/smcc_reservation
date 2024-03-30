@@ -19,6 +19,7 @@ return new class extends Migration
             $table->mediumText('small_description')->nullable();
             $table->longText('description')->nullable();
             $table->tinyInteger('status')->default(0)->comment('1=hidden,0=visible');
+            $table->tinyInteger('product_status')->default(0)->comment('0=available,1=reserved');
             $table->integer('quantity')->default(0);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();

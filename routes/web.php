@@ -77,7 +77,11 @@ Route::prefix('myaccount')->middleware(['auth', 'verified'])->group(function () 
 
 Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('users', [UsersController::class, 'index'])->name('users');
+
+    Route::prefix('users')->group(function () {
+        Route::get('pending', [UsersController::class, 'pending'])->name('users.pending');
+        Route::get('management', [UsersController::class, 'management'])->name('users.management');
+    });
     Route::get('reports', [ReportsController::class, 'index'])->name('reports');
     Route::get('category', [CategoryController::class, 'index'])->name('category');
     Route::get('product', [ResourceController::class, 'index'])->name('product');

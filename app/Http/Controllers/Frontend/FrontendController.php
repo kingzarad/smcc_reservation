@@ -24,7 +24,7 @@ class FrontendController extends Controller
     public function categories()
     {
         $categories = Category::where('status', '0')->get();
-        $products = Product::with('productImages')->orderBy('created_at', 'DESC')->get();
+        $products = Product::with('productImages')->where('status', '0')->orderBy('created_at', 'DESC')->get();
         return view('frontend.product.collection.index', compact('categories', 'products'));
     }
 
@@ -64,6 +64,4 @@ class FrontendController extends Controller
     {
         return view('frontend.reserved.index');
     }
-
-
 }

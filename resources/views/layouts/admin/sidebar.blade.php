@@ -45,234 +45,234 @@
              </li>
 
              <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/reservation/*') ? 'active' : '' }}" data-bs-toggle="collapse"
-                    href="#reservation" aria-expanded="{{ Request::is('admin/reservation/*') ? 'true' : 'false' }}"
-                    aria-controls="setting">
-                    <div
-                    class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>document</title>
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                <g transform="translate(1716.000000, 291.000000)">
-                                    <g transform="translate(154.000000, 300.000000)">
-                                        <path class="color-background opacity-6"
-                                            d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
-                                        </path>
-                                        <path class="color-background"
-                                            d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                                        </path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                    <span class="nav-link-text ms-1">Reservation</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse  {{ Request::is('admin/reservation/*') ? 'show' : '' }}" id="reservation">
-                    <ul class="nav flex-column sub-menu">
+                 <a class="nav-link {{ Request::is('admin/reservation/*') ? 'active' : '' }}" data-bs-toggle="collapse"
+                     href="#reservation" aria-expanded="{{ Request::is('admin/reservation/*') ? 'true' : 'false' }}"
+                     aria-controls="setting">
+                     <div
+                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                             <title>document</title>
+                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                 <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                                     <g transform="translate(1716.000000, 291.000000)">
+                                         <g transform="translate(154.000000, 300.000000)">
+                                             <path class="color-background opacity-6"
+                                                 d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
+                                             </path>
+                                             <path class="color-background"
+                                                 d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                             </path>
+                                         </g>
+                                     </g>
+                                 </g>
+                             </g>
+                         </svg>
+                     </div>
+                     <span class="nav-link-text ms-1">Reservation</span>
+                     <i class="menu-arrow"></i>
+                 </a>
+                 <div class="collapse  {{ Request::is('admin/reservation/*') ? 'show' : '' }}" id="reservation">
+                     <ul class="nav flex-column sub-menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('reservation.pending') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Pending Reservation</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('reservation.history') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Reservation History</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">TRAVEL ORDER MANGEMENT</h6>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/travelorder/*') ? 'active' : '' }}" data-bs-toggle="collapse"
-                    href="#travelorder" aria-expanded="{{ Request::is('admin/travelorder/*') ? 'true' : 'false' }}"
-                    aria-controls="setting">
-                    <div
-                    class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                    <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                        <title>document</title>
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                <g transform="translate(1716.000000, 291.000000)">
-                                    <g transform="translate(154.000000, 300.000000)">
-                                        <path class="color-background opacity-6"
-                                            d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
-                                        </path>
-                                        <path class="color-background"
-                                            d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                                        </path>
-                                    </g>
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                </div>
-                    <span class="nav-link-text ms-1">Travel Order</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse  {{ Request::is('admin/travelorder/*') ? 'show' : '' }}" id="travelorder">
-                    <ul class="nav flex-column sub-menu">
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('reservation.pending') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Pending Reservation</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('reservation.history') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Reservation History</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </li>
+             <li class="nav-item mt-3">
+                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">TRAVEL ORDER MANGEMENT</h6>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link {{ Request::is('admin/travelorder/*') ? 'active' : '' }}" data-bs-toggle="collapse"
+                     href="#travelorder" aria-expanded="{{ Request::is('admin/travelorder/*') ? 'true' : 'false' }}"
+                     aria-controls="setting">
+                     <div
+                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                             <title>document</title>
+                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                 <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
+                                     fill-rule="nonzero">
+                                     <g transform="translate(1716.000000, 291.000000)">
+                                         <g transform="translate(154.000000, 300.000000)">
+                                             <path class="color-background opacity-6"
+                                                 d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
+                                             </path>
+                                             <path class="color-background"
+                                                 d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                             </path>
+                                         </g>
+                                     </g>
+                                 </g>
+                             </g>
+                         </svg>
+                     </div>
+                     <span class="nav-link-text ms-1">Travel Order</span>
+                     <i class="menu-arrow"></i>
+                 </a>
+                 <div class="collapse  {{ Request::is('admin/travelorder/*') ? 'show' : '' }}" id="travelorder">
+                     <ul class="nav flex-column sub-menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('travelorder.pending') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Pending Travel Order</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('travelorder.history') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Travel Order History</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('travelorder.pending') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Travel Order Pending</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('travelorder.history') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Travel Order History</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </li>
              <li class="nav-item mt-3">
                  <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">RESOURCE MANAGEMENT</h6>
              </li>
              <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}"
-                    href="{{ route('product') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>document</title>
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                    <g transform="translate(1716.000000, 291.000000)">
-                                        <g transform="translate(154.000000, 300.000000)">
-                                            <path class="color-background opacity-6"
-                                                d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
-                                            </path>
-                                            <path class="color-background"
-                                                d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                                            </path>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <span class="nav-link-text ms-1">Product</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/category') ? 'active' : '' }}"
-                    href="{{ route('category') }}">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>document</title>
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF" fill-rule="nonzero">
-                                    <g transform="translate(1716.000000, 291.000000)">
-                                        <g transform="translate(154.000000, 300.000000)">
-                                            <path class="color-background opacity-6"
-                                                d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
-                                            </path>
-                                            <path class="color-background"
-                                                d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
-                                            </path>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
-                    </div>
-                    <span class="nav-link-text ms-1">Category</span>
-                </a>
-            </li>
-            <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">STOCKS MANAGEMENT</h6>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/stocks/*') ? 'active' : '' }}" data-bs-toggle="collapse"
-                    href="#stocks" aria-expanded="{{ Request::is('admin/stocks/*') ? 'true' : 'false' }}"
-                    aria-controls="stocks">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>Warehouse</title>
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
-                                    fill-rule="nonzero">
-                                    <g transform="translate(1716.000000, 291.000000)">
-                                        <g transform="translate(154.000000, 300.000000)">
-                                            <!-- Warehouse Building -->
-                                            <rect class="color-background opacity-6" x="0" y="0" width="40"
-                                                height="40"></rect>
-                                            <!-- Doors -->
-                                            <rect class="color-background" x="10" y="30" width="20"
-                                                height="10">
-                                            </rect>
-                                            <!-- Windows -->
-                                            <rect class="color-background" x="5" y="10" width="10"
-                                                height="10">
-                                            </rect>
-                                            <rect class="color-background" x="25" y="10" width="10"
-                                                height="10">
-                                            </rect>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
+                 <a class="nav-link {{ Request::is('admin/product') ? 'active' : '' }}"
+                     href="{{ route('product') }}">
+                     <div
+                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                             <title>document</title>
+                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                 <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
+                                     fill-rule="nonzero">
+                                     <g transform="translate(1716.000000, 291.000000)">
+                                         <g transform="translate(154.000000, 300.000000)">
+                                             <path class="color-background opacity-6"
+                                                 d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
+                                             </path>
+                                             <path class="color-background"
+                                                 d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                             </path>
+                                         </g>
+                                     </g>
+                                 </g>
+                             </g>
+                         </svg>
+                     </div>
+                     <span class="nav-link-text ms-1">Product</span>
+                 </a>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link {{ Request::is('admin/category') ? 'active' : '' }}"
+                     href="{{ route('category') }}">
+                     <div
+                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                             <title>document</title>
+                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                 <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
+                                     fill-rule="nonzero">
+                                     <g transform="translate(1716.000000, 291.000000)">
+                                         <g transform="translate(154.000000, 300.000000)">
+                                             <path class="color-background opacity-6"
+                                                 d="M40,40 L36.3636364,40 L36.3636364,3.63636364 L5.45454545,3.63636364 L5.45454545,0 L38.1818182,0 C39.1854545,0 40,0.814545455 40,1.81818182 L40,40 Z">
+                                             </path>
+                                             <path class="color-background"
+                                                 d="M30.9090909,7.27272727 L1.81818182,7.27272727 C0.814545455,7.27272727 0,8.08727273 0,9.09090909 L0,41.8181818 C0,42.8218182 0.814545455,43.6363636 1.81818182,43.6363636 L30.9090909,43.6363636 C31.9127273,43.6363636 32.7272727,42.8218182 32.7272727,41.8181818 L32.7272727,9.09090909 C32.7272727,8.08727273 31.9127273,7.27272727 30.9090909,7.27272727 Z M18.1818182,34.5454545 L7.27272727,34.5454545 L7.27272727,30.9090909 L18.1818182,30.9090909 L18.1818182,34.5454545 Z M25.4545455,27.2727273 L7.27272727,27.2727273 L7.27272727,23.6363636 L25.4545455,23.6363636 L25.4545455,27.2727273 Z M25.4545455,20 L7.27272727,20 L7.27272727,16.3636364 L25.4545455,16.3636364 L25.4545455,20 Z">
+                                             </path>
+                                         </g>
+                                     </g>
+                                 </g>
+                             </g>
+                         </svg>
+                     </div>
+                     <span class="nav-link-text ms-1">Category</span>
+                 </a>
+             </li>
+             <li class="nav-item mt-3">
+                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">STOCKS MANAGEMENT</h6>
+             </li>
+             <li class="nav-item">
+                 <a class="nav-link {{ Request::is('admin/stocks/*') ? 'active' : '' }}" data-bs-toggle="collapse"
+                     href="#stocks" aria-expanded="{{ Request::is('admin/stocks/*') ? 'true' : 'false' }}"
+                     aria-controls="stocks">
+                     <div
+                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                             <title>Warehouse</title>
+                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                 <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
+                                     fill-rule="nonzero">
+                                     <g transform="translate(1716.000000, 291.000000)">
+                                         <g transform="translate(154.000000, 300.000000)">
+                                             <!-- Warehouse Building -->
+                                             <rect class="color-background opacity-6" x="0" y="0" width="40"
+                                                 height="40"></rect>
+                                             <!-- Doors -->
+                                             <rect class="color-background" x="10" y="30" width="20"
+                                                 height="10">
+                                             </rect>
+                                             <!-- Windows -->
+                                             <rect class="color-background" x="5" y="10" width="10"
+                                                 height="10">
+                                             </rect>
+                                             <rect class="color-background" x="25" y="10" width="10"
+                                                 height="10">
+                                             </rect>
+                                         </g>
+                                     </g>
+                                 </g>
+                             </g>
+                         </svg>
 
-                    </div>
-                    <span class="nav-link-text ms-1">Stocks Entry</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse  {{ Request::is('admin/stocks/*') ? 'show' : '' }}" id="stocks">
-                    <ul class="nav flex-column sub-menu">
+                     </div>
+                     <span class="nav-link-text ms-1">Stocks Entry</span>
+                     <i class="menu-arrow"></i>
+                 </a>
+                 <div class="collapse  {{ Request::is('admin/stocks/*') ? 'show' : '' }}" id="stocks">
+                     <ul class="nav flex-column sub-menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('stocks.stockin') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Stock In</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('stocks.stockhistory') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Stocks History</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-
-
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('stocks.stockin') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Stock In</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('stocks.stockhistory') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Stocks History</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </li>
              <li class="nav-item mt-3">
                  <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">REPORT PAGES</h6>
              </li>
-
              <li class="nav-item">
                  <a class="nav-link {{ Request::is('admin/reports') ? 'active' : '' }}"
                      href="{{ route('reports') }}">
@@ -294,10 +294,12 @@
                  </a>
              </li>
              <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">USERS MANAGEMENT</h6>
-            </li>
+                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">USERS MANAGEMENT</h6>
+             </li>
              <li class="nav-item">
-                 <a class="nav-link {{ Request::is('admin/users') ? 'active' : '' }}" href="{{ route('users') }}">
+                 <a class="nav-link {{ Request::is('admin/users/*') ? 'active' : '' }}" data-bs-toggle="collapse"
+                     href="#users" aria-expanded="{{ Request::is('admin/users/*') ? 'true' : 'false' }}"
+                     aria-controls="users">
                      <div
                          class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                          <svg width="12px" height="12px" viewBox="0 0 46 42" version="1.1"
@@ -325,71 +327,95 @@
 
                      </div>
                      <span class="nav-link-text ms-1">Users</span>
+                     <i class="menu-arrow"></i>
                  </a>
+                 <div class="collapse  {{ Request::is('admin/users/*') ? 'show' : '' }}" id="users">
+                     <ul class="nav flex-column sub-menu">
+
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('users.pending') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">User Pending</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('users.management') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">User Management</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
              </li>
+
+
              <li class="nav-item mt-3">
-                <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">SETTINGS PAGES</h6>
-            </li>
+                 <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">SETTINGS PAGES</h6>
+             </li>
              <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/settings/*') ? 'active' : '' }}" data-bs-toggle="collapse"
-                    href="#setting" aria-expanded="{{ Request::is('admin/settings/*') ? 'true' : 'false' }}"
-                    aria-controls="setting">
-                    <div
-                        class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
-                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                            <title>Warehouse</title>
-                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                                <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
-                                    fill-rule="nonzero">
-                                    <g transform="translate(1716.000000, 291.000000)">
-                                        <g transform="translate(154.000000, 300.000000)">
-                                            <!-- Warehouse Building -->
-                                            <rect class="color-background opacity-6" x="0" y="0" width="40"
-                                                height="40"></rect>
-                                            <!-- Doors -->
-                                            <rect class="color-background" x="10" y="30" width="20"
-                                                height="10">
-                                            </rect>
-                                            <!-- Windows -->
-                                            <rect class="color-background" x="5" y="10" width="10"
-                                                height="10">
-                                            </rect>
-                                            <rect class="color-background" x="25" y="10" width="10"
-                                                height="10">
-                                            </rect>
-                                        </g>
-                                    </g>
-                                </g>
-                            </g>
-                        </svg>
+                 <a class="nav-link {{ Request::is('admin/settings/*') ? 'active' : '' }}" data-bs-toggle="collapse"
+                     href="#setting" aria-expanded="{{ Request::is('admin/settings/*') ? 'true' : 'false' }}"
+                     aria-controls="setting">
+                     <div
+                         class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                         <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                             <title>Warehouse</title>
+                             <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                 <g transform="translate(-1870.000000, -591.000000)" fill="#FFFFFF"
+                                     fill-rule="nonzero">
+                                     <g transform="translate(1716.000000, 291.000000)">
+                                         <g transform="translate(154.000000, 300.000000)">
+                                             <!-- Warehouse Building -->
+                                             <rect class="color-background opacity-6" x="0" y="0" width="40"
+                                                 height="40"></rect>
+                                             <!-- Doors -->
+                                             <rect class="color-background" x="10" y="30" width="20"
+                                                 height="10">
+                                             </rect>
+                                             <!-- Windows -->
+                                             <rect class="color-background" x="5" y="10" width="10"
+                                                 height="10">
+                                             </rect>
+                                             <rect class="color-background" x="25" y="10" width="10"
+                                                 height="10">
+                                             </rect>
+                                         </g>
+                                     </g>
+                                 </g>
+                             </g>
+                         </svg>
 
-                    </div>
-                    <span class="nav-link-text ms-1">Settings</span>
-                    <i class="menu-arrow"></i>
-                </a>
-                <div class="collapse  {{ Request::is('admin/settings/*') ? 'show' : '' }}" id="setting">
-                    <ul class="nav flex-column sub-menu">
+                     </div>
+                     <span class="nav-link-text ms-1">Settings</span>
+                     <i class="menu-arrow"></i>
+                 </a>
+                 <div class="collapse  {{ Request::is('admin/settings/*') ? 'show' : '' }}" id="setting">
+                     <ul class="nav flex-column sub-menu">
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('settings.department') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Department</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('settings.position') }}">
-                                <div
-                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                </div>
-                                <span class="nav-link-text ms-1 text-dark">Position</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('settings.department') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Department</span>
+                             </a>
+                         </li>
+                         <li class="nav-item">
+                             <a class="nav-link" href="{{ route('settings.position') }}">
+                                 <div
+                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                 </div>
+                                 <span class="nav-link-text ms-1 text-dark">Position</span>
+                             </a>
+                         </li>
+                     </ul>
+                 </div>
+             </li>
 
          </ul>
      </div>

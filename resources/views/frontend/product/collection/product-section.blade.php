@@ -47,7 +47,13 @@
             </div>
         </div>
     @empty
-        <h1>No availabble.</h1>
+        <div>
+            <div class="product-box">
+                <div class="product-details">
+                    <h2>No available product.</h2>
+                </div>
+            </div>
+        </div>
     @endforelse
 
 
