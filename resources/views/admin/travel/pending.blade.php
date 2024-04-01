@@ -16,6 +16,7 @@
                                     <th style="width:50px">#</th>
                                     <th>Travel Order</th>
                                     <th>Name</th>
+                                    <th>Note (Optional)</th>
                                     <th>Date Filled</th>
 
                                     <th>Status</th>
@@ -35,7 +36,8 @@
                                                 </div>
                                             </a>
                                         </td>
-                                        <td></td>
+                                        <td>{{ $pendingList->usersDetails->username }}</td>
+                                        <td>{{$pendingList->note}}</td>
                                         <td>{{$pendingList->created_at}} </td>
 
                                         <td>

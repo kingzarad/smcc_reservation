@@ -16,7 +16,7 @@ class UsersController extends Controller
 
     public function management()
     {
-        $usersList = User::where('role_as', '0')->get();
+        $usersList = User::where('role_as', '0')->where('user_status', '0')->get();
         return view('admin.users.management', compact('usersList'));
     }
 }

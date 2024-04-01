@@ -6,7 +6,7 @@
                 <div class="card-body p-3">
                     <h4 class="card-title">
                         <div class="d-flex justify-content-between align-items-center">
-                            <h5 class="m-0 font-weight-bold text-muted">PENDING USERS</h5>
+                            <h5 class="m-0 font-weight-bold text-muted">USERS PENDING</h5>
                             <a href="" class="btn bg-gradient-primary d-none"><i class="fa fa-plus-square"></i>&nbsp;ADD
                                 NEW RESOURCE</a>
                         </div>
