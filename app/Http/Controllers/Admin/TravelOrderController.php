@@ -10,8 +10,8 @@ class TravelOrderController extends Controller
 {
     public function pending()
     {
-        $travelPendingList = TravelOrder::where('status', '1')->get();
-        return view('admin.travel.pending', compact('travelPendingList'));
+
+        return view('admin.travel.pending');
     }
 
     public function history()

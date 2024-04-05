@@ -23,7 +23,9 @@ class Index extends Component
         $this->dispatch('closeModal');
     }
 
-
+    public function addStockProduct($id){
+        dd($id);
+    }
     private function resetInput()
     {
         $this->reset(['product_id', 'quantity_total', 'stockby', 'stockdate']);
