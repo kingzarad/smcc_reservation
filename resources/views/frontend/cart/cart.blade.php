@@ -12,7 +12,7 @@
                             <tr class="table-head">
                                 <th scope="col">image</th>
                                 <th scope="col">product name</th>
-                                <th scope="col">quantity</th>
+                                <th scope="col" >quantity</th>
                                 <th scope="col">action</th>
                             </tr>
                         </thead>
@@ -20,42 +20,56 @@
 
 
                             @foreach ($cartlists as $cartlist)
-                                <tr>
-                                    <td>
-                                        <a
-                                            href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">
-                                            @if ($cartlist->product->productImages->isNotEmpty())
-                                                @php $firstImage = $cartlist->product->productImages->first(); @endphp
-                                                <img src="{{ asset('storage/' . $firstImage->image) }}"
-                                                    class=" blur-up lazyload" alt="">
-                                            @endif
+                                @if ($cartlist->product && $cartlist->product->category)
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">
+                                                @if ($cartlist->product->productImages->isNotEmpty())
+                                                    @php $firstImage = $cartlist->product->productImages->first(); @endphp
+                                                    <img src="{{ asset('storage/' . $firstImage->image) }}"
+                                                        class=" blur-up lazyload" alt="">
+                                                @endif
 
-                                        </a>
+                                            </a>
 
-                                    </td>
-                                    <td>
-                                        <a
-                                            href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">{{ $cartlist->product->name }}</a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">{{ $cartlist->product->name }}</a>
 
-                                    </td>
+                                        </td>
 
-                                    <td>
-                                        <div class="qty-box">
-                                            <div class="input-group">
-                                                <input type="number" name="quantity" class="form-control input-number"
-                                                    value="{{ $cartlist->quantity }}">
+                                        <td>
+                                            <div class="qty-box" >
+                                                <div class="input-group d-flex align-items-center">
+
+                                                    <span class="input-group-prepend">
+                                                        <button type="button " class="btn btn-sm">
+                                                            <i class="fas fa-minus"></i>
+                                                        </button>
+                                                    </span>
+                                                    <input type="text"  wire:model="quantityCount"
+                                                        class="form-control input-number"
+                                                        value="{{ $cartlist->quantity }}">
+                                                    <span class="input-group-prepend">
+                                                        <button type="button" class="btn btn-sm">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
+                                        </td>
 
-                                    <td>
-                                        <button type="button" class="btn border border-0"
-                                            wire:click="removeCartlist({{ $cartlist->id }})">
-                                            <i class="fas fa-times"></i>
-                                        </button>
+                                        <td>
+                                            <button type="button" class="btn border border-0"
+                                                wire:click="removeCartlist({{ $cartlist->id }})">
+                                                <i class="fas fa-times"></i>
+                                            </button>
 
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
 
                         </tbody>

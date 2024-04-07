@@ -12,7 +12,16 @@ class StockEntry extends Model
     protected $table = 'stock_entry';
 
     protected $fillable = [
-        'quantity_total',
-        'product_id'
+        'quantity',
+        'product_id',
+        'entry_date',
+        'stock_by',
+        'status',
+        'stockref'
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id', 'id');
+    }
 }

@@ -2,8 +2,9 @@
 
 namespace App\Livewire\Frontend\Wishtlist;
 
-use App\Models\Wishlist;
+use App\Models\Product;
 use Livewire\Component;
+use App\Models\Wishlist;
 use Illuminate\Support\Facades\Auth;
 
 class WishListCount extends Component
@@ -13,7 +14,12 @@ class WishListCount extends Component
     public function checkWishlistCount()
     {
         if (Auth::check()) {
-            return $this->wishlisCount = Wishlist::where('user_id', auth()->user()->id)->count();
+            $wishlistItems = Wishlist::where('user_id', auth()->user()->id)->get();
+            $existingCount = $wishlistItems->filter(function ($wishlistItem) {
+                return Product::where('id', $wishlistItem->product_id)->exists();
+            })->count();
+
+            return $this->wishlisCount = $existingCount;
         } else {
             return  $this->wishlisCount = 0;
         }

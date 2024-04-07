@@ -7,6 +7,8 @@ use Livewire\Component;
 
 class CartShow extends Component
 {
+    public $quantities = [];
+
     public function render()
     {
         $cartlists = Cart::where('user_id', auth()->user()->id)->get();
@@ -14,6 +16,15 @@ class CartShow extends Component
         return view('livewire.frontend.cart-list.cart-show',  [
             'cartlists' => $cartlists
         ]);
+    }
+
+    public function updateQuantity($cartlistId, $newQuantity)
+    {
+        $cartlist = Cart::find($cartlistId);
+        if ($cartlist) {
+            $cartlist->quantity = $newQuantity;
+            $cartlist->save();
+        }
     }
 
     public function removeCartlist($cartlistID)

@@ -1,5 +1,5 @@
 <div wire:ignore.self class="modal fade" role="dialog" id="addStocksModal" tabindex="-1"
-    aria-labelledby="addProductModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    aria-labelledby="addProductModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
 
             <div class="modal-content">
@@ -44,7 +44,7 @@
 
                                         <td>
 
-                                            <button  wire:click="addStockProduct({{$product->id}})" class="btn btn-sm btn-primary"><i
+                                            <button  wire:click="addStockProduct({{$product->id}}, {{$product->quantity}})" class="btn btn-sm btn-primary"><i
                                                 class="fa fa-plus"></i></button>
                                         </td>
                                     </tr>
