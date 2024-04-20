@@ -45,15 +45,14 @@
                                                 <div class="input-group d-flex align-items-center">
 
                                                     <span class="input-group-prepend">
-                                                        <button type="button " class="btn btn-sm">
+                                                        <button type="button" wire:click="quantityMinus({{ $cartlist->id }})" class="btn btn-sm">
                                                             <i class="fas fa-minus"></i>
                                                         </button>
                                                     </span>
-                                                    <input type="text"  wire:model="quantityCount"
-                                                        class="form-control input-number"
-                                                        value="{{ $cartlist->quantity }}">
+                                                    <input type="text" wire:model="quantityCount" wire:change="updateQuantity({{ $cartlist->id }}, $event.target.value)" class="form-control input-number" value="{{ $cartlist->quantity }}">
+
                                                     <span class="input-group-prepend">
-                                                        <button type="button" class="btn btn-sm">
+                                                        <button type="button" wire:click="quantityAdd({{ $cartlist->id }})" class="btn btn-sm">
                                                             <i class="fas fa-plus"></i>
                                                         </button>
                                                     </span>

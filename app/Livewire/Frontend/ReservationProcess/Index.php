@@ -8,6 +8,18 @@ use App\Models\UserDetails;
 
 class Index extends Component
 {
+    public $dsfrom;
+    public $dsto;
+    public $dsreturn;
+
+    public function mount()
+    {
+        // Initialize date values
+        $this->dsfrom = now()->format('Y-m-d');
+        $this->dsto = now()->addDay()->format('Y-m-d');
+        $this->dsreturn = now()->addDay(2)->format('Y-m-d');
+    }
+
     public function render()
     {
         $users = UserDetails::where('user_id', auth()->user()->id)->first();

@@ -38,7 +38,28 @@ class CartShow extends Component
         }
     }
 
-    public function processReservation(){
+
+    public function quantityMinus($cartlistId)
+    {
+        $cartlist = Cart::find($cartlistId);
+        if ($cartlist && $cartlist->quantity > 1) {
+            $cartlist->quantity--;
+            $cartlist->save();
+        }
+    }
+
+    public function quantityAdd($cartlistId)
+    {
+        $cartlist = Cart::find($cartlistId);
+        if ($cartlist) {
+            $cartlist->quantity++;
+            $cartlist->save();
+        }
+    }
+
+
+    public function processReservation()
+    {
         $this->dispatch('messageModal', status: 'info', position: 'top', message: 'Fill out the data accordingly. Thank you');
         return $this->redirect('/reservation-process', navigate: true);
     }
