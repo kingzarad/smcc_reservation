@@ -129,7 +129,7 @@
                     <div class="order-success">
                         <div class="row g-4">
                             <div class="col-sm-6">
-                                <h4>summery</h4>
+                                <h4>Summary </h4>
                                 <ul class="order-details">
                                     <li>Reference: <strong>{{ $details->reference_num }}</strong></li>
                                     <li>Date: {{ \Carbon\Carbon::parse($details->date_from)->format('F j, Y') }}
@@ -171,7 +171,7 @@
                                     </h3>
                                     @livewire('frontend.reservation-process.thankyou', ['details' => $details])
 
-                                    
+
                                 </div>
                             </div>
                         </div>
