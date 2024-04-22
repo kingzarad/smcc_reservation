@@ -3,6 +3,7 @@
 namespace App\Livewire\Frontend\CartList;
 
 use App\Models\Cart;
+use App\Models\Product;
 use Livewire\Component;
 
 class CartShow extends Component
@@ -51,9 +52,15 @@ class CartShow extends Component
     public function quantityAdd($cartlistId)
     {
         $cartlist = Cart::find($cartlistId);
+        $product = Product::find(['id' => $cartlist->product_id])->first();
+
         if ($cartlist) {
-            $cartlist->quantity++;
-            $cartlist->save();
+            if ($cartlist->quantityt > $product->quantity) {
+                $cartlist->quantity++;
+                $cartlist->save();
+            } else {
+                $this->dispatch('messageModal', status: 'info', position: 'top', message: "Only {$product->quantity} quantity is available");
+            }
         }
     }
 
