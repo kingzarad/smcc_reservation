@@ -6,12 +6,15 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ExpirationChecker;
 
 class FrontendController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware('auth');
+        $expirationChecker = new ExpirationChecker();
+        $expirationChecker->checkReservation();
+
     }
 
     public function index()
@@ -62,7 +65,7 @@ class FrontendController extends Controller
 
     public function reservedList()
     {
-        
+
         return view('frontend.reserved.index');
     }
 }
