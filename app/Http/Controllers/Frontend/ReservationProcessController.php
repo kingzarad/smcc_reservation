@@ -32,9 +32,9 @@ class ReservationProcessController extends Controller
     }
 
 
-    public function thankyou(Request $request)
+    public function thankyou(Request $request, $reference)
     {
-        $reference = $request->query('reference');
+
         if (!empty($reference) || $reference != "") {
 
             $reservation = Reservation::where('reference_num', 'like', '%' . $reference . '%')
@@ -56,7 +56,7 @@ class ReservationProcessController extends Controller
                 return redirect()->route('cart');
             }
         } else {
-            return redirect()->route('cart');
+            // return redirect()->route('cart');
         }
     }
 }
