@@ -50,6 +50,8 @@
                                                 {{ Str::ucfirst($users->departmentDetails->department_name ?? '') }}
                                             </li>
                                             <li>Address: {{ Str::ucfirst($users->address ?? '') }}</li>
+                                            <li> Signature: <a href="{{ asset('storage/' . $image ?? '') }}"
+                                                    target="_blank">View</a></li>
                                         </ul>
                                     </div>
 
@@ -119,4 +121,3 @@
 
     </div>
 </div>
-

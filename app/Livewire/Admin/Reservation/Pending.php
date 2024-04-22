@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Notification;
 
 class Pending extends Component
 {
-    public $item = [], $details = [], $users = [], $itemCount, $reservation_id;
+    public $item = [], $details = [], $users = [], $itemCount, $reservation_id, $image;
     public function render()
     {
         $reservationlists = Reservation::where('status', 0)->get();
@@ -41,6 +41,7 @@ class Pending extends Component
             $this->details = $reservation;
             $this->item = $item;
             $this->users = $users;
+            $this->image = $reservation->signature;
             $this->itemCount = $itemCount;
         }
     }

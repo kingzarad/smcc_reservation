@@ -105,7 +105,7 @@ class Index extends Component
                 return false;
             }
 
-            $imagePath = $this->signature->store('photos/signature', 'local');
+            $imagePath = $this->signature->store('photos/signature', 'public');
 
             $data = [
                 'reference_num' =>  $this->reference_num,
