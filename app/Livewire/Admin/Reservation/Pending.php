@@ -110,7 +110,6 @@ class Pending extends Component
             'lastline' => '',
             'regards' => "Visit: $link"
         ];
-        Notification::send($users, new CustomerNotification($details));
 
         Notification::send($users, new CustomerNotification($details));
         $this->dispatch('destroyModal', status: 'success', position: 'top', message: 'Reservation canceleed successfully.', modal: '#showPending');

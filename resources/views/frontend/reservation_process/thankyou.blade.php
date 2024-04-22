@@ -169,16 +169,9 @@
                                     <h3>expected return date of Reservation: <span>
                                             {{ \Carbon\Carbon::parse($details->date_return)->format('F j, Y') }}</span>
                                     </h3>
-                                    <div class="d-flex mt-3">
-                                        @if ($details->status == 0)
-                                            @livewire('frontend.reservation-process.thankyou')
-                                            <a class="mx-5" href="{{ route('myaccount.reservation') }}">Go Back</a>
-                                        @else
-                                            <a href="{{ route('myaccount.reservation') }}">Go Back</a>
-                                        @endif
+                                    @livewire('frontend.reservation-process.thankyou', ['details' => $details])
 
-
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -187,5 +180,7 @@
             </div>
         </div>
     </section>
+
+
     <!-- Order Details Section End -->
 @endsection

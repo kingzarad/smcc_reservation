@@ -172,6 +172,7 @@
     <script src="{{ asset('assets_users/js/theme-setting.js') }}"></script>
     <script src="{{ asset('assets_users/js/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
         function alertSwift(icon, position, title) {
             const Toast = Swal.mixin({
@@ -192,6 +193,7 @@
             })
         }
 
+
         document.addEventListener('livewire:init', () => {
 
             Livewire.on('messageModal', (event) => {
@@ -200,6 +202,8 @@
                 });
 
             });
+
+
 
             function loadScript(url, callback) {
                 var script = document.createElement('script');
