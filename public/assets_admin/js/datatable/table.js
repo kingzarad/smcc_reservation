@@ -155,7 +155,7 @@ $(document).ready(function () {
     });
 
     $("#datatable_report").each(function () {
-        var datatable_doctor = $(this).DataTable({
+        var datatable_report = $(this).DataTable({
             dom: "Bfrtip",
             buttons: [
                 {
@@ -164,6 +164,41 @@ $(document).ready(function () {
                     title: "RESERVATION REPORT",
                     exportOptions: {
                         columns: ":not(.exclude-print)",
+                    },
+                    customize: function (win) {
+                        $(win.document.body)
+                            .find("table")
+                            .addClass("display")
+                            .css("font-size", "16px");
+                        $(win.document.body)
+                            .find("tr:nth-child(odd) td")
+                            .each(function () {
+                                $(this).css("background-color", "#D0D0D0");
+                            });
+                        $(win.document.body)
+                            .find("h1")
+                            .css("text-align", "center")
+                            .css("font-size", "16px");
+                        $(win.document.body)
+                            .find("h1")
+                            .text("TOTAL RESERVATION");
+                        $(win.document.body).find("h1").after("<hr>");
+                        $(win.document.body)
+                            .find("thead")
+                            .after(
+                                '<tfoot><tr><th colspan="5"></th></tr></tfoot>'
+                            );
+                        $(win.document.body)
+                            .find("tfoot th")
+                            .css("text-align", "left");
+
+                        var totalRegistered = table
+                            .rows({ search: "applied" })
+                            .count();
+                        $(win.document.body)
+                            .find("tfoot th")
+                            .text("TOTAL RESERVATION: " + totalRegistered)
+                            .css("font-weight", "bold");
                     },
                 },
             ],
@@ -184,77 +219,50 @@ $(document).ready(function () {
             },
         });
 
-        var table = datatable_doctor;
-        var filterType = $("#hhfilter-option");
-        var semesterFilter = $("#hhsemester");
-        var yrFilter = $("#hhmonth");
+        var table = datatable_report;
+        var filterStatus = $("#hhsstatus");
+        var monthFilter = $("#hhmonth");
+        var yrFilter = $("#hhyear");
 
         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-            var typefilterValue = filterType.val().toLowerCase();
-            var semesterFilterValue = semesterFilter.val();
+            var filterStatusValue = filterStatus.val().toLowerCase();
+            var monthFilterValue = monthFilter.val();
             var yrFilterValue = yrFilter.val().toLowerCase();
 
             var rowData = table.row(dataIndex).data();
-            var rowOption = rowData[1];
-            var rowSemester = rowData[2];
-            var rowYr = rowData[6];
-            let convertedMonth = convertDateToMonthName(rowYr).toLowerCase();
+            var rowStatus = rowData[5];
+            var rowDate = rowData[4];
 
+            console.log(rowStatus);
             if (
-                typefilterValue === "all" &&
-                semesterFilterValue === "all" &&
-                yrFilterValue === "all"
+                (filterStatusValue === "all" ||
+                    rowStatus.toLowerCase() === filterStatusValue) &&
+                (monthFilterValue === "all" ||
+                    rowDate
+                        .toLowerCase()
+                        .includes(monthFilterValue.toLowerCase())) &&
+                (yrFilterValue === "all" ||
+                    rowDate.toLowerCase().includes(yrFilterValue.toLowerCase()))
             ) {
                 return true;
-            } else if (
-                typefilterValue !== "all" &&
-                rowOption.toLowerCase().includes(typefilterValue)
-            ) {
-                if (semesterFilterValue === "all" && yrFilterValue === "all") {
-                    return true;
-                } else if (semesterFilterValue === "all") {
-                    return convertedMonth === yrFilterValue;
-                } else if (yrFilterValue === "all") {
-                    return rowSemester === semesterFilterValue;
-                } else {
-                    return (
-                        rowSemester === semesterFilterValue &&
-                        convertedMonth === yrFilterValue
-                    );
-                }
-            } else if (
-                typefilterValue === "all" &&
-                semesterFilterValue !== "all"
-            ) {
-                return rowSemester === semesterFilterValue;
-            } else if (
-                semesterFilterValue === "all" &&
-                yrFilterValue !== "all"
-            ) {
-                return convertedMonth === yrFilterValue;
             }
 
             return false;
         });
 
-        function convertDateToMonthName(dateString) {
-            var date = new Date(dateString);
-            var options = { month: "long" };
-            var monthName = date.toLocaleString("en-US", options);
-            return monthName;
-        }
-
-        filterType.on("change", function () {
+        filterStatus.on("change", function () {
             table.draw();
         });
 
-        semesterFilter.on("change", function () {
+        monthFilter.on("change", function () {
             table.draw();
         });
 
         yrFilter.on("change", function () {
             table.draw();
         });
+
+        
 
         table.draw();
     });
