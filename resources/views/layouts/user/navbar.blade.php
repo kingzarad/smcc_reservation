@@ -49,11 +49,11 @@
                         <div class="menu-right">
 
                             <ul>
-                                <li>
+                                {{-- <li>
                                     <div class="search-box theme-bg-color">
                                         <i data-feather="search"></i>
                                     </div>
-                                </li>
+                                </li> --}}
                                 <li class="onhover-dropdown wislist-dropdown  ">
                                     <div class="cart-media ">
                                         <a href="{{ route('wishlist') }}">
@@ -125,7 +125,7 @@
                             </ul>
                         </div>
                         {{-- search --}}
-                        @livewire('frontend.search.index');
+                        {{-- @livewire('frontend.search.index'); --}}
                     </div>
                 </div>
             </div>
