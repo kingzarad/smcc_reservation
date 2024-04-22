@@ -30,6 +30,11 @@ class ReservationItem extends Model
     }
 
 
+    public function reservationItem(): BelongsTo
+    {
+        return $this->belongsTo(Reservation::class, 'reservation_id', 'id');
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id', 'id');

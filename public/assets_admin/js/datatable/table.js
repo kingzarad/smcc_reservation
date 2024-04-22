@@ -26,10 +26,8 @@ $(document).ready(function () {
     });
 
     $("#datatable_stock_modal").DataTable({
-
         pageLength: 5,
         lengthMenu: [5, 10, 25, 50, 100],
-
     });
 
     var table = $("#datatable").DataTable({
@@ -154,5 +152,110 @@ $(document).ready(function () {
                     });
             }
         }
+    });
+
+    $("#datatable_report").each(function () {
+        var datatable_doctor = $(this).DataTable({
+            dom: "Bfrtip",
+            buttons: [
+                {
+                    extend: "print",
+                    text: "Print",
+                    title: "RESERVATION REPORT",
+                    exportOptions: {
+                        columns: ":not(.exclude-print)",
+                    },
+                },
+            ],
+            searching: true,
+            lengthChange: true,
+            info: false,
+
+            pageLength: 5,
+            lengthMenu: [5, 10, 25, 50, 100],
+            responsive: {
+                details: true,
+                breakpoints: [
+                    { name: "desktop", width: Infinity },
+                    { name: "tablet", width: 1024 },
+                    { name: "fablet", width: 768 },
+                    { name: "phone", width: 480 },
+                ],
+            },
+        });
+
+        var table = datatable_doctor;
+        var filterType = $("#hhfilter-option");
+        var semesterFilter = $("#hhsemester");
+        var yrFilter = $("#hhmonth");
+
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            var typefilterValue = filterType.val().toLowerCase();
+            var semesterFilterValue = semesterFilter.val();
+            var yrFilterValue = yrFilter.val().toLowerCase();
+
+            var rowData = table.row(dataIndex).data();
+            var rowOption = rowData[1];
+            var rowSemester = rowData[2];
+            var rowYr = rowData[6];
+            let convertedMonth = convertDateToMonthName(rowYr).toLowerCase();
+
+            if (
+                typefilterValue === "all" &&
+                semesterFilterValue === "all" &&
+                yrFilterValue === "all"
+            ) {
+                return true;
+            } else if (
+                typefilterValue !== "all" &&
+                rowOption.toLowerCase().includes(typefilterValue)
+            ) {
+                if (semesterFilterValue === "all" && yrFilterValue === "all") {
+                    return true;
+                } else if (semesterFilterValue === "all") {
+                    return convertedMonth === yrFilterValue;
+                } else if (yrFilterValue === "all") {
+                    return rowSemester === semesterFilterValue;
+                } else {
+                    return (
+                        rowSemester === semesterFilterValue &&
+                        convertedMonth === yrFilterValue
+                    );
+                }
+            } else if (
+                typefilterValue === "all" &&
+                semesterFilterValue !== "all"
+            ) {
+                return rowSemester === semesterFilterValue;
+            } else if (
+                semesterFilterValue === "all" &&
+                yrFilterValue !== "all"
+            ) {
+                return convertedMonth === yrFilterValue;
+            }
+
+            return false;
+        });
+
+        function convertDateToMonthName(dateString) {
+            var date = new Date(dateString);
+            var options = { month: "long" };
+            var monthName = date.toLocaleString("en-US", options);
+            return monthName;
+        }
+
+        filterType.on("change", function () {
+            table.draw();
+        });
+
+        semesterFilter.on("change", function () {
+            table.draw();
+        });
+
+        yrFilter.on("change", function () {
+            table.draw();
+        });
+
+        table.draw();
     });
 });

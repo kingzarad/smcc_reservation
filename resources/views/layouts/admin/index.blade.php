@@ -34,7 +34,7 @@
     <link id="pagestyle" href="{{ asset('assets_admin/css/soft-ui-dashboard.css?v=1.0.7') }}" rel="stylesheet" />
     <link href="{{ asset('assets_admin/css/app.css') }}" rel="stylesheet" />
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .background-1 {
 
