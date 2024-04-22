@@ -2,6 +2,11 @@
 @section('content')
     <div class="row">
         <div class="col-xl-12 col-sm-6 mb-xl-0 mb-4">
+            <style>
+                .bg-success {
+                    background: #3F8E4E !important;
+                }
+            </style>
             <div class="card">
                 <div class="card-body p-3">
                     <h4 class="card-title">

@@ -48,4 +48,14 @@ class User extends Authenticatable implements MustVerifyEmail
         'password' => 'hashed',
     ];
 
+    public function userDetails()
+    {
+        return $this->hasMany(UserDetails::class, 'users_id', 'id');
+    }
+
+    public function routeNotificationFor()
+    {
+        return $this->email;
+    }
+
 }

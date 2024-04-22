@@ -2,12 +2,15 @@
 
 namespace App\Livewire\Frontend\Account;
 
+use App\Models\Reservation as ModelsReservation;
 use Livewire\Component;
 
 class Reservation extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.account.reservation');
+        $reservationlists = ModelsReservation::where('users_id', auth()->user()->id)->get();
+
+        return view('livewire.frontend.account.reservation', ['reservationlists' => $reservationlists]);
     }
 }

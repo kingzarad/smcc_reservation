@@ -6,7 +6,8 @@
     <div class=" dashboard-profile dashboard">
         <div class="box-head">
             <h3>Profile
-                <span class="badge bg-{{ Auth::user()->status == 'incomplete' ? 'danger' : 'success' }}"><small>{{ Str::upper(Auth::user()->status) }}</small></span>
+                <span
+                    class="badge bg-{{ Auth::user()->status == 'incomplete' ? 'danger' : 'success' }}"><small>{{ Str::upper(Auth::user()->status) }}</small></span>
 
             </h3>
             <button type="button" wire:click="editUsersDetails({{ $users->usersDetails->id ?? 0 }})" class="btn btn-link"
@@ -52,7 +53,9 @@
 
         <div class="box-head mt-lg-5 mt-3">
             <h3>Login Details</h3>
-            <button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#editLogin">Edit</button>
+            <button type="button" class="btn btn-link"
+                wire:click="editLoginDetails({{ $users->usersDetails->id ?? 0 }})" data-bs-toggle="modal"
+                data-bs-target="#editLogin">Edit</button>
         </div>
 
         <ul class="dash-profile">
@@ -198,21 +201,61 @@
     </div>
     <div wire:ignore.self class="modal fade" id="editLogin" tabindex="-1" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Login Information
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    ...
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+        <form wire:submit.prevent="saveLogindetails">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Login Information
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">Username <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" wire:model="username" class="form-control" id="username">
+                            @error('username')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">Email</label>
+                            <input type="text" wire:model="email" class="form-control" id="email" readonly>
+                            @error('email')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                        <hr>
+                        Change Password
+                        <hr>
+                        <div class="mb-3">
+                            <label for="old_password" class="form-label">Old Password</label>
+                            <input type="password" wire:model="old_password" class="form-control" id="old_password">
+                            @error('old_password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="firstname" class="form-label">New Password <span
+                                    class="text-danger">*</span></label>
+                            <input type="password" wire:model="password" class="form-control"
+                                id="password">
+                            @error('password')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>

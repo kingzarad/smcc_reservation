@@ -2,12 +2,18 @@
 
 namespace App\Livewire\Frontend\Account;
 
+use App\Models\Reservation;
 use Livewire\Component;
 
 class Dashboard extends Component
 {
     public function render()
     {
-        return view('livewire.frontend.account.dashboard');
+        $reservTotal = Reservation::where('status', 1)->where('users_id', auth()->user()->id)->count();
+        $reservPending = Reservation::where('status', 0)->where('users_id', auth()->user()->id)->count();
+        return view('livewire.frontend.account.dashboard', [
+            'reservTotal' => $reservTotal,
+            'reservPending' => $reservPending
+        ]);
     }
 }

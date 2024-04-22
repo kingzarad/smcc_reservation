@@ -25,7 +25,7 @@ class UserDetails extends Model
 
     public function usersDetails(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 
     public function positionDetails()

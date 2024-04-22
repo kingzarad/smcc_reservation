@@ -26,9 +26,10 @@ return new class extends Migration
             $table->longText('purpose')->nullable();
             $table->string('remarks')->nullable();
             $table->string('signature');
+            $table->tinyInteger('status')->default(0)->comment('2=cancelled,1=confirm,0=pending');
+
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
-
         });
     }
 

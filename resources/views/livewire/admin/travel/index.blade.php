@@ -1,4 +1,9 @@
 <div class="table-responsived">
+    <style>
+        .btn-success {
+            background: #3F8E4E !important;
+        }
+    </style>
     <table id="datatable" class="table table-borderless">
         <thead class="bg-gradient-primary text-white">
             <tr>

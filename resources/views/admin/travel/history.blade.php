@@ -1,6 +1,11 @@
 @extends('layouts.admin.index')
 @section('content')
     <div class="row">
+        <style>
+            .bg-success {
+                background: #3F8E4E !important;
+            }
+        </style>
         <div class="col-xl-12 col-sm-6 mb-xl-0 mb-4">
             <div class="card">
                 <div class="card-body p-3">

@@ -70,12 +70,15 @@
                                         <i class="fa fa-bookmark fz-16 me-2"></i>
                                         <span>Wishlist</span>
                                     </button>
-                                    <button type="button" id="cartEffect" wire:click="addToCart({{ $products->id }})"
-                                        class="btn btn-solid hover-solid btn-animation">
-                                        <i class="fa fa-shopping-cart"></i>
-                                        <span>Reserve</span>
+                                    @if ($products->product_status == 0)
+                                        <button type="button" id="cartEffect"
+                                            wire:click="addToCart({{ $products->id }})"
+                                            class="btn btn-solid hover-solid btn-animation">
+                                            <i class="fa fa-shopping-cart"></i>
+                                            <span>Reserve</span>
 
-                                    </button>
+                                        </button>
+                                    @endif
 
 
 

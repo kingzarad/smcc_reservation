@@ -8,7 +8,6 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Storage;
-
 class Index extends Component
 {
     use WithFileUploads;

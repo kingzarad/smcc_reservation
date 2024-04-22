@@ -90,7 +90,7 @@
                     <div class="col-sm-5 col-7 d-flex justify-content-between">
                         <div class="left-side-button float-start">
                             <a href="{{ route('collection') }}" class="btn btn-solid-default btn fw-bold mb-0 ms-0">
-                                <i class="fas fa-arrow-left"></i> Continue Shopping</a>
+                                <i class="fas fa-arrow-left"></i> Continue Browse</a>
                         </div>
                         @if (!$cartlists->isEmpty())
                             <div class="checkout-button">

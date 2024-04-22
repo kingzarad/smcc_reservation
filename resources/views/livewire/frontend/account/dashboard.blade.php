@@ -28,7 +28,7 @@
                                     class="img-fluid blur-up lazyload" alt="">
                                 <div>
                                     <h5 class="font-light">total reservation</h5>
-                                    <h3>0</h3>
+                                    <h3>{{ $reservTotal }}</h3>
                                 </div>
                             </div>
                         </div>
@@ -47,7 +47,7 @@
 
                                 <div>
                                     <h5 class="font-light">pending reservation</h5>
-                                    <h3>0</h3>
+                                    <h3>{{ $reservPending }}</h3>
                                 </div>
                             </div>
                         </div>

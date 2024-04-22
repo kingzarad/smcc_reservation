@@ -76,6 +76,22 @@
                     </div>
                 </div>
 
+
+                <div class="col-xl-3 col-lg-4 col-sm-6 d-none d-sm-block">
+                    <div class="footer-newsletter d-none">
+                        <h3>Let’s stay in touch</h3>
+                        <div class="form-newsletter">
+                            <div class="input-group mb-4">
+                                <input type="text" class="form-control color-4" placeholder="Your Email Address">
+                                <span class="input-group-text" id="basic-addon4"><i
+                                        class="fas fa-arrow-right"></i></span>
+                            </div>
+                            <p class="font-dark mb-0">Keep up to date with our latest news and special offers.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-lg-2 col-md-4 col-sm-6">
                     <div class="footer-links">
                         <div class="footer-title">
@@ -96,20 +112,6 @@
                                     <a href="{{ route('myaccount.travel') }}" class="font-dark">Travel Order</a>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6 d-none d-sm-block">
-                    <div class="footer-newsletter">
-                        <h3>Let’s stay in touch</h3>
-                        <div class="form-newsletter">
-                            <div class="input-group mb-4">
-                                <input type="text" class="form-control color-4" placeholder="Your Email Address">
-                                <span class="input-group-text" id="basic-addon4"><i
-                                        class="fas fa-arrow-right"></i></span>
-                            </div>
-                            <p class="font-dark mb-0">Keep up to date with our latest news and special offers.
-                            </p>
                         </div>
                     </div>
                 </div>

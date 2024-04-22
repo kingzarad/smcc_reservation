@@ -15,6 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/images/smcc-logo.png') }}">
     <meta name="theme-color" content="#120d4f">
+    <script src="https://kit.fontawesome.com/5b408a851a.js" crossorigin="anonymous"></script>
     <link id="rtl-link" rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/vendors/bootstrap.css') }}">
     <link rel="stylesheet" href="{{ asset('assets_users/css/vendors/ion.rangeSlider.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/vendors/font-awesome.css') }}">
@@ -136,6 +137,8 @@
             .name-usr {
                 padding: 5px 12px;
             }
+
+
         }
     </style>
     @include('layouts.user.navbar')
