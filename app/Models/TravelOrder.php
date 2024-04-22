@@ -15,12 +15,18 @@ class TravelOrder extends Model
     protected $fillable = [
         'user_id',
         'note',
+        'status',
         'image',
     ];
 
-    public function usersDetails(): BelongsTo
+    public function usersInfo(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function usersDetails(): BelongsTo
+    {
+        return $this->belongsTo(UserDetails::class, 'user_id', 'id');
     }
 
 }

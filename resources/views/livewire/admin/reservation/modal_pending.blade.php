@@ -50,8 +50,10 @@
                                                 {{ Str::ucfirst($users->departmentDetails->department_name ?? '') }}
                                             </li>
                                             <li>Address: {{ Str::ucfirst($users->address ?? '') }}</li>
-                                            <li> Signature: <a href="{{ asset('storage/' . $image ?? '') }}"
-                                                    target="_blank">View</a></li>
+                                            <li> Signature: &nbsp;<br> <a href="{{ asset('storage/' . $image ?? '') }}"
+                                                    target="_blank">
+                                                    <strong> View</strong>
+                                                </a></li>
                                         </ul>
                                     </div>
 
@@ -114,8 +116,14 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
                     data-bs-dismiss="modal">Close</button>
-                <button type="button" wire:click="cancelReservation" class="btn btn-danger">Cancel</button>
-                <button type="button" wire:click="approvedReservation" class="btn btn-primary">Approved</button>
+                <button type="button" wire:click="cancelReservation" class="btn btn-danger">
+                    <div wire:loading.remove>Cancel</div>
+                    <span wire:loading wire:target="cancelReservation">Cancel...</span>
+                </button>
+                <button type="button" wire:click="approvedReservation" class="btn btn-primary">
+                    <div wire:loading.remove>Approved</div>
+                    <span wire:loading wire:target="approvedReservation">Approved...</span>
+                </button>
             </div>
         </div>
 

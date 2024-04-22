@@ -125,7 +125,11 @@
 
 
                     @if ($status != 2 &&  $expire_status == true)
-                        <button type="button" wire:click="cancelReservation" class="btn btn-danger">Cancel</button>
+                        <button type="button" wire:click="cancelReservation" class="btn btn-danger">
+
+                            <div wire:loading.remove>Cancel</div>
+                            <span wire:loading wire:target="cancelReservation">Cancel...</span>
+                        </button>
                     @endif
 
 

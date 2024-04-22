@@ -17,48 +17,7 @@
                 </div>
             </div>
             <ul class="navbar-nav  justify-content-end">
-                <li class="nav-item dropdown pe-2  d-flex align-items-center ">
-                    <a href="javascript:;" class="nav-link text-body p-0" id="dropdownMenuButton"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-bell cursor-pointer text-white"></i>
-                    </a>
-                    <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
-                        aria-labelledby="dropdownMenuButton">
-                        <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
 
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New message</span> from Laur
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            13 minutes ago
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="mb-2">
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
-                                <div class="d-flex py-1">
-
-                                    <div class="d-flex flex-column justify-content-center">
-                                        <h6 class="text-sm font-weight-normal mb-1">
-                                            <span class="font-weight-bold">New album</span> by Travis Scott
-                                        </h6>
-                                        <p class="text-xs text-secondary mb-0 ">
-                                            <i class="fa fa-clock me-1"></i>
-                                            1 day
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
-                        </li>
-
-                    </ul>
-                </li>
                 <li class="nav-item dropdown mx-3 pe-2 d-flex align-items-center">
                     <a href="javascript:;" class="nav-link text-body  font-weight-bold p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -69,8 +28,8 @@
                     <ul class="dropdown-menu  dropdown-menu-end  px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
                         <li class="mb-0">
-                            <button class="btn  mb-0 btn-sm w-100 mb-2" data-bs-toggle="modal"
-                                data-bs-target="#profileModal">Profile</button>
+                            {{-- profile --}}
+                            @livewire('admin.profile.index')
                         </li>
                         <li class="mb-0">
                             <a class="btn btn-outline-danger mb-0 btn-sm w-100" href="{{ route('logout') }}"

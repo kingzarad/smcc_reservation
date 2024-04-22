@@ -26,48 +26,36 @@
 
                                     <th>Status</th>
 
-                                    <th style="width:160px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($travelList as $pendingList)
                                     <tr>
-                                        <td>{{$pendingList->id}} </td>
+                                        <td>{{ $pendingList->id }} </td>
                                         <td>
                                             <a href="{{ asset('storage/' . $pendingList->image) }}" target="_blank">
                                                 <div class="image-container">
                                                     <img class="img-thumbnail"
-                                                        src="{{ asset('storage/' . $pendingList->image) }}" alt="Product Image">
+                                                        src="{{ asset('storage/' . $pendingList->image) }}"
+                                                        alt="Product Image">
                                                 </div>
                                             </a>
                                         </td>
-                                        <td>{{ $pendingList->usersDetails->username }}</td>
-                                        <td>{{$pendingList->note}}</td>
-                                        <td>{{$pendingList->created_at}} </td>
+                                        <td>{{ $pendingList->usersInfo->username }}</td>
+                                        <td>{{ $pendingList->note }}</td>
+                                        <td>{{ $pendingList->created_at }} </td>
 
                                         <td>
-                                            <span
-                                            class="badge bg-{{ $pendingList->status == 1 ? 'warning' : 'success' }} ">{{ $pendingList->status == 1 ? 'Pending' : 'Accpepted' }}
-                                    </td>
-                                        <td>
-                                            <div class="dropdown d-flex justify-content-center">
-                                                <button class="btn btn-secondary btn-custom btn-sm dropdown-toggle"
-                                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                    aria-haspopup="true" aria-expanded="false">
-                                                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <div class="dropdown-item">
-                                                        <div class="d-flex align-items-center gap-3">
-                                                            <a href="" class="btn btn-sm btn-warning "><i
-                                                                    class="fa fa-pencil-square-o"></i></a>
-                                                            <button onclick="" class="btn btn-sm btn-danger"><i
-                                                                    class="fa fa-trash-o"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @if ($pendingList->status == 1)
+                                                <span class="badge bg-warning">Pending</span>
+                                            @elseif ($pendingList->status == 2)
+                                            <span class="badge bg-danger">Declined</span>
+                                            @else
+                                                <span class="badge bg-success">Approved</span>
+                                            @endif
+
                                         </td>
+
                                     </tr>
                                 @endforeach
 

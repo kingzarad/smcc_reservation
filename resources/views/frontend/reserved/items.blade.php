@@ -14,38 +14,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($reserved as $cartlist)
-                            @if ($cartlist->reservation->status  == 1)
-                                <tr>
-                                    <td>
-                                        <a
-                                            href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">
-                                            @if ($cartlist->product->productImages->isNotEmpty())
-                                                @php $firstImage = $cartlist->product->productImages->first(); @endphp
-                                                <img src="{{ asset('storage/' . $firstImage->image) }}"
-                                                    class=" blur-up lazyload" alt="">
-                                            @endif
+                        @empty($reserved)
+                            @foreach ($reserved as $cartlist)
+                                @if ($cartlist->reservation->status == 1)
+                                    <tr>
+                                        <td>
+                                            <a
+                                                href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">
+                                                @if ($cartlist->product->productImages->isNotEmpty())
+                                                    @php $firstImage = $cartlist->product->productImages->first(); @endphp
+                                                    <img src="{{ asset('storage/' . $firstImage->image) }}"
+                                                        class=" blur-up lazyload" alt="">
+                                                @endif
 
-                                        </a>
-                                    </td>
-                                    <td>
-                                        <h5><a
-                                                href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">{{ $cartlist->product->name }}</a>
-                                        </h5>
-                                    </td>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <h5><a
+                                                    href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">{{ $cartlist->product->name }}</a>
+                                            </h5>
+                                        </td>
 
-                                    <td>
-                                        <h5>{{ $cartlist->quantity }}</h5>
-                                    </td>
+                                        <td>
+                                            <h5>{{ $cartlist->quantity }}</h5>
+                                        </td>
 
-                                    <td>
+                                        <td>
 
-                                        {{ \Carbon\Carbon::parse($cartlist->reservation->date_return)->format('F j, Y') }}
-                                    </td>
+                                            {{ \Carbon\Carbon::parse($cartlist->reservation->date_return)->format('F j, Y') }}
+                                        </td>
 
-                                </tr>
-                            @endif
-                        @endforeach
+                                    </tr>
+                                @endif
+                            @endforeach
+                        @endempty
+
                     </tbody>
                 </table>
                 {{ $reserved->links() }}

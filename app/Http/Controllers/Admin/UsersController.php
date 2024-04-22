@@ -10,13 +10,13 @@ class UsersController extends Controller
 {
     public function pending()
     {
-        $usersList = User::where('role_as', '0')->where('user_status', '1')->get();
-        return view('admin.users.pending', compact('usersList'));
+
+        return view('admin.users.pending');
     }
 
     public function management()
     {
-        $usersList = User::where('role_as', '0')->where('user_status', '0')->get();
-        return view('admin.users.management', compact('usersList'));
+
+        return view('admin.users.management');
     }
 }

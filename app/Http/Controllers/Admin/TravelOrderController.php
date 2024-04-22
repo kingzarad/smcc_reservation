@@ -16,7 +16,7 @@ class TravelOrderController extends Controller
 
     public function history()
     {
-        $travelList = TravelOrder::where('status', '0')->get();
+        $travelList = TravelOrder::where('status', '!=', 1)->get();
         return view('admin.travel.history',compact('travelList'));
     }
 
