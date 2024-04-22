@@ -15,6 +15,9 @@ class AccountController extends Controller
 
     public function dashboard()
     {
+        $expirationChecker = new ExpirationChecker();
+        $expirationChecker->checkReservation();
+
         return view('frontend.account.dashboard');
     }
 

@@ -19,12 +19,16 @@ class ExpirationChecker extends Controller
     {
         $items = ReservationItem::get();
         $currentDate = Carbon::now();
+        $currentTime = Carbon::now()->second(0);
 
         foreach ($items as $item) {
             $reserv = Reservation::where('id', $item->reservation_id)->first();
             $scheduleDate = Carbon::parse($reserv->date_return);
-            
-            if ($currentDate->isSameDay($scheduleDate) &&  $reserv->status == 1) {
+            $scheduleTime = Carbon::parse($reserv->time_return)->second(0);
+
+
+            if ($currentDate->isSameDay($scheduleDate) &&  $reserv->status == 1 && $currentTime->gte($scheduleTime)) {
+
                 $users = User::where('id', $reserv->users_id)->first();
 
                 $product = Product::findOrFail($item->product_id);

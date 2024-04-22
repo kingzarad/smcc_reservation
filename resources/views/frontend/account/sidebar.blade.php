@@ -20,9 +20,9 @@
                     class="fas fa-angle-right"></i>Profile</a>
         </li>
 
-        <li class="nav-item">
+        {{-- <li class="nav-item">
             <a class="nav-link font-light {{ Request::is('myaccount/security') ? 'active' : '' }}" href="{{ route('myaccount.security') }}"><i
                     class="fas fa-angle-right"></i>Security</a>
-        </li>
+        </li> --}}
     </ul>
 </div>
