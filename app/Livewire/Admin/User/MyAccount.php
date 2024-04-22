@@ -1,25 +1,31 @@
 <?php
 
-namespace App\Livewire\Admin\Profile;
+namespace App\Livewire\Admin\User;
 
 use App\Models\User;
 use Livewire\Component;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class Index extends Component
+class MyAccount extends Component
 {
     public  $id, $username, $email, $password, $old_password;
 
 
     public function render()
     {
-        return view('livewire.admin.profile.index');
+        $usersList = User::where('role_as', '1')->where('user_status', '0')->get();
+        return view('livewire.admin.user.my-account', ['usersList' => $usersList]);
     }
 
-    public function editLoginDetails()
+
+    public function userID($id)
     {
-        $users = User::where('id',  Auth::id())->first();
+        $this->id = $id;
+    }
+
+    public function editLoginDetails(int $id)
+    {
+        $users = User::where('id', $id)->first();
 
         if ($users) {
             $this->id = $users->id;
@@ -66,5 +72,10 @@ class Index extends Component
         }
 
         // return $this->redirect('/admin/users/management', navigate: true);
+    }
+
+    public function closeModal()
+    {
+        $this->dispatch('closeModal');
     }
 }

@@ -83,6 +83,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::prefix('users')->group(function () {
         Route::get('pending', [UsersController::class, 'pending'])->name('users.pending');
         Route::get('management', [UsersController::class, 'management'])->name('users.management');
+        Route::get('myaccount', [UsersController::class, 'myaccount'])->name('users.myaccount');
     });
     Route::get('reports', [ReportsController::class, 'index'])->name('reports');
     Route::get('category', [CategoryController::class, 'index'])->name('category');

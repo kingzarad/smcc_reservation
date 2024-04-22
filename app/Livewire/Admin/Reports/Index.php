@@ -10,18 +10,13 @@ use App\Models\ReservationItem;
 class Index extends Component
 {
 
-    public $filter_month = [];
+    public $filter_month;
     public $filter_year = [];
     public $filter_status;
 
     public function mount()
     {
-        // Populate filter_month array with month names
-        // $this->filter_month = [
 
-        //     "January", "February", "March", "April", "May", "June",
-        //     "July", "August", "September", "October", "November", "December"
-        // ];
 
         $reservations = Reservation::all();
 

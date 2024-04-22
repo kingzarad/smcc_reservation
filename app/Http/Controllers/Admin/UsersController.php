@@ -19,4 +19,10 @@ class UsersController extends Controller
 
         return view('admin.users.management');
     }
+
+    public function myaccount()
+    {
+
+        return view('admin.users.myaccount');
+    }
 }

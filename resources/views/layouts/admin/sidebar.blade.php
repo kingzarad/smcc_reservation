@@ -348,6 +348,14 @@
                                  <span class="nav-link-text ms-1 text-dark">User Management</span>
                              </a>
                          </li>
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('users.myaccount') }}">
+                                <div
+                                    class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
+                                </div>
+                                <span class="nav-link-text ms-1 text-dark">My Acount</span>
+                            </a>
+                        </li>
                      </ul>
                  </div>
              </li>
