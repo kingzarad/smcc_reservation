@@ -49,8 +49,6 @@ Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.resend');
-
-Route::get('signature/{filename}', [SignatureController::class, 'getSignatureImage'])->name('signature.image');
 Route::get('register', [CustomRegistrationController::class, 'index'])->name('register.custom');
 Route::get('login', [CustomLoginController::class, 'index'])->name('login.custom');
 Route::get('/', [FrontendController::class, 'index'])->name('home');

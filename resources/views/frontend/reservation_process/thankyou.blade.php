@@ -53,6 +53,28 @@
                         </div>
                     </div>
                 </div>
+            @elseif ($details->status == 3)
+                <div class="row">
+                    <div class="col-12 p-0">
+                        <div class="success-icon">
+                            <div class="main-container">
+                                <div class="check-container">
+                                    <div class="check-background" >
+                                        <i class="fa-solid fa-circle-check fa-3x text-white"></i>
+
+                                    </div>
+                                    <div class="check-shadow"></div>
+                                </div>
+                            </div>
+
+                            <div class="success-contain">
+                                <h4 class="text-success">Completed</h4>
+                                <h5 class="font-light">The reservation has been completed. </h5>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @else
                 <div class="row">
                     <div class="col-12 p-0">

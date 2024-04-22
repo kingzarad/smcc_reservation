@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\ExpirationChecker;
 
 class AccountController extends Controller
 {
@@ -19,6 +20,9 @@ class AccountController extends Controller
 
     public function reservation()
     {
+        $expirationChecker = new ExpirationChecker();
+        $expirationChecker->checkReservation();
+
         return view('frontend.account.reservation');
     }
 

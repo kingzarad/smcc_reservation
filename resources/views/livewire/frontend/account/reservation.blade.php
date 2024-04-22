@@ -26,7 +26,7 @@
                             </td>
 
                             <td>
-                                <p class="fs-6 m-0">{{ $item->users->username; }}</p>
+                                <p class="fs-6 m-0">{{ $item->users->username }}</p>
                             </td>
                             <td>
                                 {{ \Carbon\Carbon::parse($item->date_filled)->format('F j, Y') }}
@@ -36,6 +36,8 @@
                                     <p class="warning-button btn btn-sm">PENDING</p>
                                 @elseif($item->status == 2)
                                     <p class="danger-button btn btn-sm">CANCELLED</p>
+                                @elseif($item->status == 3)
+                                    <p class="success-button btn btn-sm">COMPLETED</p>
                                 @else
                                     <p class="success-button btn btn-sm">APPROVED</p>
                                 @endif

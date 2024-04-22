@@ -56,7 +56,7 @@ class ReservationProcessController extends Controller
                 return redirect()->route('cart');
             }
         } else {
-            // return redirect()->route('cart');
+             return redirect()->route('cart');
         }
     }
 }

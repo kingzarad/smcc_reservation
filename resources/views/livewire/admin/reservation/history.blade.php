@@ -38,6 +38,8 @@
                                     <p class="bg-warning btn btn-sm text-white">PENDING</p>
                                 @elseif($item->status == 2)
                                     <p class="bg-danger btn btn-sm text-white">CANCELLED</p>
+                                @elseif($item->status == 3)
+                                    <p class="bg-success btn btn-sm text-white">COMPLETED</p>
                                 @else
                                     <p class="bg-success btn btn-sm text-white">APPROVED</p>
                                 @endif

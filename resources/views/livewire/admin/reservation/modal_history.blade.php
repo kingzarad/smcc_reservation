@@ -51,7 +51,7 @@
                                                 {{ Str::ucfirst($users->departmentDetails->department_name ?? '') }}
                                             </li>
                                             <li>Address: {{ Str::ucfirst($users->address ?? '') }}</li>
-                                            @if ($status != 2  )
+                                            @if ($status != 2 &&  $status != 3 )
                                             <li>
                                                 <div class="card mt-3">
                                                     <div class="card-body">
