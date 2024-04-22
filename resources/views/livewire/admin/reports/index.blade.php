@@ -1,4 +1,9 @@
 <div class="card">
+    <style>
+        .bg-success {
+            background: #3F8E4E !important;
+        }
+    </style>
     <div class="card-body p-3">
         <h4 class="card-title">
             <div class="d-flex justify-content-between align-items-center">
@@ -18,6 +23,7 @@
                             <option value="all">All</option>
                             <option value="1">Approved</option>
                             <option value="2">Cancelled</option>
+                            <option value="3">Completed</option>
                         </select>
                     </div>
                 </div>
@@ -88,7 +94,7 @@
                                 <td>{{ $item->product_name ?? '' }}</td>
                                 <td>{{ $item->qty ?? '' }}</td>
                                 <td>{{ $item->date ?? '' }}</td>
-                                <td  class="d-none">
+                                <td class="d-none">
                                     {{ $item->status ?? '' }}
 
                                 </td>
@@ -97,6 +103,8 @@
                                         <p class="bg-warning btn btn-sm text-white">PENDING</p>
                                     @elseif($item->status == 2)
                                         <p class="bg-danger btn btn-sm text-white">CANCELLED</p>
+                                    @elseif($item->status == 3)
+                                        <p class="bg-success btn btn-sm text-white">COMPLETED</p>
                                     @else
                                         <p class="bg-success btn btn-sm text-white">APPROVED</p>
                                     @endif
