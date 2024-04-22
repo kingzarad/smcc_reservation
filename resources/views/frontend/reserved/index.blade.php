@@ -2,5 +2,5 @@
 
 @section('content')
     @include('frontend.reserved.banner')
-   @include('frontend.reserved.items')
+    @livewire('frontend.reserved.index');   
 @endsection

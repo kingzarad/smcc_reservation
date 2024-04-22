@@ -3,8 +3,10 @@
 
         @if ($details->status == 0 && $expire_status != true)
             <button type="button" data-bs-toggle="modal" data-bs-target="#frontCancel"
-                class="btn btn-sm bg-warning text-white ">Cancel
-                Reservation</button>
+                class="btn btn-sm bg-warning text-white ">
+                Cancel Reservation
+
+            </button>
 
             <a class="mx-5" href="{{ route('myaccount.reservation') }}">Go Back</a>
         @else
@@ -28,7 +30,11 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                    <button type="button" wire:click="cancelReservation" class="btn btn-danger">Yes</button>
+                    <button type="button" wire:click="cancelReservation" class="btn btn-danger">
+                        Yes
+                        <span wire:loading wire:target="cancelReservation">Removing...</span>
+
+                    </button>
                 </div>
             </div>
 

@@ -62,6 +62,7 @@ class FrontendController extends Controller
 
     public function reservedList()
     {
+        
         return view('frontend.reserved.index');
     }
 }
