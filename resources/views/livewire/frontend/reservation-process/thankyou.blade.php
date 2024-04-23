@@ -1,7 +1,7 @@
 <div>
     <div class="d-flex mt-3">
 
-        @if ($details->status == 0 && $expire_status != true)
+        @if (($details->status == 0) && $expire_status != true)
             <button type="button" data-bs-toggle="modal" data-bs-target="#frontCancel"
                 class="btn btn-sm bg-warning text-white ">
                 Cancel Reservation

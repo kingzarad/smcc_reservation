@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Notification;
 
 class History extends Component
 {
-    public $item = [], $details = [], $users = [], $itemCount, $reservation_id, $referenceNumber, $status, $expire_status = false;
+    public $item = [], $details = [], $users = [], $itemCount, $reservation_id, $referenceNumber, $status, $expire_status = false, $image;
 
     public function render()
     {
@@ -56,6 +56,7 @@ class History extends Component
             $this->users = $users;
             $this->itemCount = $itemCount;
             $this->referenceNumber = $referenceNumber;
+            $this->image = $reservation->signature;
             $this->status = $reservation->status;
         }
     }

@@ -51,6 +51,10 @@
                                                 {{ Str::ucfirst($users->departmentDetails->department_name ?? '') }}
                                             </li>
                                             <li>Address: {{ Str::ucfirst($users->address ?? '') }}</li>
+                                            <li> Signature: &nbsp;<br> <a href="{{ asset('storage/' . $image ?? '') }}"
+                                                target="_blank">
+                                                <strong> View</strong>
+                                            </a></li>
                                             @if ($status != 2 &&  $status != 3 )
                                             <li>
                                                 <div class="card mt-3">
@@ -124,7 +128,7 @@
                     data-bs-dismiss="modal">Close</button>
 
 
-                    @if ($status != 2 &&  $expire_status == true)
+                    @if ($status != 2 && $status != 3 &&  $expire_status == true)
                         <button type="button" wire:click="cancelReservation" class="btn btn-danger">
 
                             <div wire:loading.remove>Cancel</div>
