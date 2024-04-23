@@ -15,7 +15,7 @@ class Travel extends Component
 
     public function render()
     {
-        $travelist = TravelOrder::orderBy('created_at', 'DESC')->get();
+        $travelist = TravelOrder::where(['user_id' =>  auth()->user()->id])->orderBy('created_at', 'DESC')->get();
         return view('livewire.frontend.account.travel', ['travelist' =>  $travelist]);
     }
 
