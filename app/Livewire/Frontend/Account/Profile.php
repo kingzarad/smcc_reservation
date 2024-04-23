@@ -57,6 +57,8 @@ class Profile extends Component
                     'address' => $this->address,
                 ]);
             } else {
+
+                // dd(auth()->user()->id);
                 UserDetails::create([
                     'users_id' => auth()->user()->id,
                     'firstname' => $this->firstname,
