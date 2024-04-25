@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/vendors/slick/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/vendors/slick/slick-theme.css') }}">
     <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/demo4.css') }}">
+     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
     <style>
         .h-logo {
             max-width: 50px !important;
@@ -173,6 +174,8 @@
     <script src="{{ asset('assets_users/js/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
     <script>
         function alertSwift(icon, position, title) {
             const Toast = Swal.mixin({
@@ -231,6 +234,7 @@
 
         });
     </script>
+
     <script>
         $(function() {
             $('[data-bs-toggle="tooltip"]').tooltip()

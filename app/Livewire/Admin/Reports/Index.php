@@ -43,17 +43,19 @@ class Index extends Component
             $reservation = Reservation::find($reservationItem->reservation_id);
 
             if ($reservation) {
-                $reservationData = [
-                    'reservation_id' => $reservation->id,
-                    'reference_num' => $reservation->reference_num,
-                    'product_name' => $reservationItem->product->name,
-                    'status' => $reservation->status,
-                    'qty' => $reservationItem->quantity,
-                    'date' => Carbon::parse($reservation->date_filled)->format('F d, Y'),
-                ];
+                if($reservation->status != 0){
+                    $reservationData = [
+                        'reservation_id' => $reservation->id,
+                        'reference_num' => $reservation->reference_num,
+                        'product_name' => $reservationItem->product->name,
+                        'status' => $reservation->status,
+                        'qty' => $reservationItem->quantity,
+                        'date' => Carbon::parse($reservation->date_filled)->format('F d, Y'),
+                    ];
 
 
-                $reservationsList[] = (object) $reservationData;
+                    $reservationsList[] = (object) $reservationData;
+                }
             }
         }
 
