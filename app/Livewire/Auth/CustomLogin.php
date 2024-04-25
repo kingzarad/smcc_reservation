@@ -45,7 +45,8 @@ class CustomLogin extends Component
                         return redirect('admin/dashboard');
                     } else {
                         $this->dispatch('messageModal', status: 'success', position: 'top', message: 'Logged In Successfully.');
-                        return $this->redirect('/', navigate: true);
+                      //  return $this->redirect('/', navigate: true);
+                        return redirect('/');
 
                     }
                 }

@@ -24,7 +24,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/vendors/slick/slick.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/vendors/slick/slick-theme.css') }}">
     <link id="color-link" rel="stylesheet" type="text/css" href="{{ asset('assets_users/css/demo4.css') }}">
-     <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
+
+    <link href="https://cdn.datatables.net/v/bs4/dt-2.0.5/datatables.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/@fullcalendar/core/main.css" rel="stylesheet">
     <style>
         .h-logo {
             max-width: 50px !important;
@@ -174,8 +177,9 @@
     <script src="{{ asset('assets_users/js/script.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+    <script src="https://cdn.datatables.net/v/bs4/dt-2.0.5/datatables.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script>
         function alertSwift(icon, position, title) {
             const Toast = Swal.mixin({
@@ -232,6 +236,48 @@
                 document.head.appendChild(link);
             }
 
+        });
+
+        $(document).ready(function() {
+            $("#datatable").DataTable({
+                dom: "frtip",
+
+                responsive: {
+                    details: true,
+                    breakpoints: [{
+                            name: "desktop",
+                            width: Infinity
+                        },
+                        {
+                            name: "tablet",
+                            width: 1024
+                        },
+                        {
+                            name: "fablet",
+                            width: 768
+                        },
+                        {
+                            name: "phone",
+                            width: 480
+                        },
+                    ],
+                },
+                language: {
+                    paginate: {
+                        first: "First",
+                        previous: "Previous",
+                        next: "Next",
+                        last: "Last",
+                    },
+                },
+                select: true,
+                pageLength: 5,
+                lengthMenu: [5, 10, 25, 50, 100],
+                columnDefs: [{
+                    orderable: false,
+                    targets: "_all"
+                }],
+            });
         });
     </script>
 

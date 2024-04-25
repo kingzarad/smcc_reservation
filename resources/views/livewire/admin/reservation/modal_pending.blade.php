@@ -117,11 +117,11 @@
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
                     data-bs-dismiss="modal">Close</button>
                 <button type="button" wire:click="cancelReservation" class="btn btn-danger">
-                    <div wire:loading.remove>Cancel</div>
+                    Cancel
                     <span wire:loading wire:target="cancelReservation">Cancel...</span>
                 </button>
                 <button type="button" wire:click="approvedReservation" class="btn btn-primary">
-                    <div wire:loading.remove>Approved</div>
+                    Approved
                     <span wire:loading wire:target="approvedReservation">Approved...</span>
                 </button>
             </div>

@@ -6,13 +6,19 @@
                     <p>No reserved items found.</p>
                 @else
                     <div>
-                        <table class="table cart-table">
+                        <table class="table cart-table" style="width: 100% !important">
                             <thead>
                                 <tr class="table-head">
-                                    <th scope="col">image</th>
-                                    <th scope="col">product name</th>
-                                    <th scope="col">quantity</th>
-                                    <th scope="col">expiration</th>
+                                    <th >image</th>
+                                    <th> name</th>
+                                    <th>quantity</th>
+                                    <th>date (from-to)</th>
+
+                                    <th>time (from-to)</th>
+
+                                    <th>time return</th>
+
+                                    <th>date return</th>
 
                                 </tr>
                             </thead>
@@ -42,6 +48,21 @@
                                                 <h5>{{ $cartlist->quantity }}</h5>
                                             </td>
 
+                                            <td>
+                                                {{ \Carbon\Carbon::parse($cartlist->reservation->date_from)->format('F') }}
+                                                {{ \Carbon\Carbon::parse($cartlist->reservation->date_from)->format('j') }} -
+                                                {{ \Carbon\Carbon::parse($cartlist->reservation->date_to)->format('j, Y') }}
+                                            </td>
+
+
+                                            <td>
+                                                {{ \Carbon\Carbon::parse($cartlist->reservation->time_from)->format('g:i A') }} -
+                                                {{ \Carbon\Carbon::parse($cartlist->reservation->time_to)->format('g:i A') }}
+                                            </td>
+                                            <td>
+
+                                                {{ \Carbon\Carbon::parse($cartlist->reservation->time_return)->format('g:i A') }}
+                                            </td>
                                             <td>
 
                                                 {{ \Carbon\Carbon::parse($cartlist->reservation->date_return)->format('F j, Y') }}

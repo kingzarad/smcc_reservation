@@ -30,7 +30,9 @@
                         initialView: 'dayGridMonth',
                         events: @json($events),
                         eventClick: function(info) {
-                            console.log(info);
+                            var url = info.event.extendedProps.url;
+
+                            console.log(url);
 
                         }
                     });

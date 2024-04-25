@@ -24,6 +24,7 @@ class Index extends Component
                 'title' =>  "RESERVED",
                 'start' => $startDateTime,
                 'end' => $endDateTime,
+                'url' => route('reserved'),
             ];
         })->toArray();
     }
