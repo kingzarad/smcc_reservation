@@ -52,14 +52,14 @@ class Index extends Component
                 'purpose' => [
                     'required',
                     'string',
-                    'min:10',
+                    'min:3',
                     'max:255',
                     'regex:/^(?!.*(\w)\1{2,}).+$/', // Prevent repeated characters
                 ],
                 'remarks' => [
-                    'required',
+                    'nullable',
                     'string',
-                    'min:10',
+                    'min:3',
                     'max:255',
                     'regex:/^(?!.*(\w)\1{2,}).+$/', // Prevent repeated characters
                 ],
