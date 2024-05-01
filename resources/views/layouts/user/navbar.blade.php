@@ -6,9 +6,10 @@
                     <div class="main-menu">
                         <div class="menu-left">
                             <div class="brand-logo">
-                                <a href="{{ url('/') }}">
+                                <a href="{{ url('/') }}" class="d-flex  align-items-center justify-content-evenly">
                                     <img src="{{ asset('assets/images/smcc-logo.png') }}"
                                         class="h-logo img-fluid blur-up lazyload" alt="logo">
+                                    <h3 class="text-white">&nbsp;SMCC RESERVATION</h3>
                                 </a>
                             </div>
 
@@ -28,19 +29,6 @@
                                             </div>
                                         </li>
                                         <li><a href="{{ route('home') }}" class="nav-link menu-title">Home</a></li>
-                                        <li><a href="{{ route('collection') }}" class="nav-link menu-title">Category</a>
-                                        </li>
-                                        <li><a href="{{ route('reserved') }}"
-                                            class="nav-link menu-title">Reserved</a></li>
-                                        @auth
-
-                                            <li><a href="{{ route('myaccount.reservation') }}"
-                                                    class="nav-link menu-title">My Reservation</a></li>
-
-                                            <li><a href="{{ route('myaccount.travel') }}" class="nav-link menu-title">Travel
-                                                    Order</a></li>
-                                        @endauth
-
 
                                     </ul>
                                 </div>
@@ -49,32 +37,24 @@
                         <div class="menu-right">
 
                             <ul>
-                                {{-- <li>
-                                    <div class="search-box theme-bg-color">
-                                        <i data-feather="search"></i>
-                                    </div>
-                                </li> --}}
-                                <li class="onhover-dropdown wislist-dropdown  ">
-                                    <div class="cart-media ">
-                                        <a href="{{ route('wishlist') }}">
-                                            <i data-feather="heart"></i>
-                                            <span id="wishlist-count" class="label label-theme rounded-pill">
-                                                <livewire:frontend.wishtlist.wish-list-count />
-                                            </span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="onhover-dropdown wislist-dropdown">
-                                    <div class="cart-media">
-                                        <a href="{{ route('cart') }}">
-                                            <i data-feather="shopping-cart"></i>
-                                            <span id="cart-count" class="label label-theme rounded-pill">
-                                                <livewire:frontend.cart-list.cart-count />
-                                            </span>
-                                        </a>
-                                    </div>
-                                </li>
-                                <li class="onhover-dropdown">
+
+
+                                @auth
+                                    @if (Route::has('logout'))
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();"
+                                                class="d-block btn btn-sm btn-danger text-white">{{ __('Logout') }}</a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                    @endif
+                                @endauth
+
+                                {{-- <li class="onhover-dropdown">
                                     <div class="cart-media name-usr">
                                         <i data-feather="user"></i>
                                     </div>
@@ -96,11 +76,7 @@
                                             </ul>
                                         @else
                                             <ul>
-                                                @if (Route::has('myaccount.dashboard') ||
-                                                        Route::has('myaccount.reservation') ||
-                                                        Route::has('myaccount.profile') ||
-                                                        Route::has('myaccount.travel') ||
-                                                        Route::has('myaccount.security'))
+                                                @if (Route::has('myaccount.dashboard') || Route::has('myaccount.reservation') || Route::has('myaccount.profile') || Route::has('myaccount.travel') || Route::has('myaccount.security'))
                                                     <li>
                                                         <a href="{{ route('myaccount.dashboard') }}"
                                                             class="d-block">{{ __('My Account') }}</a>
@@ -121,7 +97,7 @@
                                             </ul>
                                         @endguest
                                     </div>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         {{-- search --}}
@@ -141,26 +117,11 @@
                 <span>Home</span>
             </a>
         </li>
+
+
         <li>
-            <a href="{{ route('collection') }}" class="{{ Request::is('collection') ? 'active' : '' }}">
-                <i data-feather="align-justify"></i>
-                <span>Category</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('cart') }}" class="{{ Request::is('cart') ? 'active' : '' }}">
-                <i data-feather="shopping-bag"></i>
-                <span>Cart</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('wishlist') }}" class="{{ Request::is('wishlist') ? 'active' : '' }}">
-                <i data-feather="heart"></i>
-                <span>Wishlist</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ route('myaccount.dashboard') }}" class="{{ Request::is('myaccount/dashboard') ? 'active' : '' }}">
+            <a href="{{ route('myaccount.dashboard') }}"
+                class="{{ Request::is('myaccount/dashboard') ? 'active' : '' }}">
                 <i data-feather="user"></i>
                 <span>Account</span>
             </a>

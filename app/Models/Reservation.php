@@ -27,7 +27,8 @@ class Reservation extends Model
         'purpose',
         'remarks',
         'signature',
-        'status'
+        'status',
+        'department_id'
     ];
 
     public function userDetails()
@@ -38,5 +39,15 @@ class Reservation extends Model
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
+    }
+
+    public function item()
+    {
+        return $this->hasMany(ReservationItem::class, 'reservation_id', 'id');
+    }
+
+    public function venue()
+    {
+        return $this->hasMany(ReservationVenue::class, 'reservation_id', 'id');
     }
 }

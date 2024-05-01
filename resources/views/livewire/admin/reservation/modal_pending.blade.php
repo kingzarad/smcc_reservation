@@ -70,42 +70,54 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="col-sm-12 table-responsive">
+                        <div class="col-md-12 row p-3">
+                            <div class="col-sm-6 table-responsive border">
+                                <h5 class="mt-3">Venue/Rooms</h5>
+                                <hr>
                                 <table class="table cart-table table-borderless">
                                     <tbody>
-                                        @if (!empty($item))
-                                            @foreach ($item as $cartlist)
-                                                <tr class="table-order">
-                                                    <td>
-                                                        <a href="#">
-                                                            @if ($cartlist->product->productImages->isNotEmpty())
-                                                                @php $firstImage = $cartlist->product->productImages->first(); @endphp
-                                                                <img src="{{ asset('storage/' . $firstImage->image) }}"
-                                                                    class=" blur-up lazyload" alt="">
-                                                            @endif
+                                        @foreach ($venue_list as $venuelist)
+                                            <tr class="table-order">
+                                                <td>
+                                                    <p class="font-light">Name</p>
+                                                    <h5>{{ $venuelist->Venue->name }}</h5>
+                                                </td>
+                                                <td>
+                                                    <p class="font-light">Quantity</p>
+                                                    <h5>{{ $venuelist->quantity }}</h5>
+                                                </td>
 
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <p class="font-light">Product Name</p>
-                                                        <h5><a href="#">{{ $cartlist->product->name }}</a>
-                                                        </h5>
-                                                    </td>
-                                                    <td>
-                                                        <p class="font-light">Quantity</p>
-                                                        <h5>{{ $cartlist->quantity }}</h5>
-                                                    </td>
-
-                                                </tr>
-                                            @endforeach
-                                        @endif
-
-
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
 
                                 </table>
+
+                            </div>
+                            <div class="col-sm-6 table-responsive border">
+                                <h5 class="mt-3">Items</h5>
+                                <hr>
+                                <table class="table cart-table table-borderless">
+                                    <tbody>
+                                        @foreach ($item_list as $cartlist)
+                                            <tr class="table-order">
+                                                <td>
+                                                    <p class="font-light">Name</p>
+                                                    <h5>{{ $cartlist->Items->name }}</h5>
+                                                </td>
+                                                <td>
+                                                    <p class="font-light">Quantity</p>
+                                                    <h5>{{ $cartlist->quantity }}</h5>
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+
+                                </table>
+
                             </div>
                         </div>
 
@@ -116,13 +128,15 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
                     data-bs-dismiss="modal">Close</button>
-                <button type="button" wire:click="cancelReservation" class="btn btn-danger">
+                <button type="button" wire:click="cancelReservation" class="btn btn-danger"
+                    wire:loading.attr="disabled">
                     Cancel
-                    <span wire:loading wire:target="cancelReservation">Cancel...</span>
+
                 </button>
-                <button type="button" wire:click="approvedReservation" class="btn btn-primary">
+                <button type="button" wire:click="approvedReservation" class="btn btn-primary"
+                    wire:loading.attr="disabled">
                     Approved
-                    <span wire:loading wire:target="approvedReservation">Approved...</span>
+
                 </button>
             </div>
         </div>

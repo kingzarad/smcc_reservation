@@ -52,19 +52,19 @@
                                             </li>
                                             <li>Address: {{ Str::ucfirst($users->address ?? '') }}</li>
                                             <li> Signature: &nbsp;<br> <a href="{{ asset('storage/' . $image ?? '') }}"
-                                                target="_blank">
-                                                <strong> View</strong>
-                                            </a></li>
-                                            @if ($status != 2 &&  $status != 3 )
-                                            <li>
-                                                <div class="card mt-3">
-                                                    <div class="card-body">
-                                                        Confirmation Code: <h2>
-                                                            <strong>{{ $referenceNumber ?? '' }}</strong>
-                                                        </h2>
+                                                    target="_blank">
+                                                    <strong> View</strong>
+                                                </a></li>
+                                            @if ($status != 2 && $status != 3)
+                                                <li>
+                                                    <div class="card mt-3">
+                                                        <div class="card-body">
+                                                            Confirmation Code: <h2>
+                                                                <strong>{{ $referenceNumber ?? '' }}</strong>
+                                                            </h2>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </li>
+                                                </li>
                                             @endif
                                         </ul>
                                     </div>
@@ -82,40 +82,54 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="col-sm-12 table-responsive">
+                        <div class="col-md-12 row p-3">
+                            <div class="col-sm-6 table-responsive border">
+                                <h5 class="mt-3">Venue/Rooms</h5>
+                                <hr>
                                 <table class="table cart-table table-borderless">
                                     <tbody>
-                                        @if (!empty($item))
-                                            @foreach ($item as $cartlist)
-                                                <tr class="table-order">
-                                                    <td>
-                                                        <a href="#">
-                                                            @if ($cartlist->product->productImages->isNotEmpty())
-                                                                @php $firstImage = $cartlist->product->productImages->first(); @endphp
-                                                                <img src="{{ asset('storage/' . $firstImage->image) }}"
-                                                                    class=" blur-up lazyload" alt="">
-                                                            @endif
+                                        @foreach ($venue_list as $venuelist)
+                                            <tr class="table-order">
+                                                <td>
+                                                    <p class="font-light">Name</p>
+                                                    <h5>{{ $venuelist->Venue->name }}</h5>
+                                                </td>
+                                                <td>
+                                                    <p class="font-light">Quantity</p>
+                                                    <h5>{{ $venuelist->quantity }}</h5>
+                                                </td>
 
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <p class="font-light">Product Name</p>
-                                                        <h5><a href="#">{{ $cartlist->product->name }}</a>
-                                                        </h5>
-                                                    </td>
-                                                    <td>
-                                                        <p class="font-light">Quantity</p>
-                                                        <h5>{{ $cartlist->quantity }}</h5>
-                                                    </td>
-
-                                                </tr>
-                                            @endforeach
-                                        @endif
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
 
                                 </table>
+
+                            </div>
+                            <div class="col-sm-6 table-responsive border">
+                                <h5 class="mt-3">Items</h5>
+                                <hr>
+                                <table class="table cart-table table-borderless">
+                                    <tbody>
+                                        @foreach ($item_list as $cartlist)
+                                            <tr class="table-order">
+                                                <td>
+                                                    <p class="font-light">Name</p>
+                                                    <h5>{{ $cartlist->Items->name }}</h5>
+                                                </td>
+                                                <td>
+                                                    <p class="font-light">Quantity</p>
+                                                    <h5>{{ $cartlist->quantity }}</h5>
+                                                </td>
+
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+
+                                </table>
+
                             </div>
                         </div>
 
@@ -127,14 +141,20 @@
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
                     data-bs-dismiss="modal">Close</button>
 
+                @if ($status == 1)
+                    <button type="button" wire:click="doneReservation" class="btn btn-info"
+                        wire:loading.attr="disabled">
+                        Mark As Completed
 
-                    @if ($status != 2 && $status != 3 &&  $expire_status == true)
-                        <button type="button" wire:click="cancelReservation" class="btn btn-danger">
+                    </button>
+                @endif
 
-                            Cancel
-                            <span wire:loading wire:target="cancelReservation">Cancel...</span>
-                        </button>
-                    @endif
+                @if ($status != 2 && $status != 3 && $expire_status == true)
+                    <button type="button" wire:click="cancelReservation" class="btn btn-danger"
+                        wire:loading.attr="disabled">
+                        Cancel
+                    </button>
+                @endif
 
 
             </div>

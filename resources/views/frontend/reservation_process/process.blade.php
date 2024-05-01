@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-7">
-                <form class="needs-validation" wire:submit.prevent="ProcessSubmit">
+                <form class="needs-validation" wire:submit.prevent="processReserv">
 
                     <div id="billingAddress" class="row g-4">
                         @if (Auth::user()->role_as == 1)
@@ -104,7 +104,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <label for="city" class="form-label">REMARKS</label>
+                            <label for="city" class="form-label">REMARKS (OPTIONAL)</label>
                             <input type="text" wire:model="remarks" class="form-control" id="remarks">
                             @error('remarks')
                                 <span class="text-danger">{{ $message }}</span>
@@ -128,14 +128,41 @@
                             </div>
 
                         </div>
-                        <div class="col-md-12">
-                            <label for="signature" class="form-label">Upload Signature</label>
+                        <div x-data="{ signatureOption: 'draw' }">
+                            <div class="col-md-12">
+                                <label for="signature" class="form-label">Signature Options</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="signatureOption"
+                                        id="drawSignature" value="draw" x-model="signatureOption">
+                                    <label class="form-check-label" for="drawSignature">Draw Signature</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="signatureOption"
+                                        id="uploadSignature" value="upload" x-model="signatureOption">
+                                    <label class="form-check-label" for="uploadSignature">Upload Signature</label>
+                                </div>
 
-                            <input type="file" wire:model="signature" class="form-control" id="signature"
-                                accept="image/*">
-                            @error('signature')
-                                <span class="text-danger">{{ $message }}</span>
-                            @enderror
+                                <div x-show="signatureOption === 'upload'">
+                                    <input type="file" wire:model="signature_upload" class="form-control"
+                                        accept="image/*">
+                                    @error('signature_upload')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div x-show="signatureOption === 'draw'">
+                                    <div id="signature-pad" class="signature-pad">
+                                        <div class="signature-pad-body">
+                                            <canvas id="signature-canvas" class="border" width="400"
+                                                height="200"></canvas>
+                                        </div>
+                                        <div class="signature-pad-footer">
+                                            <button type="button" class="btn btn-sm bg-danger text-white"
+                                                wire:click="clearSignature">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
 
@@ -145,7 +172,7 @@
                     <hr class="my-lg-5 my-4">
 
                     <button class="btn btn-solid-default mt-4" wire:click="goBack" type="button">GO BACK</button>
-                    <button class="btn btn-solid-default mt-4" type="submit">
+                    <button class="btn btn-solid-default mt-4" id="saveSignature" type="submit">
                         PLACE RESERVATION
                     </button>
 
@@ -153,57 +180,167 @@
             </div>
 
             <div class="col-lg-5">
-                <div class="your-cart-box">
-                    <h3 class="mb-3 d-flex text-capitalize">RESERVATION LIST<span
-                            class="badge bg-theme new-badge rounded-pill ms-auto bg-dark">
-                            <livewire:frontend.cart-list.cart-count /></span>
+                <div class="your-cart-box" style="position: static !important">
+                    <h3 class="mb-3 d-flex text-capitalize">VENUE/ROOMS LIST
                     </h3>
-                    @if ($cartlists->isEmpty())
-                        <h3><strong>Your cart list is empty.</strong></h3>
-                    @else
-                        <table class="table cart-table">
-                            <thead>
-                                <tr class="table-head">
-                                    <th scope="col">image</th>
-                                    <th scope="col">product name</th>
-                                    <th scope="col">quantity</th>
+
+                    <table class="table cart-table">
+                        <thead>
+                            <tr class="table-head">
+                                <th scope="col">Name</th>
+                                <th scope="col">available</th>
+                                <th scope="col">quantity</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+
+                            @foreach ($venue_list as $venue_cart)
+                                <tr>
+                                    <td>
+                                        {{ $venue_cart->name }}
+                                    </td>
+                                    <td>
+                                        {{ $venue_cart->quantity }}
+                                    </td>
+                                    <td>
+                                        <div class="qty-box">
+                                            <div class="input-group d-flex align-items-center">
+
+                                                <span class="input-group-prepend">
+                                                    <button type="button"
+                                                        wire:click="decrementVenueQuantity({{ $venue_cart->id }})"
+                                                        class="btn btn-sm">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </span>
+                                                <input type="text" class="form-control input-number"
+                                                    wire:model.lazy="venue_qty.{{ $venue_cart->id }}"
+                                                    wire:change="handleInputVenueChange({{ $venue_cart->id }}, $event.target.value)">
+                                                <span class="input-group-prepend">
+                                                    <span class="input-group-prepend">
+                                                        <button type="button"
+                                                            wire:click="incrementVenueQuantity({{ $venue_cart->id }})"
+                                                            class="btn btn-sm">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </td>
+
+
 
                                 </tr>
-                            </thead>
-                            <tbody>
+                            @endforeach
 
-                                @foreach ($cartlists as $item_cart)
-                                    <tr>
-                                        <td>
+                        </tbody>
+                    </table>
+                    <div class="d-flex mt-3">
+                        {{ $venue_list->links(data: ['scrollTo' => false]) }}
+                    </div>
+                </div>
 
-                                            <a
-                                                href="{{ url('collection', urlencode($item_cart->product->category->slug) . '/' . urlencode($item_cart->product->slug)) }}">
-                                                @if ($item_cart->product->productImages->isNotEmpty())
-                                                    @php $firstImage = $item_cart->product->productImages->first(); @endphp
-                                                    <img src="{{ asset('storage/' . $firstImage->image) }}"
-                                                        class=" blur-up lazyload" alt="">
-                                                @endif
+                <div class="your-cart-box mt-5" style="position: static !important">
+                    <h3 class="mb-3 d-flex text-capitalize">ITEMS LIST
+                    </h3>
 
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a
-                                                href="{{ url('collection', urlencode($item_cart->product->category->slug) . '/' . urlencode($item_cart->product->slug)) }}">{{ $item_cart->product->name }}</a>
-                                        </td>
+                    <table class="table cart-table">
+                        <thead>
+                            <tr class="table-head">
+                                <th scope="col">Name</th>
+                                <th scope="col">available</th>
+                                <th scope="col">quantity</th>
 
-                                        <td>
-                                            {{ $item_cart->quantity }}
-                                        </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($item_list as $item_cart)
+                                <tr>
+                                    <td>
+                                        {{ $item_cart->name }}
+                                    </td>
+                                    <td>
+                                        {{ $item_cart->quantity }}
+                                    </td>
+                                    <td>
+                                        <div class="qty-box">
+                                            <div class="input-group d-flex align-items-center">
+
+                                                <span class="input-group-prepend">
+                                                    <button type="button"
+                                                        wire:click="decrementItemQuantity({{ $item_cart->id }})"
+                                                        class="btn btn-sm">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                </span>
+                                                <input type="text" class="form-control input-number"
+                                                    wire:model.lazy="item_qty.{{ $item_cart->id }}"
+                                                    wire:change="handleInputItemChange({{ $item_cart->id }}, $event.target.value)">
+                                                <span class="input-group-prepend">
+                                                    <button type="button"
+                                                        wire:click="incrementItemQuantity({{ $item_cart->id }})"
+                                                        class="btn btn-sm">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </td>
 
 
-                                    </tr>
-                                @endforeach
+                                </tr>
+                            @endforeach
 
-                            </tbody>
-                        </table>
-                    @endif
+                        </tbody>
+                    </table>
+                    <div class="d-flex mt-3">
+                        {{ $item_list->links(data: ['scrollTo' => false]) }}
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <script>
+        document.addEventListener('livewire:init', () => {
+            const canvas = document.getElementById('signature-canvas');
+            const signaturePad = new SignaturePad(canvas);
+            const saveButton = document.getElementById('saveSignature');
+
+            window.addEventListener('livewire:load', function() {
+                Livewire.hook('message.processed', () => {
+                    signaturePad.clear(); // Clear signature pad after Livewire update
+                });
+            });
+
+            // Livewire listeners for clearing and saving signature
+            Livewire.on('clearSignature', () => {
+                signaturePad.clear();
+            });
+
+
+            saveButton.addEventListener('click', () => {
+                if (drawSignature.checked) {
+                    if (signaturePad.isEmpty()) {
+                        alert('Please provide a signature.');
+                        return;
+                    }
+
+                    var signatureData = signaturePad.toDataURL('image/png');
+                    @this.set('signatureData', signatureData);
+                }
+            });
+
+
+
+        });
+    </script>
+
+
 </section>

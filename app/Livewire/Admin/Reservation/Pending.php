@@ -2,21 +2,28 @@
 
 namespace App\Livewire\Admin\Reservation;
 
-use App\Models\Product;
+use App\Models\Item;
+use App\Models\User;
+use App\Models\Venue;
 use Livewire\Component;
 use App\Models\Reservation;
 use App\Models\UserDetails;
 use App\Models\ReservationItem;
-use App\Models\User;
+use App\Models\ReservationVenue;
 use App\Notifications\CustomerNotification;
 use Illuminate\Support\Facades\Notification;
 
 class Pending extends Component
 {
+
     public $item = [], $details = [], $users = [], $itemCount, $reservation_id, $image;
+    public $venue_list = [];
+    public $item_list = [];
+
     public function render()
     {
         $reservationlists = Reservation::where('status', 0)->get();
+
         return view('livewire.admin.reservation.pending', ['reservationlists' => $reservationlists]);
     }
 
@@ -37,6 +44,14 @@ class Pending extends Component
             $users = UserDetails::where('users_id', $reservation->users_id)->first();
             $item = ReservationItem::where('reservation_id', $reservation->id)->get();
             $itemCount = ReservationItem::where('reservation_id', $reservation->id)->count();
+
+            $items = ReservationItem::where('reservation_id', $reservation->id)->get();
+            $venue = ReservationVenue::where('reservation_id', $reservation->id)->get();
+
+            $this->venue_list = $venue;
+            $this->item_list = $items;
+
+
             $this->reservation_id = $reservation->id;
             $this->details = $reservation;
             $this->item = $item;
@@ -49,32 +64,46 @@ class Pending extends Component
     public function approvedReservation()
     {
         $items = ReservationItem::where('reservation_id', $this->reservation_id)->get();
+        $venues = ReservationVenue::where('reservation_id', $this->reservation_id)->get();
         $reserv = Reservation::where('id', $this->reservation_id)->first();
         $users = User::where('id', $reserv->users_id)->first();
 
         $reference = $reserv->reference_num;
         $referenceNumber = substr($reference, 7);
 
-        // dd($users ->email);
+
         foreach ($items as $item) {
 
-            $product = Product::findOrFail($item->product_id);
-            $existingQuantity = $product->quantity;
+            $item_list = Item::findOrFail($item->item_id);
+            $existingQuantity = $item_list->quantity;
 
             $newQuantity = $existingQuantity - $item->quantity;
 
-            // Check if the new quantity is zero or less
+
             if ($newQuantity <= 0) {
-                $product->update(['product_status' => 1]);
+                $item_list->update(['status' => 1]);
             }
-            $product->update(['quantity' => max(0, $newQuantity)]);
-
-            $reservation = Reservation::findOrFail($item->reservation_id);
-
-            $reservation->update([
-                'status' => 1,
-            ]);
+            $item_list->update(['quantity' => max(0, $newQuantity)]);
         }
+
+        foreach ($venues as $venue) {
+
+            $venue_list = Venue::findOrFail($venue->venue_id);
+            $existingQuantity = $venue_list->quantity;
+
+            $newQuantity = $existingQuantity - $venue->quantity;
+
+            if ($newQuantity <= 0) {
+                $venue_list->update(['status' => 1]);
+            }
+            $venue_list->update(['quantity' => max(0, $newQuantity)]);
+        }
+
+
+        $reservation = Reservation::findOrFail($this->reservation_id);
+        $reservation->update([
+            'status' => 1,
+        ]);
 
         $link = route('place_reservation', ['reference' => $reserv->reference_num]);
         $details = [
@@ -114,6 +143,5 @@ class Pending extends Component
 
         Notification::send($users, new CustomerNotification($details));
         $this->dispatch('destroyModal', status: 'success', position: 'top', message: 'Reservation canceleed successfully.', modal: '#showPending');
-
     }
 }

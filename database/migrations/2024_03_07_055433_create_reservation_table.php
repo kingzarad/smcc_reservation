@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('reference_num');
             $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('department_id');
             $table->timestamp('date_filled');
             $table->tinyInteger('school_premises')->default(0)->comment('1=inside,0=outside');
             $table->date('date_from');
@@ -27,7 +28,7 @@ return new class extends Migration
             $table->string('remarks')->nullable();
             $table->string('signature');
             $table->tinyInteger('status')->default(0)->comment('2=cancelled,1=confirm,0=pending');
-
+            $table->foreign('department_id')->references('id')->on('department')->onDelete('cascade');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

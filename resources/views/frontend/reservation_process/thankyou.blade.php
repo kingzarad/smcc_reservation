@@ -59,7 +59,7 @@
                         <div class="success-icon">
                             <div class="main-container">
                                 <div class="check-container">
-                                    <div class="check-background" >
+                                    <div class="check-background">
                                         <i class="fa-solid fa-circle-check fa-3x text-white"></i>
 
                                     </div>
@@ -102,7 +102,14 @@
         </div>
     </section>
     <!-- Order Success Section End -->
-
+    <section class="section-b-space cart-section order-details-table">
+        <div class="container">
+            <div class="title title1 title-effect mb-1 title-left">
+                <h2 class="mb-3">Printable Permit</h2>
+            </div>
+            @livewire('frontend.receipt', ['details' => $details, 'users' => $users])
+        </div>
+    </section>
     <!-- Oder Details Section Start -->
     <section class="section-b-space cart-section order-details-table">
         <div class="container">
@@ -110,43 +117,9 @@
                 <h2 class="mb-3">Reservation Details</h2>
             </div>
             <div class="row g-4">
-                <div class="col-md-6">
-                    <div class="col-sm-12 table-responsive">
-                        <table class="table cart-table table-borderless">
-                            <tbody>
-                                @foreach ($item as $cartlist)
-                                    <tr class="table-order">
-                                        <td>
-                                            <a
-                                                href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">
-                                                @if ($cartlist->product->productImages->isNotEmpty())
-                                                    @php $firstImage = $cartlist->product->productImages->first(); @endphp
-                                                    <img src="{{ asset('storage/' . $firstImage->image) }}"
-                                                        class=" blur-up lazyload" alt="">
-                                                @endif
-
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <p class="font-light">Product Name</p>
-                                            <h5><a
-                                                    href="{{ url('collection', urlencode($cartlist->product->category->slug) . '/' . urlencode($cartlist->product->slug)) }}">{{ $cartlist->product->name }}</a>
-                                            </h5>
-                                        </td>
-                                        <td>
-                                            <p class="font-light">Quantity</p>
-                                            <h5>{{ $cartlist->quantity }}</h5>
-                                        </td>
-
-                                    </tr>
-                                @endforeach
+                @livewire('frontend.reservation-process.thankyou1', ['reservationID' => $reservationID])
 
 
-                            </tbody>
-
-                        </table>
-                    </div>
-                </div>
                 <div class="col-md-6">
                     <div class="order-success">
                         <div class="row g-4">
@@ -162,8 +135,8 @@
                                     <li>Time Return:
                                         <strong>{{ \Carbon\Carbon::parse($details->time_return)->format('h:i A') }}</strong>
                                     </li>
-
-                                    <li>Reservation Item/Venue Total: <strong>{{ $itemCount }}</strong></li>
+                                    {{--
+                                    <li>Reservation Item/Venue Total: <strong>{{ $itemCount }}</strong></li> --}}
                                 </ul>
                             </div>
 

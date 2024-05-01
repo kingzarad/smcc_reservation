@@ -1,19 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\frontend;
 
-use App\Models\Cart;
 use App\Models\Reservation;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\ReservationItem;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
+use App\Models\ReservationVenue;
 
 class ReservationProcessController extends Controller
 {
-
-
     public function __construct()
     {
         $this->middleware('auth');
@@ -21,16 +18,8 @@ class ReservationProcessController extends Controller
 
     public function index()
     {
-        $cartItemCount = Cart::where('user_id', Auth::id())->count();
-
-        if ($cartItemCount > 0) {
-            return view('frontend.reservation_process.index');
-        } else {
-            // Redirect to home if cart is empty
-            return redirect()->route('collection');
-        }
+        return view('frontend.reservation_process.index');
     }
-
 
     public function thankyou(Request $request, $reference)
     {
@@ -47,16 +36,15 @@ class ReservationProcessController extends Controller
                 $referenceNumber = substr($reference, 7);
 
                 // dd($referenceNumber);
+                $reservationID = $reservation->id;
                 $users = UserDetails::where('users_id', $reservation->users_id)->first();
-                $item = ReservationItem::where('reservation_id', $reservation->id)->get();
-                $itemCount = ReservationItem::where('reservation_id', $reservation->id)->count();
 
-                return view('frontend.reservation_process.thankyou', ['referenceNumber' => $referenceNumber, 'itemCount' => $itemCount, 'item' => $item, 'details' => $reservation, 'users' => $users]);
+                return view('frontend.reservation_process.thankyou', ['referenceNumber' => $referenceNumber, 'reservationID' => $reservationID, 'details' => $reservation, 'users' => $users]);
             } else {
-                return redirect()->route('cart');
+                return redirect()->route('home');
             }
         } else {
-             return redirect()->route('cart');
+            return redirect()->route('home');
         }
     }
 }

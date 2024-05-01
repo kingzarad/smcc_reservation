@@ -66,6 +66,7 @@
     </style>
     <link rel="stylesheet" href="{{ asset('assets_users/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('assets_users/css/custom.css') }}">
+    <!-- Place this in the <head> or just before closing </body> tag -->
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -206,6 +207,7 @@
             Livewire.on('messageModal', (event) => {
                 loadScript('{{ asset('assets_users/js/slick/custom_slick.js') }}', function() {
                     alertSwift(event.status, event.position, event.message);
+                    $(event.modal).modal('hide');
                 });
 
             });

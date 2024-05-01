@@ -2,24 +2,46 @@
 
 namespace App\Livewire\Frontend\ReservationProcess;
 
-use App\Models\Cart;
-use App\Models\Reservation;
-use App\Models\ReservationItem;
+use App\Models\Item;
+use App\Models\Venue;
 use Livewire\Component;
+use App\Models\Reservation;
 use App\Models\UserDetails;
-use Illuminate\Support\Facades\Auth;
+use Livewire\WithPagination;
 use Livewire\WithFileUploads;
+use App\Models\ReservationItem;
+use App\Models\ReservationVenue;
+use Livewire\WithoutUrlPagination;
 use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
     use WithFileUploads;
 
-    public $selectedLocation, $dsfrom, $dsto, $dsreturn, $tsfrom, $tsto, $tsreturn, $purpose, $remarks, $signature, $reference_num, $school_premises;
+    use WithPagination, WithoutUrlPagination;
+    public $item_qty = [];
+    public $venue_qty = [];
+    public $selectedLocation, $imagePath, $dsfrom, $dsto, $dsreturn, $tsfrom, $tsto, $tsreturn, $purpose, $remarks, $signature_upload, $reference_num, $school_premises;
+    public $signatureData;
+    public $signatureOption = 'draw';
+
+    protected $venuePerPage = 5;
+    protected $itemPerPage = 5;
 
     public function mount()
     {
-        // Initialize date values
+        // Fetch all items and initialize their quantities to 0
+        $items = Item::all();
+        foreach ($items as $item) {
+            $this->item_qty[$item->id] = 0;
+        }
+
+        // Fetch all venue and initialize their quantities to 0
+        $venues = Venue::all();
+        foreach ($venues as $venue) {
+            $this->venue_qty[$venue->id] = 0;
+        }
+
         $this->dsfrom = now()->format('Y-m-d');
         $this->dsto = now()->addDay()->format('Y-m-d');
         $this->dsreturn = now()->addDay(2)->format('Y-m-d');
@@ -29,118 +51,148 @@ class Index extends Component
     public function render()
     {
         $users = UserDetails::where('users_id', auth()->user()->id)->first();
-        $cartlists = Cart::where('user_id', auth()->user()->id)->get();
-        return view('livewire.frontend.reservation-process.index', ['users' => $users, 'cartlists' => $cartlists]);
-    }
-
-    public function goBack()
-    {
-        return $this->redirect('/cart', navigate: true);
+        $item = Item::paginate(5, pageName: 'Item-page');
+        $venue = Venue::paginate(5, pageName: 'Venue-page');
+        return view('livewire.frontend.reservation-process.index', ['users' => $users, 'item_list' => $item, 'venue_list' => $venue]);
     }
 
 
-    public function ProcessSubmit()
+    public function processReserv()
     {
-        if (Auth::check()) {
-            $this->validate([
-                'dsfrom' => 'required|date',
-                'dsto' => 'required|date|after_or_equal:dsfrom',
-                'dsreturn' => 'required|date|after_or_equal:dsto',
-                'tsfrom' => 'required',
-                'tsto' => 'required',
-                'tsreturn' => 'required',
-                'purpose' => [
-                    'required',
-                    'string',
-                    'min:3',
-                    'max:255',
-                    'regex:/^(?!.*(\w)\1{2,}).+$/', // Prevent repeated characters
-                ],
-                'remarks' => [
-                    'nullable',
-                    'string',
-                    'min:3',
-                    'max:255',
-                    'regex:/^(?!.*(\w)\1{2,}).+$/', // Prevent repeated characters
-                ],
-                'signature' => 'required|image',
-            ], [
-                'dsfrom.required' => 'The date of usage (from) field is required.',
-                'dsfrom.date' => 'The date of usage (from) must be a valid date.',
-                'dsto.required' => 'The date of usage (to) field is required.',
-                'dsto.date' => 'The date of usage (to) must be a valid date.',
-                'dsto.after_or_equal' => 'The date of usage (to) must be after or equal to the date of usage (from).',
-                'dsreturn.required' => 'The date return field is required.',
-                'dsreturn.date' => 'The date return must be a valid date.',
-                'dsreturn.after_or_equal' => 'The date return must be after or equal to the date of usage (to).',
-
-                'tsfrom.required' => 'The time of usage (from) field is required.',
-                'tsfrom.time' => 'The time of usage (from) must be a valid time.',
-                'tsto.required' => 'The time of usage (to) field is required.',
-                'tsto.time' => 'The time of usage (to) must be a valid time.',
-                'tsto.after_or_equal' => 'The time of usage (to) must be after or equal to the time of usage (from).',
-                'tsreturn.required' => 'The time return field is required.',
-                'tsreturn.time' => 'The time return must be a valid time.',
-                'tsreturn.after_or_equal' => 'The time return must be after or equal to the time of usage (to).',
-
-                'purpose.required' => 'The purpose field is required.',
-                'purpose.string' => 'The purpose must be a string.',
-                'purpose.min' => 'The purpose must be at least :min characters.',
-                'purpose.max' => 'The purpose may not be greater than :max characters.', // Added max message
-                'remarks.required' => 'The remarks field is required.',
-                'purpose.regex' => 'The purpose field cannot contain repeated characters.',
-                'remarks.regex' => 'The remarks field cannot contain repeated characters.',
-                'remarks.string' => 'The remarks must be a string.',
-                'remarks.min' => 'The remarks must be at least :min characters.',
-                'remarks.max' => 'The remarks may not be greater than :max characters.', // Added max message
-                'signature.required' => 'The signature field is required.',
-                'signature.image' => 'Please upload a valid image file for the signature.', // Custom error message for invalid image format
-            ]);
-
-            $this->reference_num = $this->getTransNo();
-            $existing = Reservation::where('reference_num', $this->reference_num)->exists();
-
-            if ($existing) {
-                $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'This reservation has already process.');
-                return false;
+        // dd($this->signatureData);
+        $hasSelectedVenue = false;
+        foreach ($this->item_qty as $venueId => $quantity) {
+            if ($quantity > 0) {
+                $hasSelectedVenue = true;
+                break;
             }
+        }
 
-            $imagePath = $this->signature->store('photos/signature', 'public');
+        if (!$hasSelectedVenue) {
+            $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'Please select at least one venue or item.');
+            return;
+        }
 
-            $data = [
-                'reference_num' =>  $this->reference_num,
-                'users_id' =>  auth()->user()->id,
-                'school_premises' =>  '0',
-                'date_from' =>  $this->dsfrom,
-                'date_to' =>  $this->dsto,
-                'time_from' =>  $this->tsfrom,
-                'time_to' =>  $this->tsto,
-                'date_return' =>  $this->dsreturn,
-                'time_return' =>  $this->tsreturn,
-                'purpose' =>  $this->purpose,
-                'remarks' =>  $this->remarks,
-                'signature' =>   $imagePath,
-                'school_premises' => $this->selectedLocation == 'inside' ? 1 : 0
-            ];
+        $this->validate([
+            'dsfrom' => 'required|date',
+            'dsto' => 'required|date|after_or_equal:dsfrom',
+            'dsreturn' => 'required|date|after_or_equal:dsto',
+            'tsfrom' => 'required',
+            'tsto' => 'required',
+            'tsreturn' => 'required',
+            'purpose' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                'regex:/^(?!.*(\w)\1{2,}).+$/', // Prevent repeated characters
+            ],
+            'remarks' => [
+                'nullable',
+                'string',
+                'min:3',
+                'max:255',
+                'regex:/^(?!.*(\w)\1{2,}).+$/', // Prevent repeated characters
+            ],
+            'signatureOption' => 'required|in:upload,draw', // Ensure signatureOption is required and allowed values are 'upload' and 'draw'
+            'signature_upload' => $this->getSignatureUploadValidationRules(), // Apply conditional validation rules for signature_upload
+        ], [
+            'dsfrom.required' => 'The date of usage (from) field is required.',
+            'dsfrom.date' => 'The date of usage (from) must be a valid date.',
+            'dsto.required' => 'The date of usage (to) field is required.',
+            'dsto.date' => 'The date of usage (to) must be a valid date.',
+            'dsto.after_or_equal' => 'The date of usage (to) must be after or equal to the date of usage (from).',
+            'dsreturn.required' => 'The date return field is required.',
+            'dsreturn.date' => 'The date return must be a valid date.',
+            'dsreturn.after_or_equal' => 'The date return must be after or equal to the date of usage (to).',
 
-            $reserv = Reservation::create($data);
+            'tsfrom.required' => 'The time of usage (from) field is required.',
+            'tsfrom.time' => 'The time of usage (from) must be a valid time.',
+            'tsto.required' => 'The time of usage (to) field is required.',
+            'tsto.time' => 'The time of usage (to) must be a valid time.',
+            'tsto.after_or_equal' => 'The time of usage (to) must be after or equal to the time of usage (from).',
+            'tsreturn.required' => 'The time return field is required.',
+            'tsreturn.time' => 'The time return must be a valid time.',
+            'tsreturn.after_or_equal' => 'The time return must be after or equal to the time of usage (to).',
 
-            $cartlists = Cart::where('user_id', auth()->user()->id)->get();
-            foreach ($cartlists as $cart) {
+            'purpose.required' => 'The purpose field is required.',
+            'purpose.string' => 'The purpose must be a string.',
+            'purpose.min' => 'The purpose must be at least :min characters.',
+            'purpose.max' => 'The purpose may not be greater than :max characters.', // Added max message
 
+            'purpose.regex' => 'The purpose field cannot contain repeated characters.',
+            'remarks.regex' => 'The remarks field cannot contain repeated characters.',
+            'remarks.string' => 'The remarks must be a string.',
+            'remarks.min' => 'The remarks must be at least :min characters.',
+            'remarks.max' => 'The remarks may not be greater than :max characters.', // Added max message
+
+        ]);
+
+        $this->reference_num = $this->getTransNo();
+        $existing = Reservation::where([
+            ['date_from', $this->dsfrom],
+            ['date_to', $this->dsto],
+            ['time_from', $this->tsfrom],
+            ['time_to', $this->tsto] // Should this be $this->tsto?
+        ])->exists();
+        if ($existing) {
+            $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'This reservation date and time are not available.');
+            return false;
+        }
+
+
+        if ($this->signatureData != null) {
+
+            $imageData = explode(',', $this->signatureData)[1];
+            $decodedData = base64_decode($imageData);
+            $filename = 'signature_' . time() . '.png';
+            $this->imagePath = 'photos/signature/' . $filename;
+            Storage::disk('public')->put($this->imagePath, $decodedData);
+        } else {
+            $this->imagePath = $this->signature_upload->store('photos/signature', 'public');
+        }
+        $user = UserDetails::where('users_id', auth()->user()->id)->first();
+
+        $data = [
+            'reference_num' =>  $this->reference_num,
+            'users_id' =>  auth()->user()->id,
+            'department_id' => $user->department,
+            'date_from' =>  $this->dsfrom,
+            'date_to' =>  $this->dsto,
+            'time_from' =>  $this->tsfrom,
+            'time_to' =>  $this->tsto,
+            'date_return' =>  $this->dsreturn,
+            'time_return' =>  $this->tsreturn,
+            'purpose' =>  $this->purpose,
+            'remarks' =>  $this->remarks,
+            'signature' =>   $this->imagePath,
+            'school_premises' => $this->selectedLocation == 'inside' ? 1 : 0
+        ];
+
+        $reserv = Reservation::create($data);
+
+        foreach ($this->item_qty as $itemId => $quantity) {
+            if ($quantity != 0) {
                 ReservationItem::create([
                     'reservation_id' => $reserv->id,
-                    'product_id' => $cart->product_id,
-                    'quantity' => $cart->quantity
+                    'item_id' => $itemId,
+                    'quantity' => $quantity
                 ]);
-
-                $cart->delete();
             }
-
-            $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The reservation was successfully placed. Please wait for the administrators confirmation via email.');
-            // return $this->redirect("/place-reservation/{$reserv->reference_num}", navigate: true);
-            return redirect()->route('place_reservation', ['reference' => $reserv->reference_num]);
         }
+
+        foreach ($this->venue_qty as $venueId => $quantity) {
+            if ($quantity != 0) {
+                ReservationVenue::create([
+                    'reservation_id' => $reserv->id,
+                    'venue_id' => $venueId,
+                    'quantity' => $quantity
+                ]);
+            }
+        }
+
+        $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The reservation was successfully placed. Please wait for the administrators confirmation via email.');
+        return redirect()->route('place_reservation', ['reference' => $reserv->reference_num]);
     }
 
     public function getTransNo()
@@ -165,4 +217,101 @@ class Index extends Component
             return $ex->getMessage();
         }
     }
+
+    public function getSignatureUploadValidationRules()
+    {
+
+        return $this->signatureOption === 'upload' ? 'required|image' : ''; // Only require signature_upload if signatureOption is 'upload'
+    }
+
+    public function logSignatureOption($value)
+    {
+        $this->signatureOption = $value;
+    }
+
+    public function goBack()
+    {
+        return redirect()->route('home');
+    }
+
+    public function decrementItemQuantity($id)
+    {
+        if (isset($this->item_qty[$id]) && $this->item_qty[$id] > 0) {
+            $this->item_qty[$id]--;
+        }
+    }
+
+    public function incrementItemQuantity($id)
+    {
+        $item = Item::find($id);
+        if ($item && (!isset($this->item_qty[$id]) || $this->item_qty[$id] < $item->quantity)) {
+            $this->item_qty[$id] = isset($this->item_qty[$id]) ? $this->item_qty[$id] + 1 : 1;
+        }
+    }
+
+    public function decrementVenueQuantity($id)
+    {
+
+        if (isset($this->venue_qty[$id]) && $this->venue_qty[$id] > 0) {
+            $this->venue_qty[$id]--;
+        }
+    }
+
+    public function incrementVenueQuantity($id)
+    {
+        $venue = Venue::find($id);
+        if ($venue && (!isset($this->venue_qty[$id]) || $this->venue_qty[$id] < $venue->quantity)) {
+            $this->venue_qty[$id] = isset($this->venue_qty[$id]) ? $this->venue_qty[$id] + 1 : 1;
+        }
+    }
+
+    public function updatedVenueQty($value, $id)
+    {
+
+        $venue = Venue::find($id);
+        if ($venue) {
+            $maxQuantity = $venue->quantity;
+            if ($value < 0) {
+                $this->venue_qty[$id] = 0;
+            } elseif ($value > $maxQuantity) {
+                $this->venue_qty[$id] = $maxQuantity;
+            } else {
+                $this->venue_qty[$id] = $value;
+            }
+        }
+    }
+
+    public function updatedItemQty($value, $id)
+    {
+
+        $item = Item::find($id);
+        if ($item) {
+            $maxQuantity = $item->quantity;
+            if ($value < 0) {
+                $this->item_qty[$id] = 0;
+            } elseif ($value > $maxQuantity) {
+                $this->item_qty[$id] = $maxQuantity;
+            } else {
+                $this->item_qty[$id] = $value;
+            }
+        }
+    }
+
+    public function handleInputVenueChange($id, $value)
+    {
+        $this->updatedVenueQty($id, $value);
+    }
+
+    public function handleInputItemChange($id, $value)
+    {
+        $this->updatedItemQty($id, $value);
+    }
+
+    public function clearSignature()
+    {
+
+        $this->dispatch('clearSignature');
+    }
+
+
 }

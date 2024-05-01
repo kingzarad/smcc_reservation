@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class ReservationItem extends Model
@@ -15,28 +14,13 @@ class ReservationItem extends Model
 
     protected $fillable = [
         'reservation_id',
-        'product_id',
+        'item_id',
         'quantity'
     ];
 
-    public function product(): BelongsTo
+    public function Items()
     {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+        return $this->belongsTo(Item::class, 'item_id', 'id');
     }
 
-    public function reservation(): BelongsTo
-    {
-        return $this->belongsTo(Reservation::class, 'reservation_id', 'id');
-    }
-
-
-    public function reservationItem(): BelongsTo
-    {
-        return $this->belongsTo(Reservation::class, 'reservation_id', 'id');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class, 'category_id', 'id');
-    }
 }

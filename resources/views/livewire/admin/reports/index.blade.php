@@ -15,6 +15,19 @@
 
             <div class="col-lg-auto row">
                 <div class="col-auto ">
+                    <label class="form-control-plaintext">Department:</label>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group input-group-sm p-1">
+                        <select class="form-select" id="hhsstatus" style="width:12em">
+                            <option value="all">All</option>
+                            <option value="1">Approved</option>
+                            <option value="2">Cancelled</option>
+                            <option value="3">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-auto ">
                     <label class="form-control-plaintext">Status:</label>
                 </div>
                 <div class="col-auto">
@@ -27,6 +40,9 @@
                         </select>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-auto row">
+
                 <div class="col-auto">
                     <label class="form-control-plaintext">Month:</label>
                 </div>
@@ -52,7 +68,7 @@
 
 
                 <div class="col-auto">
-                    <label class="form-control-plaintext">Range Year:</label>
+                    <label class="form-control-plaintext">Year:</label>
                 </div>
                 <div class="col-auto">
                     <div class="input-group input-group-sm p-1">
@@ -79,8 +95,9 @@
                         <tr>
                             <th>No.</th>
                             <th class="d-noxne ">REFERENCE NO.</th>
-                            <th>PRODUCT NAME</th>
+                            <th>RESERVATION LIST</th>
                             <th>QTY</th>
+
                             <th>FILED DATE</th>
                             <th class="d-none exclude-print">STATUS RAW</th>
                             <th>STATUS</th>
@@ -91,7 +108,7 @@
                             <tr>
                                 <td>{{ ++$index }}</td>
                                 <td>{{ $item->reference_num ?? '' }}</td>
-                                <td>{{ $item->product_name ?? '' }}</td>
+                                <td>{{ $item->name ?? '' }}</td>
                                 <td>{{ $item->qty ?? '' }}</td>
                                 <td>{{ $item->date ?? '' }}</td>
                                 <td class="d-none">

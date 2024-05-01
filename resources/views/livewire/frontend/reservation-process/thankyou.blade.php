@@ -8,9 +8,9 @@
 
             </button>
 
-            <a class="mx-5" href="{{ route('myaccount.reservation') }}">Go Back</a>
+            <a class="mx-5" href="{{ route('home') }}">Go Back</a>
         @else
-            <a href="{{ route('myaccount.reservation') }}">Go Back</a>
+            <a href="{{ route('home') }}">Go Back</a>
         @endif
 
 
