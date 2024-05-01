@@ -3,6 +3,7 @@
 namespace App\Livewire\Frontend\ReservationProcess;
 
 use App\Models\Item;
+use App\Models\User;
 use App\Models\Venue;
 use Livewire\Component;
 use App\Models\Reservation;
@@ -12,7 +13,10 @@ use Livewire\WithFileUploads;
 use App\Models\ReservationItem;
 use App\Models\ReservationVenue;
 use Livewire\WithoutUrlPagination;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Notifications\CustomerNotification;
+use Illuminate\Support\Facades\Notification;
 
 class Index extends Component
 {
@@ -53,6 +57,9 @@ class Index extends Component
         $users = UserDetails::where('users_id', auth()->user()->id)->first();
         $item = Item::paginate(5, pageName: 'Item-page');
         $venue = Venue::paginate(5, pageName: 'Venue-page');
+
+
+
         return view('livewire.frontend.reservation-process.index', ['users' => $users, 'item_list' => $item, 'venue_list' => $venue]);
     }
 
@@ -166,6 +173,7 @@ class Index extends Component
             'purpose' =>  $this->purpose,
             'remarks' =>  $this->remarks,
             'signature' =>   $this->imagePath,
+            'status' => 1,
             'school_premises' => $this->selectedLocation == 'inside' ? 1 : 0
         ];
 
@@ -178,6 +186,16 @@ class Index extends Component
                     'item_id' => $itemId,
                     'quantity' => $quantity
                 ]);
+
+                $item_list = Item::findOrFail($itemId);
+                $existingQuantity = $item_list->quantity;
+
+                $newQuantity = $existingQuantity - $quantity;
+
+                if ($newQuantity <= 0) {
+                    $item_list->update(['status' => 1]);
+                }
+                $item_list->update(['quantity' => max(0, $newQuantity)]);
             }
         }
 
@@ -188,9 +206,32 @@ class Index extends Component
                     'venue_id' => $venueId,
                     'quantity' => $quantity
                 ]);
+
+                $venue_list = Venue::findOrFail($venueId);
+                $existingQuantity = $venue_list->quantity;
+
+                $newQuantity = $existingQuantity - $quantity;
+
+                if ($newQuantity <= 0) {
+                    $venue_list->update(['status' => 1]);
+                }
+                $venue_list->update(['quantity' => max(0, $newQuantity)]);
             }
         }
+        $reference = $this->reference_num;
+        $referenceNumber = substr($reference, 7);
+        $users = User::where('id', auth()->user()->id)->first();
 
+        $link = route('place_reservation', ['reference' => $reserv->reference_num]);
+        $details = [
+            'greeting' => "Congratulation🎊",
+            'body' => "REFERENCE NUMBER: <strong>$reserv->reference_num</strong> <br>
+             The reservation has been successfully approved. Here is your verification code: <strong>$referenceNumber </strong>
+            <br> Thank You!",
+            'lastline' => '',
+            'regards' => "Visit for information: $link"
+        ];
+        Notification::send($users, new CustomerNotification($details));
         $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The reservation was successfully placed. Please wait for the administrators confirmation via email.');
         return redirect()->route('place_reservation', ['reference' => $reserv->reference_num]);
     }
@@ -312,6 +353,4 @@ class Index extends Component
 
         $this->dispatch('clearSignature');
     }
-
-
 }

@@ -179,9 +179,7 @@ $(document).ready(function () {
                             .find("h1")
                             .css("text-align", "center")
                             .css("font-size", "16px");
-                        $(win.document.body)
-                            .find("h1")
-                            .text("TOTAL RESERVATION");
+                        $(win.document.body).find("h1").text("TOTAL");
                         $(win.document.body).find("h1").after("<hr>");
                         $(win.document.body)
                             .find("thead")
@@ -197,7 +195,7 @@ $(document).ready(function () {
                             .count();
                         $(win.document.body)
                             .find("tfoot th")
-                            .text("TOTAL RESERVATION: " + totalRegistered)
+                            .text("TOTAL: " + totalRegistered)
                             .css("font-weight", "bold");
                     },
                 },
@@ -220,37 +218,35 @@ $(document).ready(function () {
         });
 
         var table = datatable_report;
-        var filterStatus = $("#hhsstatus");
+        var filterDepart = $("#hhdepartment");
+
         var monthFilter = $("#hhmonth");
         var yrFilter = $("#hhyear");
 
         $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-            var filterStatusValue = filterStatus.val().toLowerCase();
+
+            var filterDepartValue = filterDepart.val().toLowerCase();
             var monthFilterValue = monthFilter.val();
             var yrFilterValue = yrFilter.val().toLowerCase();
 
             var rowData = table.row(dataIndex).data();
-            var rowStatus = rowData[5];
+            var rowDepart = rowData[5];
+
             var rowDate = rowData[4];
 
-            console.log(rowStatus);
             if (
-                (filterStatusValue === "all" ||
-                    rowStatus.toLowerCase() === filterStatusValue) &&
-                (monthFilterValue === "all" ||
-                    rowDate
-                        .toLowerCase()
-                        .includes(monthFilterValue.toLowerCase())) &&
-                (yrFilterValue === "all" ||
-                    rowDate.toLowerCase().includes(yrFilterValue.toLowerCase()))
+                (filterDepartValue === "all" || rowDepart.toLowerCase() === filterDepartValue) &&
+
+                (monthFilterValue === "all" || rowDate.toLowerCase().includes(monthFilterValue.toLowerCase())) &&
+                (yrFilterValue === "all" || rowDate.toLowerCase().includes(yrFilterValue.toLowerCase()))
             ) {
-                return true;
+                return true; // Row matches the filter criteria
             }
 
             return false;
         });
 
-        filterStatus.on("change", function () {
+        filterDepart.on("change", function () {
             table.draw();
         });
 
@@ -261,8 +257,6 @@ $(document).ready(function () {
         yrFilter.on("change", function () {
             table.draw();
         });
-
-        
 
         table.draw();
     });

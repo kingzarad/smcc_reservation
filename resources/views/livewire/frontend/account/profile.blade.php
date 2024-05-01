@@ -4,10 +4,15 @@
     </div>
 
     <div class=" dashboard-profile dashboard">
+        @if (Session::has('status') && Session::has('message'))
+            <div class="alert alert-{{ Session::get('status') }}">
+                {{ Session::get('message') }}
+            </div>
+        @endif
         <div class="box-head">
             <h3>Profile
                 <span
-                    class="badge bg-{{ Auth::user()->status == 'incomplete' ? 'danger' : 'success' }}"><small>{{ Str::upper(Auth::user()->status) }}</small></span>
+                    class="badge bg-{{ Auth::user()->status == 'incompleted' ? 'danger' : 'success' }}"><small>{{ Str::upper(Auth::user()->status) }}</small></span>
 
             </h3>
             <button type="button" wire:click="editUsersDetails({{ $users->usersDetails->id ?? 0 }})" class="btn btn-link"
@@ -99,7 +104,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Profile Information <span
-                                class="badge bg-{{ Auth::user()->status == 'incomplete' ? 'danger' : 'success' }} "><small>{{ Str::upper(Auth::user()->status) }}</small></span>
+                                class="badge bg-{{ Auth::user()->status == 'incompleted' ? 'danger' : 'success' }} "><small>{{ Str::upper(Auth::user()->status) }}</small></span>
                         </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -242,8 +247,7 @@
                         <div class="mb-3">
                             <label for="firstname" class="form-label">New Password <span
                                     class="text-danger">*</span></label>
-                            <input type="password" wire:model="password" class="form-control"
-                                id="password">
+                            <input type="password" wire:model="password" class="form-control" id="password">
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

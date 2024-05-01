@@ -19,27 +19,16 @@
                 </div>
                 <div class="col-auto">
                     <div class="input-group input-group-sm p-1">
-                        <select class="form-select" id="hhsstatus" style="width:12em">
+                        <select class="form-select" id="hhdepartment" style="width:12em">
                             <option value="all">All</option>
-                            <option value="1">Approved</option>
-                            <option value="2">Cancelled</option>
-                            <option value="3">Completed</option>
+                            @foreach ($department as $value)
+                                <option value="{{ $value->id }}">{{ $value->department_name }}</option>
+                            @endforeach
+
                         </select>
                     </div>
                 </div>
-                <div class="col-auto ">
-                    <label class="form-control-plaintext">Status:</label>
-                </div>
-                <div class="col-auto">
-                    <div class="input-group input-group-sm p-1">
-                        <select class="form-select" id="hhsstatus" style="width:12em">
-                            <option value="all">All</option>
-                            <option value="1">Approved</option>
-                            <option value="2">Cancelled</option>
-                            <option value="3">Completed</option>
-                        </select>
-                    </div>
-                </div>
+
             </div>
             <div class="col-lg-auto row">
 
@@ -96,10 +85,11 @@
                             <th>No.</th>
                             <th class="d-noxne ">REFERENCE NO.</th>
                             <th>RESERVATION LIST</th>
-                            <th>QTY</th>
+                            <th>HOURS</th>
 
                             <th>FILED DATE</th>
-                            <th class="d-none exclude-print">STATUS RAW</th>
+
+                            <th class="d-none exclude-print">DEPART RAW</th>
                             <th>STATUS</th>
                         </tr>
                     </thead>
@@ -108,11 +98,14 @@
                             <tr>
                                 <td>{{ ++$index }}</td>
                                 <td>{{ $item->reference_num ?? '' }}</td>
-                                <td>{{ $item->name ?? '' }}</td>
+                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;"
+                                    title="{{ $item->name ?? '' }}">{{ $item->name ?? '' }}</td>
+
                                 <td>{{ $item->qty ?? '' }}</td>
                                 <td>{{ $item->date ?? '' }}</td>
+
                                 <td class="d-none">
-                                    {{ $item->status ?? '' }}
+                                    {{ $item->depart ?? '' }}
 
                                 </td>
                                 <td>

@@ -28,13 +28,12 @@
             <table class="table cart-table p-3 ">
 
                 <tbody>
-                    @foreach ($reserv as $item)
+                    @forelse ($reserv as $item)
                         <tr>
                             <td style="text-align: left !important; padding: 20px !important;">
                                 <small>
                                     <span
-                                        class="badge {{ $item->status == 0 ? 'bg-warning' : ($item->status == 1 ? 'bg-success' : 'bg-danger') }}
-                                        ">
+                                        class="badge {{ $item->status == 0 ? 'bg-warning' : ($item->status == 1 ? 'bg-success' : 'bg-danger') }}">
                                         {{ $item->status == 0 ? 'Pending' : ($item->status == 1 ? 'Approved' : 'Canceled') }}
                                     </span>
                                     <br>
@@ -50,7 +49,11 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td colspan="2" style="text-align: center;">No active reservation</td>
+                        </tr>
+                    @endforelse
 
                 </tbody>
             </table>

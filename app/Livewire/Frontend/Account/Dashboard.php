@@ -9,7 +9,7 @@ class Dashboard extends Component
 {
     public function render()
     {
-        $reservTotal = Reservation::where('status', 1)->where('users_id', auth()->user()->id)->count();
+        $reservTotal = Reservation::where('status', 3)->where('users_id', auth()->user()->id)->count();
         $reservPending = Reservation::where('status', 0)->where('users_id', auth()->user()->id)->count();
         return view('livewire.frontend.account.dashboard', [
             'reservTotal' => $reservTotal,

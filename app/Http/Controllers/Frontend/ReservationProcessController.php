@@ -5,10 +5,9 @@ namespace App\Http\Controllers\frontend;
 use App\Models\Reservation;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
-use App\Models\ReservationItem;
 use App\Http\Controllers\Controller;
-use App\Models\ReservationVenue;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 class ReservationProcessController extends Controller
 {
     public function __construct()
@@ -18,6 +17,13 @@ class ReservationProcessController extends Controller
 
     public function index()
     {
+        if (auth()->user()->status == "incompleted") {
+            if (auth()->user()->status == "incompleted") {
+                Session::flash('status', 'warning');
+                Session::flash('message', 'Please complete your details before adding items or property under the profile page');
+                return redirect('/myaccount/profile');
+            }
+        }
         return view('frontend.reservation_process.index');
     }
 

@@ -27,14 +27,12 @@
                     </span>
                 @enderror
             </div>
-            <div class="mb-3 d-flex justify-content-between align-items-center rmb">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                        {{ old('remember') ? 'checked' : '' }}>
+            <div class="mb-3 d-flex justify-content-center align-items-center rmb">
+                <div class="form-check w-100">
 
-                    <label class="form-check-label" for="remember">
-                        <small> {{ __('Remember Me') }}</small>
-                    </label>
+                    <a class="btn btn-link" href="{{ route('register.custom') }}">
+                        <small> {{ __('Register') }}</small>
+                    </a>
                 </div>
                 <div class="form-check">
                     @if (Route::has('password.request'))

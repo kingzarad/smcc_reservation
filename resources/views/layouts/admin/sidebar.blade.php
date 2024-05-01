@@ -45,9 +45,8 @@
              </li>
 
              <li class="nav-item">
-                 <a class="nav-link {{ Request::is('admin/reservation/*') ? 'active' : '' }}" data-bs-toggle="collapse"
-                     href="#reservation" aria-expanded="{{ Request::is('admin/reservation/*') ? 'true' : 'false' }}"
-                     aria-controls="setting">
+                 <a class="nav-link {{ Request::is('admin/reservation/history') ? 'active' : '' }}"
+                     href="{{ route('reservation.history') }}">
                      <div
                          class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                          <svg width="12px" height="12px" viewBox="0 0 40 44" version="1.1"
@@ -70,29 +69,9 @@
                          </svg>
                      </div>
                      <span class="nav-link-text ms-1">Reservation</span>
-                     <i class="menu-arrow"></i>
-                 </a>
-                 <div class="collapse  {{ Request::is('admin/reservation/*') ? 'show' : '' }}" id="reservation">
-                     <ul class="nav flex-column sub-menu">
 
-                         <li class="nav-item">
-                             <a class="nav-link" href="{{ route('reservation.pending') }}">
-                                 <div
-                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                 </div>
-                                 <span class="nav-link-text ms-1 text-dark">Pending Reservation</span>
-                             </a>
-                         </li>
-                         <li class="nav-item">
-                             <a class="nav-link" href="{{ route('reservation.history') }}">
-                                 <div
-                                     class="icon icon-shape icon-sm  border-radius-md text-center  d-flex align-items-center justify-content-center">
-                                 </div>
-                                 <span class="nav-link-text ms-1 text-dark">Reservation History</span>
-                             </a>
-                         </li>
-                     </ul>
-                 </div>
+                 </a>
+
              </li>
 
              <li class="nav-item mt-3">

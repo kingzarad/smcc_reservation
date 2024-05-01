@@ -29,7 +29,11 @@
                                             </div>
                                         </li>
                                         <li><a href="{{ route('home') }}" class="nav-link menu-title">Home</a></li>
+                                        @guest
+                                            <li><a href="{{ route('register.custom') }}"
+                                                    class="nav-link menu-title">Register</a></li>
 
+                                        @endguest
                                     </ul>
                                 </div>
                             </div>

@@ -15,12 +15,12 @@ class DashboardController extends Controller
 
         $userPending = User::where('user_status', 1)->count();
         $reservTotal = Reservation::where('status', 1)->count();
-        $reservPending = Reservation::where('status', 0)->count();
+        $reservCompleted = Reservation::where('status', 3)->count();
         $reservCancel = Reservation::where('status', 2)->count();
 
         return view('admin.dashboard', [
             'reservTotal' => $reservTotal,
-            'reservPending' => $reservPending,
+            'reservCompleted' => $reservCompleted,
             'reservCancel' => $reservCancel,
             'userPending' => $userPending
         ]);

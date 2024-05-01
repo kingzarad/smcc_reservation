@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Reports;
 
+use App\Models\Department;
 use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\Venue;
@@ -40,6 +41,9 @@ class Index extends Component
         $reservations = Reservation::where('status', 3)->get();
         $reservationsList = [];
 
+        $department = Department::get();
+
+
         foreach ($reservations as $reservation) {
             // Retrieve the corresponding reservation for each reservation item
 
@@ -51,77 +55,63 @@ class Index extends Component
                     }
 
                     $itemsString = '';
-                    $itemCount = 0;
 
                     if (!is_null($reservation->item)) {
                         foreach ($reservation->item as $value) {
                             $item = Item::find($value->item_id);
-
                             if ($item) {
                                 $itemName = $item->name;
-
+                                $qty = $value->quantity;
+                                $itemWithQty = "$itemName   [$qty]";
                                 if (!empty($itemsString)) {
                                     $itemsString .= ', ';
                                 }
-
-                                $itemsString .= $itemName;
-                                $itemCount++;
-                                if ($itemCount >= 3) {
-                                    break;
-                                }
+                                $itemsString .= $itemWithQty;
                             }
-                        }
-
-                        if (count($reservation->item) > 3) {
-                            $itemsString .= '...';
                         }
                     }
 
                     $venueString = '';
-                    $venueCount = 0;
-
                     if (!is_null($reservation->venue)) {
                         foreach ($reservation->venue as $value) {
                             $venue = Venue::find($value->venue_id);
-
                             if ($venue) {
                                 $venueName = $venue->name;
-
+                                $qty = $value->quantity;
+                                $venueWithQty = "$venueName   [$qty]";
                                 if (!empty($venueString)) {
                                     $venueString .= ', ';
                                 }
-
-                                $venueString .= $venueName;
-                                $venueCount++;
-                                if ($venueCount >= 3) {
-                                    break;
-                                }
+                                $venueString .= $venueWithQty;
                             }
                         }
-
-                        if (count($reservation->venue) > 3) {
-                            $venueString .= '...';
-                        }
                     }
+                    $startTime = Carbon::parse($reservation->time_from);
+                    $endTime = Carbon::parse($reservation->time_to);
 
-                    $startTime = Carbon::createFromTimeString('08:00:00');
-                    $endTime = Carbon::createFromTimeString('11:00:00');
                     // Calculate total hours and minutes
-                    $totalHours = intval($endTime->diffInHours($startTime));
-                    $remainingMinutes = $endTime->diffInMinutes($startTime) % 60;
+                    $diff = $endTime->diff($startTime);
+                    $totalHours = $diff->h;
+                    $remainingMinutes = $diff->i;
 
                     // Prepare the output string
-                    $output = "The total time difference is ";
-                    if ($totalHours > 0) {
-                        $output .= $totalHours . " hour" . ($totalHours > 1 ? "s" : "");
-                    }
-                    if ($remainingMinutes > 0) {
+                    $output = "";
+
+                    if ($totalHours > 0 || $remainingMinutes > 0) {
                         if ($totalHours > 0) {
-                            $output .= " and ";
+                            $output .= $totalHours . " hour" . ($totalHours > 1 ? "s" : "");
                         }
-                        $output .= $remainingMinutes . " minute" . ($remainingMinutes > 1 ? "s" : "");
+                        if ($remainingMinutes > 0) {
+                            if ($totalHours > 0) {
+                                $output .= " and ";
+                            }
+                            $output .= $remainingMinutes . " minute" . ($remainingMinutes > 1 ? "s" : "");
+                        }
+                        $output .= ".";
+                    } else {
+                        $output = "No time.";
                     }
-                    $output .= ".";
+
 
                     $reservationData = [
                         'reservation_id' => $reservation->id,
@@ -129,6 +119,7 @@ class Index extends Component
                         'name' => "Items: $itemsString, Venue/Rooms: $venueString",
                         'status' => $reservation->status,
                         'qty' => $output,
+                        'depart' => $reservation->department_id,
                         'date' => Carbon::parse($reservation->date_filled)->format('F d, Y'),
                     ];
 
@@ -139,6 +130,6 @@ class Index extends Component
         }
 
 
-        return view('livewire.admin.reports.index', ['reserv' => $reservationsList]);
+        return view('livewire.admin.reports.index', ['department' =>  $department, 'reserv' => $reservationsList]);
     }
 }

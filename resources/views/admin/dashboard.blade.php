@@ -28,15 +28,15 @@
                 </a>
             </div>
             <div class="col-xl-4 col-sm-6 mb-xl-0 mb-4">
-                <a href="{{ route('reservation.pending') }}">
+                <a href="{{ route('reservation.history') }}">
                     <div class="card ">
                         <div class="card-body p-3">
                             <div class="row">
                                 <div class="col-8">
                                     <div class="numbers">
-                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Pending Reservation</p>
+                                        <p class="text-sm mb-0 text-capitalize font-weight-bold">Competed Reservation</p>
                                         <h3 class="font-weight-bolder mb-0 ">
-                                            {{ $reservPending }}
+                                            {{ $reservCompleted }}
                                         </h3>
                                     </div>
                                 </div>
