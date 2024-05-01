@@ -136,12 +136,19 @@ class Index extends Component
         ]);
 
         $this->reference_num = $this->getTransNo();
-        $existing = Reservation::where([
-            ['date_from', $this->dsfrom],
-            ['date_to', $this->dsto],
-            ['time_from', $this->tsfrom],
-            ['time_to', $this->tsto] // Should this be $this->tsto?
-        ])->exists();
+        $existing = Reservation::where(function ($query) {
+            $query->where('date_from', '<=', $this->dsfrom)
+                ->where('date_to', '>=', $this->dsfrom)
+                ->where(function ($subQuery) {
+                    $subQuery->where('time_from', '<', $this->tsfrom)
+                        ->where('time_to', '>', $this->tsfrom);
+                })
+                ->orWhere(function ($subQuery) {
+                    $subQuery->where('time_from', '<', $this->tsto)
+                        ->where('time_to', '>', $this->tsto);
+                });
+        })->exists();
+
         if ($existing) {
             $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'This reservation date and time are not available.');
             return false;
