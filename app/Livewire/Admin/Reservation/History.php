@@ -88,33 +88,33 @@ class History extends Component
         $users = User::where('id', $reserv->users_id)->first();
 
 
-        foreach ($items as $item) {
+        // foreach ($items as $item) {
 
-            $item_list = Item::findOrFail($item->item_id);
-            $existingQuantity = $item_list->quantity;
+        //     $item_list = Item::findOrFail($item->item_id);
+        //     $existingQuantity = $item_list->quantity;
 
-            $newQuantity = $existingQuantity + $item->quantity;
-
-
-            if ($newQuantity <= 0) {
-                $item_list->update(['status' => 0]);
-            }
-            $item_list->update(['quantity' => max(0, $newQuantity)]);
-        }
-
-        foreach ($venues as $venue) {
-
-            $venue_list = Venue::findOrFail($venue->venue_id);
-            $existingQuantity = $venue_list->quantity;
-
-            $newQuantity = $existingQuantity + $venue->quantity;
+        //     $newQuantity = $existingQuantity + $item->quantity;
 
 
-            if ($newQuantity <= 0) {
-                $venue_list->update(['status' => 0]);
-            }
-            $venue_list->update(['quantity' => max(0, $newQuantity)]);
-        }
+        //     if ($newQuantity <= 0) {
+        //         $item_list->update(['status' => 0]);
+        //     }
+        //     $item_list->update(['quantity' => max(0, $newQuantity)]);
+        // }
+
+        // foreach ($venues as $venue) {
+
+        //     $venue_list = Venue::findOrFail($venue->venue_id);
+        //     $existingQuantity = $venue_list->quantity;
+
+        //     $newQuantity = $existingQuantity + $venue->quantity;
+
+
+        //     if ($newQuantity <= 0) {
+        //         $venue_list->update(['status' => 0]);
+        //     }
+        //     $venue_list->update(['quantity' => max(0, $newQuantity)]);
+        // }
 
 
         $reservation = Reservation::findOrFail($this->reservation_id);
@@ -143,33 +143,33 @@ class History extends Component
         $venues = ReservationVenue::where('reservation_id', $reservation->id)->get();
 
 
-        foreach ($items as $item) {
+        // foreach ($items as $item) {
 
-            $item_list = Item::findOrFail($item->item_id);
-            $existingQuantity = $item_list->quantity;
+        //     $item_list = Item::findOrFail($item->item_id);
+        //     $existingQuantity = $item_list->quantity;
 
-            $newQuantity = $existingQuantity + $item->quantity;
-
-
-            if ($newQuantity <= 0) {
-                $item_list->update(['status' => 0]);
-            }
-            $item_list->update(['quantity' => max(0, $newQuantity)]);
-        }
-
-        foreach ($venues as $venue) {
-
-            $venue_list = Venue::findOrFail($venue->venue_id);
-            $existingQuantity = $venue_list->quantity;
-
-            $newQuantity = $existingQuantity + $venue->quantity;
+        //     $newQuantity = $existingQuantity + $item->quantity;
 
 
-            if ($newQuantity <= 0) {
-                $venue_list->update(['status' => 0]);
-            }
-            $venue_list->update(['quantity' => max(0, $newQuantity)]);
-        }
+        //     if ($newQuantity <= 0) {
+        //         $item_list->update(['status' => 0]);
+        //     }
+        //     $item_list->update(['quantity' => max(0, $newQuantity)]);
+        // }
+
+        // foreach ($venues as $venue) {
+
+        //     $venue_list = Venue::findOrFail($venue->venue_id);
+        //     $existingQuantity = $venue_list->quantity;
+
+        //     $newQuantity = $existingQuantity + $venue->quantity;
+
+
+        //     if ($newQuantity <= 0) {
+        //         $venue_list->update(['status' => 0]);
+        //     }
+        //     $venue_list->update(['quantity' => max(0, $newQuantity)]);
+        // }
 
         $reservation->update([
             'status' => 3,

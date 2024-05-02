@@ -194,15 +194,15 @@ class Index extends Component
                     'quantity' => $quantity
                 ]);
 
-                $item_list = Item::findOrFail($itemId);
-                $existingQuantity = $item_list->quantity;
+                // $item_list = Item::findOrFail($itemId);
+                // $existingQuantity = $item_list->quantity;
 
-                $newQuantity = $existingQuantity - $quantity;
+                // $newQuantity = $existingQuantity - $quantity;
 
-                if ($newQuantity <= 0) {
-                    $item_list->update(['status' => 1]);
-                }
-                $item_list->update(['quantity' => max(0, $newQuantity)]);
+                // if ($newQuantity <= 0) {
+                //     $item_list->update(['status' => 1]);
+                // }
+                // $item_list->update(['quantity' => max(0, $newQuantity)]);
             }
         }
 
@@ -214,15 +214,15 @@ class Index extends Component
                     'quantity' => $quantity
                 ]);
 
-                $venue_list = Venue::findOrFail($venueId);
-                $existingQuantity = $venue_list->quantity;
+                // $venue_list = Venue::findOrFail($venueId);
+                // $existingQuantity = $venue_list->quantity;
 
-                $newQuantity = $existingQuantity - $quantity;
+                // $newQuantity = $existingQuantity - $quantity;
 
-                if ($newQuantity <= 0) {
-                    $venue_list->update(['status' => 1]);
-                }
-                $venue_list->update(['quantity' => max(0, $newQuantity)]);
+                // if ($newQuantity <= 0) {
+                //     $venue_list->update(['status' => 1]);
+                // }
+                // $venue_list->update(['quantity' => max(0, $newQuantity)]);
             }
         }
         $reference = $this->reference_num;
