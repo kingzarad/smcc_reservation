@@ -44,6 +44,7 @@
 
 
                                 @auth
+                                   @livewire('frontend.navbar-hello')
                                     @if (Route::has('logout'))
                                         <li>
                                             <a href="{{ route('logout') }}"

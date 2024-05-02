@@ -79,7 +79,7 @@
                 <div class="row">
                     <div class="col-12 p-0">
                         <div class="success-icon">
-                            <div class="main-container">
+                            <div class="main-container d-none">
                                 <div class="card mb-3">
                                     <div class="card-body">
                                         <h1> CODE: {{ $referenceNumber }}</h1>
@@ -129,7 +129,7 @@
                             <div class="col-sm-6">
                                 <h4>Summary </h4>
                                 <ul class="order-details">
-                                    <li>Reference: <strong>{{ $details->reference_num }}</strong></li>
+                                    <li class="d-none">Reference: <strong>{{ $details->reference_num }}</strong></li>
                                     <li>Date: {{ \Carbon\Carbon::parse($details->date_from)->format('F j, Y') }}
                                         -
                                         {{ \Carbon\Carbon::parse($details->date_to)->format('F j, Y') }}</li>

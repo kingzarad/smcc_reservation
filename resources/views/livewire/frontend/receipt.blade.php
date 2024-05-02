@@ -49,7 +49,7 @@
         }
     </style>
     <div class="container scroll border p-5">
-        
+
         <div class="row" style="width: 1000px !important;">
             <div class="col-lg-12">
                 <div class=" d-flex justify-content-center align-items-center">
@@ -93,7 +93,7 @@
                                             NAME:
                                         </label>
                                         <input
-                                            value=" {{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }}{{ Str::ucfirst($users->lastname ?? '') }}"
+                                            value=" {{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }} {{ Str::ucfirst($users->lastname ?? '') }}"
                                             style="margin-left: 25px !important;" type="text">
                                     </div>
                                 </div>
@@ -248,7 +248,7 @@
                                 </div>
                                 <div class="col-sm-12">
                                     <input type="text"
-                                        value="{{ Str::ucfirst($users->firstname ?? '?') }}{{ Str::ucfirst($users->middlename ?? '') }} {{ Str::ucfirst($users->lastname ?? '') }}">
+                                        value="{{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }} {{ Str::ucfirst($users->lastname ?? '') }}">
                                 </div>
                                 <div class="col-sm-12">
                                     <label for="">

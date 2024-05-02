@@ -154,110 +154,143 @@ $(document).ready(function () {
         }
     });
 
-    $("#datatable_report").each(function () {
-        var datatable_report = $(this).DataTable({
-            dom: "Bfrtip",
-            buttons: [
-                {
-                    extend: "print",
-                    text: "Print",
-                    title: "RESERVATION REPORT",
-                    exportOptions: {
-                        columns: ":not(.exclude-print)",
-                    },
-                    customize: function (win) {
-                        $(win.document.body)
-                            .find("table")
-                            .addClass("display")
-                            .css("font-size", "16px");
-                        $(win.document.body)
-                            .find("tr:nth-child(odd) td")
-                            .each(function () {
-                                $(this).css("background-color", "#D0D0D0");
-                            });
-                        $(win.document.body)
-                            .find("h1")
-                            .css("text-align", "center")
-                            .css("font-size", "16px");
-                        $(win.document.body).find("h1").text("TOTAL");
-                        $(win.document.body).find("h1").after("<hr>");
-                        $(win.document.body)
-                            .find("thead")
-                            .after(
-                                '<tfoot><tr><th colspan="5"></th></tr></tfoot>'
-                            );
-                        $(win.document.body)
-                            .find("tfoot th")
-                            .css("text-align", "left");
+    $(document).ready(function () {
+        $("#datatable_report").each(function () {
+            var datatable_report = $(this).DataTable({
+                dom: "Bfrtip",
+                buttons: [
+                    {
+                        extend: "print",
+                        text: "Print",
+                        title: "RESERVATION REPORT",
+                        exportOptions: {
+                            columns: ":not(.exclude-print)",
+                        },
+                        customize: function (win) {
+                            $(win.document.body)
+                                .find("table")
+                                .addClass("display")
+                                .css("font-size", "16px");
+                            $(win.document.body)
+                                .find("tr:nth-child(odd) td")
+                                .each(function () {
+                                    $(this).css(
+                                        "background-color",
+                                        "#D0D0D0"
+                                    );
+                                });
+                            $(win.document.body)
+                                .find("h1")
+                                .css("text-align", "center")
+                                .css("font-size", "16px");
+                            $(win.document.body)
+                                .find("h1")
+                                .text("RESERVATION REPORT");
+                            $(win.document.body).find("h1").after("<hr>");
+                            $(win.document.body)
+                                .find("thead")
+                                .after(
+                                    '<tfoot><tr><th colspan="5"></th></tr></tfoot>'
+                                );
+                            $(win.document.body)
+                                .find("tfoot th")
+                                .css("text-align", "left");
 
-                        var totalRegistered = table
-                            .rows({ search: "applied" })
-                            .count();
-                        $(win.document.body)
-                            .find("tfoot th")
-                            .text("TOTAL: " + totalRegistered)
-                            .css("font-weight", "bold");
-                    },
-                },
-            ],
-            searching: true,
-            lengthChange: true,
-            info: false,
+                            var totalMyHours = table
+                                .column(3)
+                                .data()
+                                .reduce(function (acc, val) {
+                                    // Split the value into days and hours
+                                    var parts = val.split(" and ");
+                                    var days = 0;
+                                    var hours = 0;
+                                    // Parse the days and hours from the parts
+                                    parts.forEach(function (part) {
+                                        if (part.includes("day")) {
+                                            days += parseInt(part);
+                                        } else if (part.includes("hour")) {
+                                            hours += parseInt(part);
+                                        }
+                                    });
+                                    // Add the total hours for this row to the accumulator
+                                    acc += days * 24 + hours;
+                                    return acc;
+                                }, 0);
 
-            pageLength: 5,
-            lengthMenu: [5, 10, 25, 50, 100],
-            responsive: {
-                details: true,
-                breakpoints: [
-                    { name: "desktop", width: Infinity },
-                    { name: "tablet", width: 1024 },
-                    { name: "fablet", width: 768 },
-                    { name: "phone", width: 480 },
+                            $(win.document.body)
+                                .find("tfoot th")
+                                .text("TOTAL HOURS: " + totalMyHours + "hrs")
+                                .css("font-weight", "bold");
+                        },
+                    },
                 ],
-            },
-        });
+                searching: true,
+                lengthChange: true,
+                info: false,
 
-        var table = datatable_report;
-        var filterDepart = $("#hhdepartment");
+                pageLength: 5,
+                lengthMenu: [5, 10, 25, 50, 100],
+                responsive: {
+                    details: true,
+                    breakpoints: [
+                        { name: "desktop", width: Infinity },
+                        { name: "tablet", width: 1024 },
+                        { name: "fablet", width: 768 },
+                        { name: "phone", width: 480 },
+                    ],
+                },
+            });
 
-        var monthFilter = $("#hhmonth");
-        var yrFilter = $("#hhyear");
+            var table = datatable_report;
+            var filterDepart = $("#hhdepartment");
+            var monthFilter = $("#hhmonth");
+            var yrFilter = $("#hhyear");
 
-        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
-
-            var filterDepartValue = filterDepart.val().toLowerCase();
-            var monthFilterValue = monthFilter.val();
-            var yrFilterValue = yrFilter.val().toLowerCase();
-
-            var rowData = table.row(dataIndex).data();
-            var rowDepart = rowData[5];
-
-            var rowDate = rowData[4];
-
-            if (
-                (filterDepartValue === "all" || rowDepart.toLowerCase() === filterDepartValue) &&
-
-                (monthFilterValue === "all" || rowDate.toLowerCase().includes(monthFilterValue.toLowerCase())) &&
-                (yrFilterValue === "all" || rowDate.toLowerCase().includes(yrFilterValue.toLowerCase()))
+            $.fn.dataTable.ext.search.push(function (
+                settings,
+                data,
+                dataIndex
             ) {
-                return true; // Row matches the filter criteria
-            }
+                var filterDepartValue = filterDepart.val().toLowerCase();
+                var monthFilterValue = monthFilter.val();
+                var yrFilterValue = yrFilter.val().toLowerCase();
 
-            return false;
-        });
+                var rowData = table.row(dataIndex).data();
+                var rowDepart = rowData[7];
+                var myHours = parseInt(rowData[3]); // Parse the value to integer
+                var rowDate = rowData[6];
 
-        filterDepart.on("change", function () {
+                if (
+                    (filterDepartValue === "all" ||
+                        rowDepart.toLowerCase() === filterDepartValue) &&
+                    (monthFilterValue === "all" ||
+                        rowDate
+                            .toLowerCase()
+                            .includes(monthFilterValue.toLowerCase())) &&
+                    (yrFilterValue === "all" ||
+                        rowDate
+                            .toLowerCase()
+                            .includes(yrFilterValue.toLowerCase()))
+                ) {
+                    return true; // Row matches the filter criteria
+                }
+
+                return false;
+            });
+
+            filterDepart.on("change", function () {
+                table.draw();
+            });
+
+            monthFilter.on("change", function () {
+                table.draw();
+            });
+
+            yrFilter.on("change", function () {
+                table.draw();
+            });
+
             table.draw();
         });
-
-        monthFilter.on("change", function () {
-            table.draw();
-        });
-
-        yrFilter.on("change", function () {
-            table.draw();
-        });
-
-        table.draw();
     });
 });

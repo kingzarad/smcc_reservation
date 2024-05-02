@@ -82,11 +82,13 @@
                 <table id="datatable_report" class="table table-borderless w-100">
                     <thead class="bg-gradient-primary text-white">
                         <tr>
-                            <th>No.</th>
-                            <th class="d-noxne ">REFERENCE NO.</th>
-                            <th>RESERVATION LIST</th>
-                            <th>HOURS</th>
+                            <th>DEPARMENT</th>
 
+                            <th>VENUE LIST</th>
+                            <th>ITEM LIST</th>
+                            <th>HOURS</th>
+                            <th>TIME USAGE (FROM - TO)</th>
+                            <th>DATE USAGE (FROM - TO)</th>
                             <th>FILED DATE</th>
 
                             <th class="d-none exclude-print">DEPART RAW</th>
@@ -96,12 +98,14 @@
                     <tbody>
                         @foreach ($reserv as $index => $item)
                             <tr>
-                                <td>{{ ++$index }}</td>
-                                <td>{{ $item->reference_num ?? '' }}</td>
-                                <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis;"
-                                    title="{{ $item->name ?? '' }}">{{ $item->name ?? '' }}</td>
+                                <td>{{ $item->departname->department_name }}</td>
 
-                                <td>{{ $item->qty ?? '' }}</td>
+                                <td>{{ $item->Venue  ?? '' }}</td>
+                                <td>{{ $item->Items ?? '' }}</td>
+
+                                <td>{{ $item->hours ?? '' }}</td>
+                                <td>{{ $item->usagetime ?? '' }}</td>
+                                <td>{{ $item->usagedate ?? '' }}</td>
                                 <td>{{ $item->date ?? '' }}</td>
 
                                 <td class="d-none">

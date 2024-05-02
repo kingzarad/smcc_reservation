@@ -15,9 +15,9 @@
             <table id="datatable" class="table table-borderless">
                 <thead class="bg-gradient-primary text-white">
                     <tr>
-                        <th style="width:50px">#</th>
-                        <th>Reference #</th>
-                        <th>Name</th>
+
+                        <th>Department</th>
+                        <th>Instructor Name</th>
                         <th>Date Filled</th>
 
                         <th>Status</th>
@@ -28,9 +28,9 @@
                 <tbody>
                     @foreach ($reservationlists as $index => $item)
                         <tr>
-                            <td> {{ ++$index }}</td>
-                            <td>{{ $item->reference_num }}</td>
-                            <td> {{ Str::ucfirst($item->users->username) }} </td>
+
+                            <td>{{ $item->departname }}</td>
+                            <td> {{ $item->name }} </td>
                             <td>{{ \Carbon\Carbon::parse($item->date_filled)->format('F j, Y') }}</td>
 
                             <td>

@@ -110,6 +110,7 @@
     <script src="{{ asset('assets_admin/js/soft-ui-dashboard.min.js?v=1.0.7') }}"></script>
     <script src="{{ asset('assets_admin/js/plugins/chartjs.min.js') }}"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
     <script src="{{ asset('assets_admin/js/datatable/table.js') }}"></script>
     {{-- <script src="{{ asset('assets_admin/js/app.js') }}"></script> --}}
     <script>

@@ -26,7 +26,7 @@ class CustomRegistration extends Component
         User::create([
             'username' => $data['username'],
             'email' => $data['email'],
-            'status' => "incomplete",
+            'status' => "incompleted",
             'user_status' => 1,
             'password' => Hash::make($data['password']),
         ]);

@@ -131,7 +131,7 @@
                     Tel. Nos. ( 085 ) 343-3251; ( 085 ) 283-3113
                 </p>
                 <h4 style="padding: 0px; margin:5px"><strong>PROPERTY MANAGMENT OFFICE</strong></h4>
-                <h4 class="romans-font">PERMIT TO USE FORM (Requestor's Copy)👈🏻</h4>
+                <h4 class="romans-font">PERMIT TO USE FORM (Requestor's Copy)</h4>
             </div>
         </div>
     </div>
@@ -154,7 +154,7 @@
                         <div class=" input-group">
                             <label>NAME:</label>
                             <input type="text"
-                                value="{{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }}{{ Str::ucfirst($users->lastname ?? '') }}">
+                                value="{{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }} {{ Str::ucfirst($users->lastname ?? '') }}">
                         </div>
                     </td>
                     <td colspan="2">

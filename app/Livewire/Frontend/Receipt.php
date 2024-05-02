@@ -12,7 +12,7 @@ class Receipt extends Component
 
     public function mount($details, $users)
     {
-
+        // dd($details);
         $this->details = $details;
         $this->users = $users;
     }

@@ -55,7 +55,7 @@
                                                     target="_blank">
                                                     <strong> View</strong>
                                                 </a></li>
-                                            @if ($status != 2 && $status != 3)
+                                            {{-- @if ($status != 2 && $status != 3)
                                                 <li>
                                                     <div class="card mt-3">
                                                         <div class="card-body">
@@ -65,7 +65,7 @@
                                                         </div>
                                                     </div>
                                                 </li>
-                                            @endif
+                                            @endif --}}
                                         </ul>
                                     </div>
 
@@ -81,6 +81,18 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="col-md-12">
+                            @empty($details)
+                                {{-- Code to execute when $details is empty --}}
+                            @else
+                                <a target="_blank"
+                                    href="{{ route('permit.download', ['reference' => $details->reference_num]) }}"
+                                    class="btn btn-sm btn-primary">PRINT</a>
+                                @livewire('frontend.receipt', ['details' => $details, 'users' => $users])
+                            @endempty
+
+
                         </div>
                         <div class="col-md-12 row p-3">
                             <div class="col-sm-6 table-responsive border">

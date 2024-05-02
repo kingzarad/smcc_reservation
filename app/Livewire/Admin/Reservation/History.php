@@ -8,9 +8,10 @@ use App\Models\User;
 use App\Models\Venue;
 use Livewire\Component;
 
+use App\Models\Department;
 use App\Models\Reservation;
-use App\Models\UserDetails;
 
+use App\Models\UserDetails;
 use App\Models\ReservationItem;
 use App\Models\ReservationVenue;
 use App\Notifications\CustomerNotification;
@@ -26,12 +27,37 @@ class History extends Component
 
     public function render()
     {
-
-        $reservationlists = Reservation::where('status', '!=', 0)
-            ->orderBy('created_at', 'desc')
+        $reservationsList = [];
+        $reservationlists = Reservation::orderBy('created_at', 'desc')
             ->get();
 
-        return view('livewire.admin.reservation.history', ['reservationlists' => $reservationlists]);
+        foreach ($reservationlists as $reservation) {
+            if ($reservation) {
+                if (isset($reservationsList[$reservation->reference_num])) {
+                    continue;
+                }
+
+                $departname = Department::where('id', $reservation->department_id)->first();
+                $users = UserDetails::where('users_id', $reservation->users_id)->first();
+
+                $name = ucwords($users->firstname . " " . ($users->middlename ?? '') . " " . $users->lastname);
+
+                $reservationData = [
+                    'id' => $reservation->id,
+                    'reference_num' => $reservation->reference_num,
+                    'date_filled' => $reservation->date_filled,
+                    'status' => $reservation->status,
+                    'departname' => $departname->department_name,
+                    'name' =>  $name
+                ];
+
+
+                $reservationsList[$reservation->reference_num] = (object) $reservationData;
+            }
+
+        }
+
+        return view('livewire.admin.reservation.history', ['reservationlists' => $reservationsList]);
     }
 
     public function closeModal()
@@ -68,6 +94,7 @@ class History extends Component
             $this->venue_list = $venue;
             $this->item_list = $items;
 
+            // dd( $reservation->item);
             $this->reservation_id = $reservation->id;
             $this->details = $reservation;
             $this->item = $item;

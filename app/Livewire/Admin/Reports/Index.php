@@ -86,26 +86,33 @@ class Index extends Component
                             }
                         }
                     }
+
+                    $dateFrom = Carbon::parse($reservation->date_from);
+                    $dateTo = Carbon::parse($reservation->date_to);
+
                     $startTime = Carbon::parse($reservation->time_from);
                     $endTime = Carbon::parse($reservation->time_to);
 
-                    // Calculate total hours and minutes
-                    $diff = $endTime->diff($startTime);
-                    $totalHours = $diff->h;
-                    $remainingMinutes = $diff->i;
+                    // Calculate total hours, minutes, and days
+                    $diffInDays = $dateTo->diffInDays($dateFrom);
+                    $diffInHours = $endTime->diffInHours($startTime);
+                    $diffInMinutes = $endTime->diffInMinutes($startTime) % 60;
 
                     // Prepare the output string
                     $output = "";
 
-                    if ($totalHours > 0 || $remainingMinutes > 0) {
-                        if ($totalHours > 0) {
-                            $output .= $totalHours . " hour" . ($totalHours > 1 ? "s" : "");
+                    if ($diffInDays > 0 || $diffInHours > 0 || $diffInMinutes > 0) {
+                        if ($diffInDays > 0) {
+                            $output .= $diffInDays . " day" . ($diffInDays > 1 ? "s" : "") . " ";
                         }
-                        if ($remainingMinutes > 0) {
-                            if ($totalHours > 0) {
-                                $output .= " and ";
+                        if ($diffInHours > 0 || $diffInMinutes > 0) {
+                            if ($diffInDays > 0) {
+                                $output .= "and ";
                             }
-                            $output .= $remainingMinutes . " minute" . ($remainingMinutes > 1 ? "s" : "");
+                            $output .= $diffInHours . " hour" . ($diffInHours > 1 ? "s" : "") . " ";
+                            if ($diffInMinutes > 0) {
+                                $output .= $diffInMinutes . " minute" . ($diffInMinutes > 1 ? "s" : "") . " ";
+                            }
                         }
                         $output .= ".";
                     } else {
@@ -113,13 +120,18 @@ class Index extends Component
                     }
 
 
+
+                    $departname = Department::where('id', $reservation->department_id)->first();
                     $reservationData = [
                         'reservation_id' => $reservation->id,
-                        'reference_num' => $reservation->reference_num,
-                        'name' => "Items: $itemsString, Venue/Rooms: $venueString",
+                        'Items' => "Items: $itemsString",
+                        'Venue' => "Venue/Rooms: $venueString",
                         'status' => $reservation->status,
-                        'qty' => $output,
+                        'usagetime' => Carbon::parse($reservation->time_from)->format('g:i A') . " - " . Carbon::parse($reservation->time_to)->format('g:i A'),
+                        'usagedate' => Carbon::parse($reservation->date_from)->format('F d, Y') . " - " . Carbon::parse($reservation->date_to)->format('F d, Y'),
+                        'hours' => $output,
                         'depart' => $reservation->department_id,
+                        'departname' => $departname,
                         'date' => Carbon::parse($reservation->date_filled)->format('F d, Y'),
                     ];
 
