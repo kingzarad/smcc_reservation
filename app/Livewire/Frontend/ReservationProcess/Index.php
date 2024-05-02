@@ -229,14 +229,14 @@ class Index extends Component
         $referenceNumber = substr($reference, 7);
         $users = User::where('id', auth()->user()->id)->first();
 
-        $link = route('place_reservation', ['reference' => $reserv->reference_num]);
+        $link = route('permit.download', ['reference' => $reserv->reference_num]);
         $details = [
             'greeting' => "Congratulation🎊",
             'body' => "REFERENCE NUMBER: <strong>$reserv->reference_num</strong> <br>
              The reservation has been successfully approved. Here is your verification code: <strong>$referenceNumber </strong>
             <br> Thank You!",
             'lastline' => '',
-            'regards' => "Visit for information: $link"
+            'regards' => "Download Permit: $link"
         ];
         Notification::send($users, new CustomerNotification($details));
         $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The reservation was successfully placed. Please wait for the administrators confirmation via email.');

@@ -47,10 +47,10 @@ class PDFController extends Controller
         // return $pdf->download('invoice.pdf');
 
         $pdf = App::make('dompdf.wrapper');
-        // $htmlContent = view('permit.layout', $this->content)->render();
+        $htmlContent = view('permit.layout', $this->content)->render();
 
-        $htmlContent = view('permit.layout')->render();
-         $pdf->loadHTML($htmlContent);
+
+        $pdf->loadHTML($htmlContent);
         $contxt = stream_context_create([
             'ssl' => [
                 'verify_peer' => FALSE,

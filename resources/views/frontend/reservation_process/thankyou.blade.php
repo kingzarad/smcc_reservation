@@ -105,7 +105,10 @@
     <section class="section-b-space cart-section order-details-table">
         <div class="container">
             <div class="title title1 title-effect mb-1 title-left">
-                <h2 class="mb-3">Printable Permit</h2>
+                <h2 class="mb-3">Printable Permit</h2><a target="_blank"
+                    href="{{ route('permit.download', ['reference' => $details->reference_num]) }}"
+                    class="mx-3 btn btn-sm btn-primary">PRINT</a>
+
             </div>
             @livewire('frontend.receipt', ['details' => $details, 'users' => $users])
         </div>
