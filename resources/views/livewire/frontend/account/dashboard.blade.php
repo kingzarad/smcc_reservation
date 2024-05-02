@@ -46,7 +46,7 @@
                                     class="img-fluid blur-up lazyload" alt="">
 
                                 <div>
-                                    <h5 class="font-light">pending reservation</h5>
+                                    <h5 class="font-light">cancelled reservation</h5>
                                     <h3>{{ $reservPending }}</h3>
                                 </div>
                             </div>
