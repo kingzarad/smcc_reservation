@@ -143,7 +143,8 @@
                     <td colspan="3">
                         <div class="input-group" style="margin-bottom: 2px">
                             <label>DATE FILLED:</label>
-                            <input type="text" value="{{ \Carbon\Carbon::parse($details->date_filled)->format('F j, Y') }}">
+                            <input type="text"
+                                value="{{ \Carbon\Carbon::parse($details->date_filled)->format('F j, Y') }}">
                         </div>
                     </td>
 
@@ -152,7 +153,8 @@
                     <td colspan="2">
                         <div class=" input-group">
                             <label>NAME:</label>
-                            <input type="text" value="{{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }}{{ Str::ucfirst($users->lastname ?? '') }}">
+                            <input type="text"
+                                value="{{ Str::ucfirst($users->firstname ?? '?') }} {{ Str::ucfirst($users->middlename ?? '') }}{{ Str::ucfirst($users->lastname ?? '') }}">
                         </div>
                     </td>
                     <td colspan="2">
@@ -166,7 +168,8 @@
                     <td colspan="3">
                         <div class="input-group" style="margin-bottom: 2px">
                             <label>DEPT:</label>
-                            <input type="text" value="{{ Str::ucfirst($users->departmentDetails->department_name) }}">
+                            <input type="text"
+                                value="{{ Str::ucfirst($users->departmentDetails->department_name) }}">
                         </div>
                     </td>
                 </tr>
@@ -189,13 +192,25 @@
                 <tr>
                     <td colspan="2">
                         <div class=" input-group">
-                            <label>INSIDE THE SCHOOL: []</label>
+                            <label>INSIDE THE SCHOOL:
+                                @if ($details->school_premises == 1)
+                                    [1]
+                                @else
+                                    [0]
+                                @endif
+                            </label>
 
                         </div>
                     </td>
                     <td colspan="2">
                         <div class="  input-group">
-                            <label>OUTSIDE THE SCHOOL: []</label>
+                            <label>OUTSIDE THE SCHOOL:
+                                @if ($details->school_premises == 0)
+                                    [1]
+                                @else
+                                    [0]
+                                @endif
+                            </label>
 
                         </div>
                     </td>
@@ -204,19 +219,22 @@
                     <td colspan="1">
                         <div class=" input-group" style="margin-bottom: 2px">
                             <label>DATE OF USAGE:</label>
-                            <input type="text" style="width: 70px" value="{{ \Carbon\Carbon::parse($details->date_from)->format('F j') }}">
+                            <input type="text" style="width: 70px"
+                                value="{{ \Carbon\Carbon::parse($details->date_from)->format('F j') }}">
                         </div>
                     </td>
                     <td colspan="1">
                         <div class=" input-group" style="margin-bottom: 2px">
                             <label>TO:</label>
-                            <input type="text" style="width: 100px" value="{{ \Carbon\Carbon::parse($details->date_to)->format('F j') }}">
+                            <input type="text" style="width: 100px"
+                                value="{{ \Carbon\Carbon::parse($details->date_to)->format('F j') }}">
                         </div>
                     </td>
                     <td colspan="1">
                         <div class=" input-group" style="margin-bottom: 2px">
                             <label>DATE RETURN:</label>
-                            <input type="text" style="width: 100px" value="{{ \Carbon\Carbon::parse($details->date_return)->format('F j, Y') }}">
+                            <input type="text" style="width: 100px"
+                                value="{{ \Carbon\Carbon::parse($details->date_return)->format('F j, Y') }}">
                         </div>
                     </td>
                 </tr>
@@ -224,19 +242,22 @@
                     <td colspan="1">
                         <div class=" input-group" style="margin-bottom: 2px">
                             <label>TIME OF USAGE:</label>
-                            <input type="text" style="width: 70px" value="{{ \Carbon\Carbon::parse($details->time_from)->format('h:i A') }}">
+                            <input type="text" style="width: 70px"
+                                value="{{ \Carbon\Carbon::parse($details->time_from)->format('h:i A') }}">
                         </div>
                     </td>
                     <td colspan="1">
                         <div class=" input-group" style="margin-bottom: 2px">
                             <label>TO:</label>
-                            <input type="text" style="width: 100px" value="{{ \Carbon\Carbon::parse($details->time_to)->format('h:i A') }}">
+                            <input type="text" style="width: 100px"
+                                value="{{ \Carbon\Carbon::parse($details->time_to)->format('h:i A') }}">
                         </div>
                     </td>
                     <td colspan="1">
                         <div class=" input-group" style="margin-bottom: 2px">
                             <label>TIME RETURN:</label>
-                            <input type="text" style="width: 100px" value="{{ \Carbon\Carbon::parse($details->time_return)->format('h:i A') }}">
+                            <input type="text" style="width: 100px"
+                                value="{{ \Carbon\Carbon::parse($details->time_return)->format('h:i A') }}">
                         </div>
                     </td>
                 </tr>
