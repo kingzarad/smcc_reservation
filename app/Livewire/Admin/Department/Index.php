@@ -19,7 +19,7 @@ class Index extends Component
     protected function rules()
     {
         return [
-            'department_name' => 'required|string|min:4',
+            'department_name' => 'required|string|min:3',
         ];
     }
 
