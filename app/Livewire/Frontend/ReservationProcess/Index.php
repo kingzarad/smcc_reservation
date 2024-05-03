@@ -68,14 +68,21 @@ class Index extends Component
     {
         // dd($this->signatureData);
         $hasSelectedVenue = false;
-        foreach ($this->item_qty as $venueId => $quantity) {
+        foreach ($this->venue_qty as $venueId => $quantity) {
             if ($quantity > 0) {
                 $hasSelectedVenue = true;
                 break;
             }
         }
 
-        if (!$hasSelectedVenue) {
+        $hasSelectedItem = false;
+        foreach ($this->item_qty as $itemId => $quantity) {
+            if ($quantity > 0) {
+                $hasSelectedItem = true;
+                break;
+            }
+        }
+        if (!$hasSelectedVenue && !$hasSelectedItem) {
             $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'Please select at least one venue or item.');
             return;
         }
@@ -135,26 +142,33 @@ class Index extends Component
 
         ]);
 
-        $this->reference_num = $this->getTransNo();
-        $existing = Reservation::where(function ($query) {
-            $query->where('date_from', '<=', $this->dsfrom)
-                ->where('date_to', '>=', $this->dsfrom)
-                ->where(function ($subQuery) {
-                    $subQuery->where('time_from', '<', $this->tsfrom)
-                        ->where('time_to', '>', $this->tsfrom);
-                })
-                ->orWhere(function ($subQuery) {
-                    $subQuery->where('time_from', '<', $this->tsto)
-                        ->where('time_to', '>', $this->tsto);
+        $existing = Reservation::where('status', 1)  // Include only active reservations or those with a specific status
+            ->where(function ($query) {
+                // Check for overlapping and exact match conditions for dates and times
+                $query->where(function ($dateQuery) {
+                    $dateQuery->where('date_from', '<=', $this->dsfrom)
+                        ->where('date_to', '>=', $this->dsfrom);
+                })->where(function ($timeQuery) {
+                    // Existing time overlaps the start time or matches exactly
+                    $timeQuery->where(function ($subQuery) {
+                        $subQuery->where('time_from', '<=', $this->tsfrom)
+                            ->where('time_to', '>=', $this->tsfrom);
+                    })
+                        // Existing time overlaps the end time or matches exactly
+                        ->orWhere(function ($subQuery) {
+                            $subQuery->where('time_from', '<=', $this->tsto)
+                                ->where('time_to', '>=', $this->tsto);
+                        });
                 });
-        })->exists();
+            })->exists();
+
 
         if ($existing) {
             $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'This reservation date and time are not available.');
             return false;
         }
 
-
+        $this->reference_num = $this->getTransNo();
         if ($this->signatureData != null) {
 
             $imageData = explode(',', $this->signatureData)[1];
@@ -242,6 +256,7 @@ class Index extends Component
         $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The reservation was successfully placed. Please wait for the administrators confirmation via email.');
         return redirect()->route('place_reservation', ['reference' => $reserv->reference_num]);
     }
+
 
     public function getTransNo()
     {
