@@ -57,8 +57,7 @@ class Thankyou extends Component
         $link = route('reservation.pending');
         $details = [
             'greeting' => "Reservation Cancelled",
-            'body' => "REFERENCE NUMBER: <strong>$reserv->reference_num</strong> <br>
-            The reservation has been cancelled by the $users->username. .",
+            'body' => "The reservation has been cancelled by the $users->username. .",
             'lastline' => '',
             'regards' => "Login to admin panel now?: $link"
         ];

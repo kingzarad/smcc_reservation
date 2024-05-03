@@ -89,9 +89,7 @@
 
                             <div class="success-contain">
                                 <h4 class="p-3">Congratulation🎊</h4>
-                                <h5 class="font-light">The reservation has been successfully approved, and the reservation
-                                    code above is used for verification. Please screenshot this page for verification when
-                                    going to claim an item or venue. Thank You!</h5>
+                                <h5 class="font-light">The reservation has been successfully approved. Thank You!</h5>
 
                             </div>
                         </div>

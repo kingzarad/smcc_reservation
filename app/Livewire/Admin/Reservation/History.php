@@ -152,8 +152,7 @@ class History extends Component
         $link = route('place_reservation', ['reference' => $reserv->reference_num]);
         $details = [
             'greeting' => "Reservation Cancelled",
-            'body' => "REFERENCE NUMBER: <strong>$reserv->reference_num</strong> <br>
-            The reservation has been cancelled by the administrator. For more information, please visit the office. . <br> Sorry for the inconvenience.",
+            'body' => "The reservation has been cancelled by the administrator. For more information, please visit the office. . <br> Sorry for the inconvenience.",
             'lastline' => '',
             'regards' => "Visit: $link"
         ];
@@ -205,8 +204,7 @@ class History extends Component
         $link = route('place_reservation', ['reference' => $reservation->reference_num]);
         $details = [
             'greeting' => "Reservation Completed",
-            'body' => "REFERENCE NUMBER: <strong>$reservation->reference_num</strong> <br>
-                    The reservation has been successfully completed. Thank you for choosing us! <br> If you have any questions, feel free to contact us. <br> We look forward to serving you again.",
+            'body' => "The reservation has been successfully completed. Thank you for choosing us! <br> If you have any questions, feel free to contact us. <br> We look forward to serving you again.",
             'lastline' => '',
             'regards' => "Visit: $link"
         ];

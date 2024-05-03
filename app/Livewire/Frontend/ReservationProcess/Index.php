@@ -246,8 +246,8 @@ class Index extends Component
         $link = route('permit.download', ['reference' => $reserv->reference_num]);
         $details = [
             'greeting' => "Congratulation🎊",
-            'body' => "REFERENCE NUMBER: <strong>$reserv->reference_num</strong> <br>
-             The reservation has been successfully approved. Here is your verification code: <strong>$referenceNumber </strong>
+            'body' => "
+             The reservation has been successfully approved.
             <br> Thank You!",
             'lastline' => '',
             'regards' => "Download Permit: $link"
