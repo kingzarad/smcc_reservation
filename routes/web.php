@@ -86,6 +86,8 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
         Route::get('history', [ReservationController::class, 'history'])->name('reservation.history');
     });
 
+    Route::get('travel-order', [DashboardController::class, 'travel'])->name('travel');
+
 
     Route::fallback([ErrorsController::class, 'index']);
 });

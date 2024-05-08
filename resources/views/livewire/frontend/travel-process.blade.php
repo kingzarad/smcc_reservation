@@ -1,4 +1,22 @@
 <section class="section-b-space">
+    <style>
+        .image-container {
+            width: 100%;
+            height: 0;
+            padding-bottom: 100%;
+            /* This creates a square aspect ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-container img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Ensures the image covers the container without stretching */
+        }
+    </style>
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-7">
@@ -73,7 +91,7 @@
 
                         <div class="col-md-12">
                             <label for="phone" class="form-label">SELECT VEHICLE</label>
-                            <select class="form-control" wire:model="vehicle_id" >
+                            <select class="form-control" wire:model="vehicle_id">
                                 <option value="" selected></option>
                                 @foreach ($vehicle as $item)
                                     <option value="{{ $item->id }}">{{ ucfirst($item->name) }}
@@ -90,6 +108,8 @@
                             @error('upload')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
+
+
                         </div>
 
                     </div>

@@ -46,4 +46,9 @@ class DashboardController extends Controller
     {
         return view('admin.item.index');
     }
+
+    public function travel()
+    {
+        return view('admin.travel.index');
+    }
 }

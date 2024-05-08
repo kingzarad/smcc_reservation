@@ -59,7 +59,7 @@
                         right: 'dayGridMonth,multiMonthYear'
                     },
 
-                    events: [],
+                    events: @json($events),
                     eventContent: function(arg) {
                         return {
                             html: arg.event.title

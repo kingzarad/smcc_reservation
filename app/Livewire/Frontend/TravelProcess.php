@@ -3,6 +3,7 @@
 namespace App\Livewire\Frontend;
 
 use App\Models\TravelOrder;
+use App\Models\travelordervehicle;
 use App\Models\User;
 use App\Models\Vehicle;
 use Livewire\Component;
@@ -44,17 +45,39 @@ class TravelProcess extends Component
             'upload.required' => 'The upload field is required.',
         ]);
 
+        $existing = travelordervehicle::whereHas('travelorder', function ($query) {
+            $query->where('date', $this->date);
+        })
+            ->where('vehicle_id', $this->vehicle_id)
+            ->exists();
+
+
+        if ($existing) {
+            $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'A reservation with the same date, and vehicle already exists.');
+            return false;
+        }
+
+        $imagePath = $this->upload->store('photos', 'public');
         $data = [
             'date' =>  $this->date,
             'time' => $this->time,
-            'user_id' =>  auth()->user()->idt,
-            'image' =>  $this->upload,
+            'user_id' => auth()->user()->id,
+            'image' => $imagePath,
+            'status' => 0,
         ];
         $reserv = TravelOrder::create($data);
 
+        travelordervehicle::create([
+            'travel_id' =>  $reserv->id,
+            'vehicle_id' =>  $this->vehicle_id,
+        ]);
+
+        $item_list = Vehicle::findOrFail($this->vehicle_id);
+        $item_list->update(['status' => 1]);
+
         $users = User::where('id', auth()->user()->id)->first();
 
-        $link = route('permit.download', );
+        $link = route('travel',);
         $details = [
             'greeting' => "Congratulation🎊",
             'body' => "
@@ -64,7 +87,7 @@ class TravelProcess extends Component
             'regards' => "Visit Link: $link"
         ];
         Notification::send($users, new CustomerNotification($details));
-        $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The reservation was successfully placed. Please wait for the administrators confirmation via email.');
-
+        $this->dispatch('messageModal', status: 'success',  position: 'top', message: 'The travel order was successfully placed. Please wait for the administrators confirmation via email.');
+        return redirect()->route('travel');
     }
 }

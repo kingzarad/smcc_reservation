@@ -36,15 +36,15 @@
                                         {{ $item->status == 1 ? 'Pending' : 'Approved' }}
                                     </span>
                                     <br>
-                                    {{ $item->time }} <br>
-                                    {{ $item->date }} <br>
+                                    Travel Time: {{ \Carbon\Carbon::parse($item->time)->format('h:i A') }} <br>
+                                    Travel Date: {{ \Carbon\Carbon::parse($item->date)->format('F j, Y') }} <br>
 
                                 </small>
                             </td>
                             <td style=" padding: 0px 20px 0px 0px !important;">
-                                <a href="{{ route('place_reservation', ['reference' => $item->ref]) }}">
+                                {{-- <a href="{{ route('place_reservation', ['reference' => $item->ref]) }}">
                                     <i class="far fa-eye"></i>
-                                </a>
+                                </a> --}}
                             </td>
                         </tr>
                     @empty

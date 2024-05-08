@@ -104,6 +104,7 @@ class Index extends Component
             ];
         })->toArray();
     }
+    
     public function checkUser()
     {
         if (Auth::check()) {
