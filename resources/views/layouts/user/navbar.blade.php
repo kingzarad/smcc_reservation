@@ -29,11 +29,11 @@
                                             </div>
                                         </li>
                                         <li><a href="{{ route('home') }}" class="nav-link menu-title">Home</a></li>
-                                        @guest
-                                            <li><a href="{{ route('register.custom') }}"
-                                                    class="nav-link menu-title">Register</a></li>
 
-                                        @endguest
+                                        <li><a href="{{ route('travel') }}" class="nav-link menu-title">Travel Order</a>
+                                        </li>
+
+
                                     </ul>
                                 </div>
                             </div>
@@ -41,10 +41,16 @@
                         <div class="menu-right">
 
                             <ul>
+                                @guest
 
+                                    <li><a href="{{ route('home') }}" class="nav-link menu-title">Login</a>
+                                    </li>
+                                    <li><a href="{{ route('register.custom') }}" class="nav-link menu-title">Register</a>
+                                    </li>
+                                @endguest
 
                                 @auth
-                                   @livewire('frontend.navbar-hello')
+                                    @livewire('frontend.navbar-hello')
                                     @if (Route::has('logout'))
                                         <li>
                                             <a href="{{ route('logout') }}"

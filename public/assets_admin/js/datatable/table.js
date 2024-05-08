@@ -197,7 +197,7 @@ $(document).ready(function () {
                                 .css("text-align", "left");
 
                             var totalMyHours = table
-                                .column(3)
+                                .column(4)
                                 .data()
                                 .reduce(function (acc, val) {
                                     // Split the value into days and hours
@@ -256,10 +256,10 @@ $(document).ready(function () {
                 var yrFilterValue = yrFilter.val().toLowerCase();
 
                 var rowData = table.row(dataIndex).data();
-                var rowDepart = rowData[7];
+                var rowDepart = rowData[8];
                 var myHours = parseInt(rowData[3]); // Parse the value to integer
-                var rowDate = rowData[6];
-
+                var rowDate = rowData[7];
+console.log(rowData)
                 if (
                     (filterDepartValue === "all" ||
                         rowDepart.toLowerCase() === filterDepartValue) &&

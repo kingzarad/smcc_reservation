@@ -83,7 +83,7 @@
                     <thead class="bg-gradient-primary text-white">
                         <tr>
                             <th>DEPARMENT</th>
-
+                            <th>NAME</th>
                             <th>VENUE LIST</th>
                             <th>ITEM LIST</th>
                             <th>HOURS</th>
@@ -99,7 +99,7 @@
                         @foreach ($reserv as $index => $item)
                             <tr>
                                 <td>{{ $item->departname->department_name }}</td>
-
+                                <td>{{ $item->name  ?? '' }}</td>
                                 <td>{{ $item->Venue  ?? '' }}</td>
                                 <td>{{ $item->Items ?? '' }}</td>
 

@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('travelers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('note')->default('No note');
+            $table->date('date');
+            $table->time('time');
             $table->string('image');
-            $table->tinyInteger('status')->default(1)->comment('1=pending,0=accepted,2=decline');
+            $table->tinyInteger('status')->default(1)->comment('0=accepted,1=decline');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });

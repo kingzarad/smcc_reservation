@@ -1,12 +1,12 @@
 <div class="card">
 
     <div class="card-body">
-        <h5 class="card-title">Reservation Calendar</h5>
-        <div id="calendar"></div>
+        <h5 class="card-title">Travel Order Calendar</h5>
+        <div id="calendar-order"></div>
     </div>
     <script>
         document.addEventListener('livewire:init', function() {
-            var calendarEl = document.getElementById('calendar');
+            var calendarEl = document.getElementById('calendar-order');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 timeZone: 'UTC',
@@ -17,7 +17,7 @@
                     right: 'dayGridMonth,multiMonthYear'
                 },
 
-                events: @json($events),
+                events:[],
                 eventContent: function(arg) {
                     return {
                         html: arg.event.title

@@ -9,11 +9,14 @@ use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Controllers\Admin\ReservationController;
+use App\Http\Controllers\Admin\TravelOrderController;
+use App\Http\Controllers\Admin\VehicleController;
 use App\Http\Controllers\Auth\CustomLoginController;
 use App\Http\Controllers\Auth\CustomRegistrationController;
 use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\Frontend\ReservationProcessController;
+use App\Http\Controllers\Frontend\TravelProcess;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\SignatureController;
 
@@ -48,6 +51,7 @@ Route::get('/generate-permit/{reference}', [PDFController::class, 'generatePDF']
 Route::get('register', [CustomRegistrationController::class, 'index'])->name('register.custom');
 Route::get('login', [CustomLoginController::class, 'index'])->name('login.custom');
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('travel-order', [TravelOrderController::class, 'index'])->name('travel');
 
 Route::prefix('myaccount')->middleware(['auth'])->group(function () {
     Route::get('dashboard', [AccountController::class, 'dashboard'])->name('myaccount.dashboard');
@@ -58,7 +62,7 @@ Route::prefix('myaccount')->middleware(['auth'])->group(function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-
+    Route::get('travel-process', [TravelProcess::class, 'index'])->name('travel_process');
     Route::get('reservation-process', [ReservationProcessController::class, 'index'])->name('reservation_process');
     Route::get('place-reservation/{reference}', [ReservationProcessController::class, 'thankyou'])->name('place_reservation');
 });
@@ -76,6 +80,7 @@ Route::prefix('admin')->middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('position', [DashboardController::class, 'position'])->name('position');
     Route::get('venue', [DashboardController::class, 'venue'])->name('venue');
     Route::get('item', [DashboardController::class, 'item'])->name('item');
+    Route::get('vehicle', [VehicleController::class, 'index'])->name('vehicle');
     Route::prefix('reservation')->group(function () {
         Route::get('pending', [ReservationController::class, 'pending'])->name('reservation.pending');
         Route::get('history', [ReservationController::class, 'history'])->name('reservation.history');

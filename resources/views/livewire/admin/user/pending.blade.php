@@ -4,7 +4,7 @@
             background: #3F8E4E !important;
         }
     </style>
-    @include('livewire.admin.user.pendingModal');
+    @include('livewire.admin.user.pendingModal')
     <table id="datatable" class="table table-borderless">
         <thead class="bg-gradient-primary text-white">
             <tr>

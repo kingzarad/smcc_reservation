@@ -307,7 +307,28 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script>
+        $(function() {
+            var dtToday = new Date();
+
+            var month = dtToday.getMonth() + 1;
+            var day = dtToday.getDate();
+            var year = dtToday.getFullYear();
+            if (month < 10)
+                month = '0' + month.toString();
+            if (day < 10)
+                day = '0' + day.toString();
+
+            var maxDate = year + '-' + month + '-' + day;
+
+            // or instead:
+            // var maxDate = dtToday.toISOString().substr(0, 10);
+
+            $('#dsfrom').attr('min', maxDate);
+            $('#dsto').attr('min', maxDate);
+            $('#dsreturn').attr('min', maxDate);
+        });
         document.addEventListener('livewire:init', () => {
             const canvas = document.getElementById('signature-canvas');
             const signaturePad = new SignaturePad(canvas);

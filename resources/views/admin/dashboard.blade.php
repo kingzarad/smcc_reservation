@@ -107,5 +107,8 @@
         <div class="col-xl-12 col-sm-6 mb-xl-0 mt-3 mb-5 row ">
             @livewire('admin.calendar')
         </div>
+        <div class="col-xl-12 col-sm-6 mb-xl-0 mt-3 mb-5 row ">
+            @livewire('admin.travel-calendar')
+        </div>
     </div>
 @endsection

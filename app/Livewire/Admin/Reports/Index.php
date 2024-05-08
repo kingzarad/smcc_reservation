@@ -2,12 +2,13 @@
 
 namespace App\Livewire\Admin\Reports;
 
-use App\Models\Department;
 use Carbon\Carbon;
 use App\Models\Item;
 use App\Models\Venue;
 use Livewire\Component;
+use App\Models\Department;
 use App\Models\Reservation;
+use App\Models\UserDetails;
 use App\Models\ReservationItem;
 
 class Index extends Component
@@ -87,6 +88,13 @@ class Index extends Component
                         }
                     }
 
+                    $userDetails = UserDetails::where('users_id', $reservation->users_id)->first();
+                    $name = ucfirst($userDetails->firstname);
+                    if (!empty($userDetails->middlename)) {
+                        $name .= " " . ucfirst($userDetails->middlename);
+                    }
+                    $name .= " " . ucfirst($userDetails->lastname);
+
                     $dateFrom = Carbon::parse($reservation->date_from);
                     $dateTo = Carbon::parse($reservation->date_to);
 
@@ -94,36 +102,19 @@ class Index extends Component
                     $endTime = Carbon::parse($reservation->time_to);
 
                     // Calculate total hours, minutes, and days
-                    $diffInDays = $dateTo->diffInDays($dateFrom);
-                    $diffInHours = $endTime->diffInHours($startTime);
-                    $diffInMinutes = $endTime->diffInMinutes($startTime) % 60;
-
+                    $diffInDays = $dateTo->diffInDays($dateFrom) + 1;
+                    $diffInMinutesOneDay = $endTime->diffInMinutes($startTime);
+                    $totalMinutes = $diffInMinutesOneDay * $diffInDays;
+                    $hours = intdiv($totalMinutes, 60);
+                    $remainingMinutes = $totalMinutes % 60;
                     // Prepare the output string
-                    $output = "";
-
-                    if ($diffInDays > 0 || $diffInHours > 0 || $diffInMinutes > 0) {
-                        if ($diffInDays > 0) {
-                            $output .= $diffInDays . " day" . ($diffInDays > 1 ? "s" : "") . " ";
-                        }
-                        if ($diffInHours > 0 || $diffInMinutes > 0) {
-                            if ($diffInDays > 0) {
-                                $output .= "and ";
-                            }
-                            $output .= $diffInHours . " hour" . ($diffInHours > 1 ? "s" : "") . " ";
-                            if ($diffInMinutes > 0) {
-                                $output .= $diffInMinutes . " minute" . ($diffInMinutes > 1 ? "s" : "") . " ";
-                            }
-                        }
-                        $output .= ".";
-                    } else {
-                        $output = "No time.";
-                    }
-
+                    $output = "$hours hours and $remainingMinutes minutes";
 
 
                     $departname = Department::where('id', $reservation->department_id)->first();
                     $reservationData = [
                         'reservation_id' => $reservation->id,
+                        'name' => $name,
                         'Items' => "Items: $itemsString",
                         'Venue' => "Venue/Rooms: $venueString",
                         'status' => $reservation->status,
