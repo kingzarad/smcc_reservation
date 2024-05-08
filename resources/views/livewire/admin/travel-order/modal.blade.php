@@ -39,30 +39,13 @@
                                             </li>
                                             <li>Address: {{ Str::ucfirst($users->address ?? '') }}</li>
 
-                                            {{-- @if ($status != 2 && $status != 3)
-                                                <li>
-                                                    <div class="card mt-3">
-                                                        <div class="card-body">
-                                                            Confirmation Code: <h2>
-                                                                <strong>{{ $referenceNumber ?? '' }}</strong>
-                                                            </h2>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            @endif --}}
+
                                         </ul>
                                     </div>
 
 
 
-                                    {{-- <div class="col-md-12">
-                                        <div class="delivery-sec">
-                                            <h3>expected return date of Reservation: <span>
-                                                    {{ \Carbon\Carbon::parse($details->date_return ?? '')->format('F j, Y') }}</span>
-                                            </h3>
 
-                                        </div>
-                                    </div> --}}
                                 </div>
                             </div>
                         </div>
@@ -77,7 +60,7 @@
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
                     data-bs-dismiss="modal">Close</button>
 
-                @if ($status == 1)
+                @if ($status == 0)
                     <button type="button" wire:click="doneReservation" class="btn btn-info"
                         wire:loading.attr="disabled">
                         Mark As Completed
@@ -85,7 +68,7 @@
                     </button>
                 @endif
 
-                @if ($status != 2 && $status != 3 && $expire_status == true)
+                @if ($status == 0)
                     <button type="button" wire:click="cancelReservation" class="btn btn-danger"
                         wire:loading.attr="disabled">
                         Cancel

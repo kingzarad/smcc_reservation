@@ -38,7 +38,7 @@
                             <td>
                                 @if ($item->status == 0)
                                     <p class="bg-success btn btn-sm text-white">APPROVED</p>
-                                @elseif($item->status == 2)
+                                @elseif($item->status == 1)
                                     <p class="bg-danger btn btn-sm text-white">CANCELLED</p>
                                 @else
                                     <p class="bg-success btn btn-sm text-white">COMPLETED</p>

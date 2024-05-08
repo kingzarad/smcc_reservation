@@ -19,24 +19,6 @@ class Travel extends Component
         return view('livewire.frontend.account.travel', ['travelist' =>  $travelist]);
     }
 
-    public function uploadTravelOrder()
-    {
-        $validatedData = $this->validate([
-            'note' => 'nullable|string|min:3',
-            'photos' => 'required|image',
-        ]);
-
-        $imagePath = $this->photos->store('photos/travel-order', 'public');
-        $travelData = [
-            'note' => $validatedData['note'] ?? 'no note added',
-            'image' => $imagePath,
-            'user_id' => auth()->user()->id,
-        ];
-
-        TravelOrder::create($travelData);
-        $this->dispatch('messageModal', status: 'success', position: 'top', message: 'Travel Order uploaded successfully');
-        return $this->redirect('/myaccount/travel', navigate: true);
-    }
 
     public function closeModal()
     {

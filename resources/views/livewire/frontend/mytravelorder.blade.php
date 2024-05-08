@@ -42,9 +42,10 @@
                                 </small>
                             </td>
                             <td style=" padding: 0px 20px 0px 0px !important;">
-                                {{-- <a href="{{ route('place_reservation', ['reference' => $item->ref]) }}">
-                                    <i class="far fa-eye"></i>
-                                </a> --}}
+
+                                <a href="{{ asset('storage/' . $item->image ?? '') }}" target="_blank">
+                                    <strong> <i class="far fa-eye"></i></strong>
+                                </a>
                             </td>
                         </tr>
                     @empty
