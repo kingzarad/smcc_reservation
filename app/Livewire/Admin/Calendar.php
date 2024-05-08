@@ -7,6 +7,7 @@ use App\Models\Item;
 use App\Models\Venue;
 use Livewire\Component;
 use App\Models\Reservation;
+use App\Models\UserDetails;
 
 class Calendar extends Component
 {
@@ -84,9 +85,15 @@ class Calendar extends Component
             }
 
 
+            $userDetails = UserDetails::where('users_id', $event->users_id)->first();
+            $name = ucfirst($userDetails->firstname);
+            if (!empty($userDetails->middlename)) {
+                $name .= " " . ucfirst($userDetails->middlename);
+            }
+            $name .= " " . ucfirst($userDetails->lastname);
             return [
                 'classNames' => 'a',
-                'title' =>  "Venue/Rooms: <strong>$venueString</strong> <br>Item: <strong>$itemsString</strong> <br>Date: $startDate - $endDate <br>Time: $startTime - $endTime",
+                'title' =>  "<div class=' text-wrap'>Reserved:$name <br>Venue/Rooms: <strong>$venueString</strong> <br>Item: <strong>$itemsString</strong> <br>Date: $startDate - $endDate <br>Time: $startTime - $endTime</div>",
                 'start' => $startDateTime,
                 'end' => $endDateTime,
 

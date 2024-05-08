@@ -7,7 +7,7 @@
 
                 </div>
                 <div class="col-md-6">
-                    <p class="mb-0 font-dark">&copy;{{ date('Y') }} {{ config('app.name', 'SMCC') }}</p>
+                    <p class="mb-0 font-dark">&copy;{{ date('Y') }} CCIS Saint Michael College of Caraga</p>
                 </div>
             </div>
         </div>

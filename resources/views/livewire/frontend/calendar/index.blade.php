@@ -1,9 +1,9 @@
 <section class="ratio_asos overflow-hidden">
     <style>
         .a {
-            background: #FFC414 !important;
+            background: #120D4F !important;
             color: #ffff;
-            border-color: #FFC414 !important;
+            border-color: #120D4F !important;
         }
 
         .btn-custom {
