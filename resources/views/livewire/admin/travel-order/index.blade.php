@@ -1,5 +1,5 @@
 <div class="card">
-    {{-- @include('livewire.admin.reservation.modal_history') --}}
+    @include('livewire.admin.travel-order.modal')
     <style>
         .bg-success {
             background: #3F8E4E !important;
@@ -26,31 +26,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- @foreach ($reservationlists as $index => $item)
+                    @foreach ($reservationsList as $index => $item)
                         <tr>
 
-                            <td>{{ $item->departname }}</td>
+                            <td>
+                                {{ Str::ucfirst($item->departname) }}
+                            </td>
                             <td> {{ $item->name }} </td>
                             <td>{{ \Carbon\Carbon::parse($item->date_filled)->format('F j, Y') }}</td>
 
                             <td>
                                 @if ($item->status == 0)
-                                    <p class="bg-warning btn btn-sm text-white">PENDING</p>
+                                    <p class="bg-success btn btn-sm text-white">APPROVED</p>
                                 @elseif($item->status == 2)
                                     <p class="bg-danger btn btn-sm text-white">CANCELLED</p>
-                                @elseif($item->status == 3)
-                                    <p class="bg-success btn btn-sm text-white">COMPLETED</p>
                                 @else
-                                    <p class="bg-success btn btn-sm text-white">APPROVED</p>
+                                    <p class="bg-success btn btn-sm text-white">COMPLETED</p>
                                 @endif
                             </td>
                             <td>
                                 <button data-bs-toggle="modal" wire:click="showSingle({{ $item->id }})"
-                                    data-bs-target="#showHistory"class="btn btn-sm btn-info">
+                                    data-bs-target="#showModal"class="btn btn-sm btn-info">
                                     <i class="fa-regular fa-eye"></i>
                             </td>
                         </tr>
-                    @endforeach --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>
