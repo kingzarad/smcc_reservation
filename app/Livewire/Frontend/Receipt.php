@@ -54,7 +54,7 @@ class Receipt extends Component
                 if ($venue) {
                     $venueName = $venue->name;
                     $qty = $value->quantity;
-                    $venueWithQty = "$venueName   [$qty]";
+                    $venueWithQty = "$venueName ";
                     if (!empty($venueString)) {
                         $venueString .= ', ';
                     }

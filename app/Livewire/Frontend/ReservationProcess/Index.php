@@ -68,25 +68,29 @@ class Index extends Component
     public function processReserv()
     {
 
-        $hasSelectedVenue = false;
-        foreach ($this->venue_qty as $venueId => $quantity) {
-            if ($quantity > 0) {
-                $hasSelectedVenue = true;
+        $hasSelection = false;
+
+        foreach ($this->selectedVenues as $venueId => $isChecked) {
+            if ($isChecked) {
+                $hasSelection = true;
                 break;
             }
         }
 
-        $hasSelectedItem = false;
-        foreach ($this->item_qty as $itemId => $quantity) {
-            if ($quantity > 0) {
-                $hasSelectedItem = true;
-                break;
+        if (!$hasSelection) {
+            foreach ($this->item_qty as $itemId => $quantity) {
+                if ($quantity > 0) {
+                    $hasSelection = true;
+                    break;
+                }
             }
         }
-        if (!$hasSelectedVenue && !$hasSelectedItem) {
+
+        if (!$hasSelection) {
             $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'Please select at least one venue or item.');
             return;
         }
+
 
         $this->validate([
             'dsfrom' => 'required|date',
