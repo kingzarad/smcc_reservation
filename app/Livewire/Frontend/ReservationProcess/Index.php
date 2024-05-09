@@ -25,6 +25,7 @@ class Index extends Component
     use WithPagination, WithoutUrlPagination;
     public $item_qty = [];
     public $venue_qty = [];
+    public $selectedVenues = [];
     public $selectedLocation, $imagePath, $dsfrom, $dsto, $dsreturn, $tsfrom, $tsto, $tsreturn, $purpose, $remarks, $signature_upload, $reference_num, $school_premises;
     public $signatureData;
     public $signatureOption = 'draw';
@@ -41,10 +42,10 @@ class Index extends Component
         }
 
         // Fetch all venue and initialize their quantities to 0
-        $venues = Venue::all();
-        foreach ($venues as $venue) {
-            $this->venue_qty[$venue->id] = 0;
-        }
+        // $venues = Venue::all();
+        // foreach ($venues as $venue) {
+        //     $this->venue_qty[$venue->id] = 0;
+        // }
 
         $this->dsfrom = now()->format('Y-m-d');
         $this->dsto = now()->addDay()->format('Y-m-d');
@@ -66,7 +67,7 @@ class Index extends Component
 
     public function processReserv()
     {
-        // dd($this->signatureData);
+
         $hasSelectedVenue = false;
         foreach ($this->venue_qty as $venueId => $quantity) {
             if ($quantity > 0) {
@@ -220,25 +221,28 @@ class Index extends Component
             }
         }
 
-        foreach ($this->venue_qty as $venueId => $quantity) {
-            if ($quantity != 0) {
+        // foreach ($this->venue_qty as $venueId => $quantity) {
+        //     if ($quantity != 0) {
+        //         ReservationVenue::create([
+        //             'reservation_id' => $reserv->id,
+        //             'venue_id' => $venueId,
+        //             'quantity' => $quantity
+        //         ]);
+
+
+        //     }
+        // }
+
+        foreach ($this->selectedVenues as $venueId => $isChecked) {
+            if ($isChecked) {
                 ReservationVenue::create([
                     'reservation_id' => $reserv->id,
                     'venue_id' => $venueId,
                     'quantity' => $quantity
                 ]);
-
-                // $venue_list = Venue::findOrFail($venueId);
-                // $existingQuantity = $venue_list->quantity;
-
-                // $newQuantity = $existingQuantity - $quantity;
-
-                // if ($newQuantity <= 0) {
-                //     $venue_list->update(['status' => 1]);
-                // }
-                // $venue_list->update(['quantity' => max(0, $newQuantity)]);
             }
         }
+
         $reference = $this->reference_num;
         $referenceNumber = substr($reference, 7);
         $users = User::where('id', auth()->user()->id)->first();
@@ -312,37 +316,37 @@ class Index extends Component
         }
     }
 
-    public function decrementVenueQuantity($id)
-    {
+    // public function decrementVenueQuantity($id)
+    // {
 
-        if (isset($this->venue_qty[$id]) && $this->venue_qty[$id] > 0) {
-            $this->venue_qty[$id]--;
-        }
-    }
+    //     if (isset($this->venue_qty[$id]) && $this->venue_qty[$id] > 0) {
+    //         $this->venue_qty[$id]--;
+    //     }
+    // }
 
-    public function incrementVenueQuantity($id)
-    {
-        $venue = Venue::find($id);
-        if ($venue && (!isset($this->venue_qty[$id]) || $this->venue_qty[$id] < $venue->quantity)) {
-            $this->venue_qty[$id] = isset($this->venue_qty[$id]) ? $this->venue_qty[$id] + 1 : 1;
-        }
-    }
+    // public function incrementVenueQuantity($id)
+    // {
+    //     $venue = Venue::find($id);
+    //     if ($venue && (!isset($this->venue_qty[$id]) || $this->venue_qty[$id] < $venue->quantity)) {
+    //         $this->venue_qty[$id] = isset($this->venue_qty[$id]) ? $this->venue_qty[$id] + 1 : 1;
+    //     }
+    // }
 
-    public function updatedVenueQty($value, $id)
-    {
+    // public function updatedVenueQty($value, $id)
+    // {
 
-        $venue = Venue::find($id);
-        if ($venue) {
-            $maxQuantity = $venue->quantity;
-            if ($value < 0) {
-                $this->venue_qty[$id] = 0;
-            } elseif ($value > $maxQuantity) {
-                $this->venue_qty[$id] = $maxQuantity;
-            } else {
-                $this->venue_qty[$id] = $value;
-            }
-        }
-    }
+    //     $venue = Venue::find($id);
+    //     if ($venue) {
+    //         $maxQuantity = $venue->quantity;
+    //         if ($value < 0) {
+    //             $this->venue_qty[$id] = 0;
+    //         } elseif ($value > $maxQuantity) {
+    //             $this->venue_qty[$id] = $maxQuantity;
+    //         } else {
+    //             $this->venue_qty[$id] = $value;
+    //         }
+    //     }
+    // }
 
     public function updatedItemQty($value, $id)
     {
@@ -360,10 +364,10 @@ class Index extends Component
         }
     }
 
-    public function handleInputVenueChange($id, $value)
-    {
-        $this->updatedVenueQty($id, $value);
-    }
+    // public function handleInputVenueChange($id, $value)
+    // {
+    //     $this->updatedVenueQty($id, $value);
+    // }
 
     public function handleInputItemChange($id, $value)
     {

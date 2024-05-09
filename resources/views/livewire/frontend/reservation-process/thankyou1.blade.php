@@ -9,10 +9,7 @@
                             <p class="font-light">Name</p>
                             <h5>{{ $venuelist->Venue->name }}</h5>
                         </td>
-                        <td>
-                            <p class="font-light">Quantity</p>
-                            <h5>{{ $venuelist->quantity }}</h5>
-                        </td>
+
 
                     </tr>
                 @endforeach

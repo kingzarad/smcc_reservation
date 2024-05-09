@@ -188,8 +188,8 @@
                         <thead>
                             <tr class="table-head">
                                 <th scope="col">Name</th>
-                                <th scope="col">available</th>
-                                <th scope="col">quantity</th>
+
+                                <th scope="col">Select</th>
 
                             </tr>
                         </thead>
@@ -201,10 +201,15 @@
                                     <td>
                                         {{ $venue_cart->name }}
                                     </td>
+
                                     <td>
-                                        {{ $venue_cart->quantity }}
+                                        <input class="form-check-input" type="checkbox"
+                                            wire:model="selectedVenues.{{ $venue_cart->id }}"
+                                            id="venueCheckbox{{ $venue_cart->id }}">
+
                                     </td>
-                                    <td>
+                                    <td class="d-none">
+
                                         <div class="qty-box">
                                             <div class="input-group d-flex align-items-center">
 
