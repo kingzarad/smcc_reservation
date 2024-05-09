@@ -143,31 +143,44 @@ class Index extends Component
 
         ]);
 
-        $existing = Reservation::where('status', 1)  // Include only active reservations or those with a specific status
-            ->where(function ($query) {
-                // Check for overlapping and exact match conditions for dates and times
-                $query->where(function ($dateQuery) {
-                    $dateQuery->where('date_from', '<=', $this->dsfrom)
-                        ->where('date_to', '>=', $this->dsfrom);
-                })->where(function ($timeQuery) {
-                    // Existing time overlaps the start time or matches exactly
-                    $timeQuery->where(function ($subQuery) {
-                        $subQuery->where('time_from', '<=', $this->tsfrom)
-                            ->where('time_to', '>=', $this->tsfrom);
+
+        foreach ($this->selectedVenues as $venueId => $isChecked) {
+            if ($isChecked) {
+                $existing = ReservationVenue::where('venue_id', $venueId)
+                    ->whereHas('Venue', function ($query) use ($venueId) {
+                        $query->where('id', $venueId);
                     })
-                        // Existing time overlaps the end time or matches exactly
-                        ->orWhere(function ($subQuery) {
-                            $subQuery->where('time_from', '<=', $this->tsto)
-                                ->where('time_to', '>=', $this->tsto);
-                        });
-                });
-            })->exists();
+                    ->whereHas('reservation', function ($query) use ($venueId) {
+                        $query->where('status', 1)
+                            ->where(function ($dateQuery) use ($venueId) {
+                                $dateQuery->where(function ($dateQuery) use ($venueId) {
+                                    $dateQuery->where('date_from', '<=', $this->dsfrom)
+                                        ->where('date_to', '>=', $this->dsfrom);
+                                })->orWhere(function ($dateQuery) use ($venueId) {
+                                    $dateQuery->where('date_from', '<=', $this->dsto)
+                                        ->where('date_to', '>=', $this->dsto);
+                                });
+                            })
+                            ->where(function ($timeQuery) use ($venueId) {
+                                $timeQuery->where(function ($subQuery) use ($venueId) {
+                                    $subQuery->where('time_from', '<=', $this->tsfrom)
+                                        ->where('time_to', '>=', $this->tsfrom);
+                                })->orWhere(function ($subQuery) use ($venueId) {
+                                    $subQuery->where('time_from', '<=', $this->tsto)
+                                        ->where('time_to', '>=', $this->tsto);
+                                });
+                            });
+                    })->exists();
 
-
-        if ($existing) {
-            $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'This reservation date and time are not available.');
-            return false;
+                if ($existing) {
+                    $this->dispatch('messageModal', status: 'warning', position: 'top', message: 'This reservation date and time are not available for the selected venue.');
+                    return false;
+                }
+            }
         }
+
+
+
 
         $this->reference_num = $this->getTransNo();
         if ($this->signatureData != null) {
