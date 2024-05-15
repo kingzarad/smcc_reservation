@@ -4,7 +4,7 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5">Reservation Information</h1>
+                <h1 class="modal-title fs-5">Travel Order Information</h1>
             </div>
             <div class="modal-body">
                 <div class="cart-section order-details-table">
@@ -18,6 +18,7 @@
 
                                             <li>Travel Date: {{ $date ?? '' }}</li>
                                             <li>Travel Time: {{ $time ?? '' }}</li>
+                                            <li>Travel Unit: <strong> {{ $vh_name ?? '' }}</strong></li>
                                             <li> Travel Order: &nbsp;<br> <a
                                                     href="{{ asset('storage/' . $image ?? '') }}" target="_blank">
                                                     <strong> View</strong>
@@ -60,6 +61,14 @@
                 <button type="button" class="btn btn-secondary" wire:click="closeModal"
                     data-bs-dismiss="modal">Close</button>
 
+                @if ($status == 2)
+                    <button type="button" wire:click="approvedReservation" class="btn btn-info"
+                        wire:loading.attr="disabled">
+                        Approved
+
+                    </button>
+                @endif
+
                 @if ($status == 0)
                     <button type="button" wire:click="doneReservation" class="btn btn-info"
                         wire:loading.attr="disabled">
@@ -68,7 +77,7 @@
                     </button>
                 @endif
 
-                @if ($status == 0)
+                @if ($status == 0 || $status == 2)
                     <button type="button" wire:click="cancelReservation" class="btn btn-danger"
                         wire:loading.attr="disabled">
                         Cancel

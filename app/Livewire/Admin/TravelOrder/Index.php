@@ -7,13 +7,15 @@ use App\Models\User;
 use Livewire\Component;
 use App\Models\Department;
 use App\Models\TravelOrder;
+use App\Models\travelordervehicle;
 use App\Models\UserDetails;
+use App\Models\Vehicle;
 use App\Notifications\CustomerNotification;
 use Illuminate\Support\Facades\Notification;
 
 class Index extends Component
 {
-    public $date, $time, $details = [], $users = [], $reservation_id, $users_id, $status, $expire_status = false, $image;
+    public $vh_name,$date, $time, $details = [], $users = [], $reservation_id, $users_id, $status, $expire_status = false, $image;
 
     public function render()
     {
@@ -23,7 +25,7 @@ class Index extends Component
 
         foreach ($reservationlists as $reservation) {
             if ($reservation) {
-                if (isset($reservationsList[$reservation->reference_num])) {
+                if (isset($reservationsList[$reservation->id])) {
                     continue;
                 }
 
@@ -36,7 +38,7 @@ class Index extends Component
 
                 $reservationData = [
                     'id' => $reservation->id,
-                    'departname' => $departname->department_name,
+                    'departname' => ucfirst(strtolower($departname->department_name)),
                     'date_filled' => $reservation->created_at,
                     'status' => $reservation->status,
 
@@ -44,7 +46,7 @@ class Index extends Component
                 ];
 
 
-                $reservationsList[$reservation->reference_num] = (object) $reservationData;
+                $reservationsList[$reservation->id] = (object) $reservationData;
             }
         }
 
@@ -69,7 +71,8 @@ class Index extends Component
         if ($reservation) {
 
             $users = UserDetails::where('users_id', $reservation->user_id)->first();
-
+            $vto = travelordervehicle::where('travel_id', $reservation->id)->first();
+            $vehicle = Vehicle::where('id', $vto->vehicle_id)->first();
             $date = Carbon::parse($reservation->date)->format('F j, Y');
             $time = Carbon::parse($reservation->time)->format('g:i A');
 
@@ -77,6 +80,7 @@ class Index extends Component
             $this->reservation_id = $reservation->id;
             $this->users_id = $reservation->user_id;
             $this->details = $reservation;
+            $this->vh_name = $vehicle->name;
             $this->date = $date;
             $this->time = $time;
             $this->users = $users;
@@ -113,7 +117,7 @@ class Index extends Component
 
 
         $reservation->update([
-            'status' => 2,
+            'status' => 3,
         ]);
 
         $details = [
@@ -125,5 +129,30 @@ class Index extends Component
         Notification::send($users, new CustomerNotification($details));
 
         $this->dispatch('destroyModal', status: 'success', position: 'top', message: 'Travel order mark as done successfully.', modal: '#showModal');
+    }
+
+    public function approvedReservation()
+    {
+        $reservation = TravelOrder::where('id', $this->reservation_id)->first();
+        $users = User::where('id', $reservation->user_id)->first();
+
+
+        $reservation->update([
+            'status' => 0,
+        ]);
+
+
+        $link = route('travel',);
+        $details = [
+            'greeting' => "Congratulation🎊",
+            'body' => "
+             The travel order has been successfully approved.
+            <br> Thank You!",
+            'lastline' => '',
+            'regards' => "Visit Link: $link"
+        ];
+        Notification::send($users, new CustomerNotification($details));
+
+        $this->dispatch('destroyModal', status: 'success', position: 'top', message: 'Travel order approved successfully.', modal: '#showModal');
     }
 }

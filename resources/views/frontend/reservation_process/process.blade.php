@@ -1,4 +1,10 @@
 <section class="section-b-space">
+    <style>
+        .datepicker {
+            cursor: pointer;
+            /* Change cursor to pointer */
+        }
+    </style>
     <div class="container">
         <div class="row g-4">
             <div class="col-lg-7">
@@ -55,21 +61,21 @@
                         <h3 class="mb-3 theme-color">RESERVATION DETAILS</h3>
                         <div class="col-md-6">
                             <label for="name" class="form-label">DATE OF USAGE (FROM)</label>
-                            <input type="date" wire:model="dsfrom" class="form-control" id="dsfrom">
+                            <input type="date" wire:model="dsfrom" class="form-control" id="dsfrom" onkeypress="return false">
                             @error('dsfrom')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-6">
                             <label for="phone" class="form-label">DATE OF USAGE (TO)</label>
-                            <input type="date" wire:model="dsto" class="form-control" id="dsto">
+                            <input type="date" wire:model="dsto" class="form-control" id="dsto" onkeypress="return false">
                             @error('dsto')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="col-md-12">
-                            <label for="phone" class="form-label">DATE RETURN</label>
-                            <input type="date" wire:model="dsreturn" class="form-control" id="dsreturn">
+                            <label for="phone" class="form-label">LAST DATE OF USAGE</label>
+                            <input type="date" wire:model="dsreturn" class="form-control datepicker" id="dsreturn" onkeypress="return false">
                             @error('dsreturn')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -89,7 +95,7 @@
                             @enderror
                         </div>
                         <div class="col-md-12">
-                            <label for="phone" class="form-label">TIME OF RETURN</label>
+                            <label for="phone" class="form-label">LAST TIME OF USAGE</label>
                             <input type="time" wire:model="tsreturn" class="form-control" id="tsreturn">
                             @error('tsreturn')
                                 <span class="text-danger">{{ $message }}</span>

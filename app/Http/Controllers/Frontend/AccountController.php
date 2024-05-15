@@ -17,7 +17,7 @@ class AccountController extends Controller
     {
         $expirationChecker = new ExpirationChecker();
         $expirationChecker->checkReservation();
-
+        $expirationChecker->checkTravelOrder();
         return view('frontend.account.dashboard');
     }
 
@@ -25,7 +25,7 @@ class AccountController extends Controller
     {
         $expirationChecker = new ExpirationChecker();
         $expirationChecker->checkReservation();
-
+        $expirationChecker->checkTravelOrder();
         return view('frontend.account.reservation');
     }
 

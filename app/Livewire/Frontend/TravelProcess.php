@@ -63,7 +63,7 @@ class TravelProcess extends Component
             'time' => $this->time,
             'user_id' => auth()->user()->id,
             'image' => $imagePath,
-            'status' => 0,
+            'status' => 2,
         ];
         $reserv = TravelOrder::create($data);
 
@@ -79,9 +79,9 @@ class TravelProcess extends Component
 
         $link = route('travel',);
         $details = [
-            'greeting' => "Congratulation🎊",
+            'greeting' => "Travel Order Pending",
             'body' => "
-             The travel order has been successfully approved.
+            Please wait for the administrator to approve your travel order via email.
             <br> Thank You!",
             'lastline' => '',
             'regards' => "Visit Link: $link"

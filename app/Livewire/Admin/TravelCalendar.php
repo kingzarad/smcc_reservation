@@ -3,6 +3,7 @@
 namespace App\Livewire\Admin;
 
 use Carbon\Carbon;
+use App\Models\Vehicle;
 use Livewire\Component;
 use App\Models\TravelOrder;
 use App\Models\UserDetails;
@@ -34,6 +35,34 @@ class TravelCalendar extends Component
             $time = Carbon::parse($event->time)->format('g:i A');
 
 
+            if (!is_null($event->vehicle)) {
+                $vehicleString = '';
+                $vehicleCount = 0;
+
+                foreach ($event->vehicle as $value) {
+
+                    $vehicle = Vehicle::find($value->vehicle_id);
+
+                    if ($vehicle) {
+
+                        $itemName = ucfirst($vehicle->name);
+
+                        if (!empty($itemsString)) {
+                            $itemsString .= ', ';
+                        }
+
+                        $vehicleString .= $itemName;
+                        $vehicleCount++;
+                        if ($vehicleCount >= 3) {
+                            break;
+                        }
+                    }
+                }
+                if (count($event->vehicle) > 3) {
+                    $vehicleString .= '...';
+                }
+            }
+
 
             $userDetails = UserDetails::where('users_id', $event->user_id)->first();
             $name = ucfirst($userDetails->firstname);
@@ -43,7 +72,7 @@ class TravelCalendar extends Component
             $name .= " " . ucfirst($userDetails->lastname);
             return [
                 'classNames' => 'a',
-                'title' =>  "<div class='text-wrap'>Name:$name <br> Travel Date: $date <br> Travel Time: $time</div>",
+                'title' =>  "<div class='text-wrap'>Name:$name <br> Travel Date: $date <br> Travel Time: $time<br> Travel Unit: <strong> $vehicleString</strong></div>",
                 'start' => $startDateTime,
                 'end' => $endDateTime,
 

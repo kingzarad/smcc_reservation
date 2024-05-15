@@ -6,8 +6,10 @@ use App\Models\Reservation;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\remarks;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+
 class ReservationProcessController extends Controller
 {
     public function __construct()
@@ -41,11 +43,13 @@ class ReservationProcessController extends Controller
                 $reference = $reservation->reference_num;
                 $referenceNumber = substr($reference, 7);
 
+                $remarks = remarks::where('reservation_id', $reservation->id)->first();
+
                 // dd($referenceNumber);
                 $reservationID = $reservation->id;
                 $users = UserDetails::where('users_id', $reservation->users_id)->first();
 
-                return view('frontend.reservation_process.thankyou', ['referenceNumber' => $referenceNumber, 'reservationID' => $reservationID, 'details' => $reservation, 'users' => $users]);
+                return view('frontend.reservation_process.thankyou', ['remarks' =>  $remarks, 'referenceNumber' => $referenceNumber, 'reservationID' => $reservationID, 'details' => $reservation, 'users' => $users]);
             } else {
                 return redirect()->route('home');
             }

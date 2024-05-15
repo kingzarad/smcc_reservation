@@ -74,7 +74,7 @@
 
                         <div class="col-md-12">
                             <label for="phone" class="form-label">TRAVEL DATE</label>
-                            <input type="date" wire:model="date" class="form-control" id="date">
+                            <input type="date" wire:model="date" class="form-control" id="date" onkeypress="return false">
                             @error('date')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror

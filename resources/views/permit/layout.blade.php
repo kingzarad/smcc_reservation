@@ -96,7 +96,7 @@
         }
 
         .pmo {
-            margin-top: 70px;
+            margin-top: 120px;
             margin-left: 100px;
             position: relative;
         }
@@ -284,6 +284,7 @@
             </div>
             <div class="pmo">
                 <label class="pmo-txt">Verified by:</label>
+                <img class="signature-img" src="{{ $tmo_logo }}" alt="Signature">
                 <label class="pmo-name" style="border-bottom:1px solid #333"><strong>ENGR. MANUEL F.
                         JAMINAL</strong></label>
                 <label class="pmo-head"><strong>PMO HEAD</strong></label>

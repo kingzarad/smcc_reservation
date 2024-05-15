@@ -19,5 +19,8 @@ class TravelOrder extends Model
         'status'
     ];
 
-
+    public function vehicle()
+    {
+        return $this->hasMany(travelordervehicle::class, 'travel_id', 'id');
+    }
 }

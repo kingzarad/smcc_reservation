@@ -106,10 +106,7 @@
                                                     <p class="font-light">Name</p>
                                                     <h5>{{ $venuelist->Venue->name }}</h5>
                                                 </td>
-                                                <td>
-                                                    <p class="font-light">Quantity</p>
-                                                    <h5>{{ $venuelist->quantity }}</h5>
-                                                </td>
+
 
                                             </tr>
                                         @endforeach
@@ -154,7 +151,7 @@
                     data-bs-dismiss="modal">Close</button>
 
                 @if ($status == 1)
-                    <button type="button" wire:click="doneReservation" class="btn btn-info"
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#completedtModal" class="btn btn-info"
                         wire:loading.attr="disabled">
                         Mark As Completed
 
@@ -172,5 +169,31 @@
             </div>
         </div>
 
+    </div>
+</div>
+<div wire:ignore.self class="modal fade" role="dialog" id="completedtModal" tabindex="-1"
+    aria-labelledby="deleteDepartmentModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog ">
+        <form wire:submit.prevent="doneReservation">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="deleteDepartmentModalLabel"> Mark As Completed
+                    </h1>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="" class="form-label">Remarks (Optional)</label>
+                        <input type="text" wire:model="remarks_msg" class="form-control" id="">
+                        @error('remarks_msg')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Completed</button>
+                </div>
+            </div>
+        </form>
     </div>
 </div>

@@ -120,7 +120,7 @@
                             </div>
                         </div>
                         <div class="col-lg-12">
-                           <span> {{ $venueString }}</span>
+                            <span> {{ $venueString }}</span>
                         </div>
                         <div class="col-lg-12">
 
@@ -269,7 +269,12 @@
                         <div class="col-lg-12">
 
                             <div class="row  signature">
-
+                                <div class="col-sm-12">
+                                    {{-- asset('storage/' . $details->signature)  --}}
+                                    <img src="{{ asset('/tmo_sig/signature.png') }}"
+                                        class="h-logo img-fluid blur-up lazyload"
+                                        style="max-width:220px !important; margin-bottom: -20px; " alt="logo">
+                                </div>
                                 <div class="col-sm-12">
                                     <input type="text" value="ENGR. MANUEL F. JAMINAL">
                                 </div>

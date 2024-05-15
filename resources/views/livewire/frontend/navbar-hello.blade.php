@@ -1,7 +1,16 @@
-<h3 class="text-white mt-2 mx-3"> Hi,
+<div class="text-white mt-2 mx-3 d-flex justify-content-end align-items-center">
 
-    {{ Str::ucfirst($name_str ?? 'User') }}
-    @empty($name_str)
+    @if ($name_str != '' && $pos_str != '')
+        <div class=" row">
+            <div class="col-sm-12">
+                <h3 class="text-center">Hi, <strong>{{ Str::ucfirst($name_str ?? 'User') }}</strong></h3>
+            </div>
+            <div class="col-sm-12">
+                <p class="text-center"> ({{ Str::ucfirst($pos_str ?? 'No Position') }})</p>
+            </div>
+        </div>
+    @else
         <a href="{{ route('myaccount.profile') }}">Incomplete details.</a>
-    @endempty
-</h3>
+    @endif
+
+</div>

@@ -10,6 +10,7 @@ use App\Models\Reservation;
 use Illuminate\Http\Request;
 use App\Models\ReservationItem;
 use App\Models\ReservationVenue;
+use App\Models\TravelOrder;
 use App\Notifications\CustomerNotification;
 use Illuminate\Support\Facades\Notification;
 
@@ -20,7 +21,11 @@ class ExpirationChecker extends Controller
     public function checkReservation()
     {
 
-        $reservation = Reservation::all();
+        $reservation = Reservation::where('status', 1)
+            ->where('date_return', '<=', Carbon::now()->format('Y-m-d'))
+            ->get();
+
+
         $currentDate = Carbon::now();
         $currentTime = Carbon::now()->second(0);
 
@@ -31,7 +36,7 @@ class ExpirationChecker extends Controller
             $scheduleDate = Carbon::parse($value->date_return);
             $scheduleTime = Carbon::parse($value->time_return)->second(0);
 
-            if ($currentDate->isSameDay($scheduleDate) &&  $value->status == 1 && $currentTime->gte($scheduleTime)) {
+            if ($currentDate->isSameDay($scheduleDate) &&  $value->status == 1 && $currentTime->gte($scheduleTime) || $currentDate->gt($scheduleDate)) {
                 $users = User::where('id', $value->users_id)->first();
 
                 foreach ($items as $item) {
@@ -59,8 +64,8 @@ class ExpirationChecker extends Controller
                     }
                     $venue_list->update(['quantity' => max(0, $newQuantity)]);
                 }
-
-                $reservation = Reservation::findOrFail($item->reservation_id);
+                // dd($value->id);
+                $reservation = Reservation::findOrFail($value->id);
                 $reservation->update([
                     'status' => 3,
                 ]);
@@ -72,6 +77,45 @@ class ExpirationChecker extends Controller
                             The reservation has been successfully completed. Thank you for choosing us! <br> If you have any questions, feel free to contact us. <br> We look forward to serving you again.",
                     'lastline' => '',
                     'regards' => "Visit: $link"
+                ];
+
+                Notification::send($users, new CustomerNotification($details));
+            }
+        }
+    }
+
+    public function checkTravelOrder()
+    {
+
+        $travel = TravelOrder::where('status', 0)
+            ->where('date', '<=', Carbon::now()->format('Y-m-d'))
+            ->get();
+
+        // dd($travel);
+        $currentDate = Carbon::now();
+        $currentTime = Carbon::now()->second(0);
+
+        foreach ($travel as $value) {
+
+            $scheduleDate = Carbon::parse($value->date);
+            $scheduleTime = Carbon::parse($value->time)->second(0);
+
+            if ($currentDate->isSameDay($scheduleDate) &&  $value->status == 1 && $currentTime->gte($scheduleTime) || $currentDate->gt($scheduleDate)) {
+                $users = User::where('id', $value->user_id)->first();
+
+
+                // dd($value->id);
+                $reservation = TravelOrder::findOrFail($value->id);
+                $reservation->update([
+                    'status' => 3,
+                ]);
+
+
+                $details = [
+                    'greeting' => "Travel Order Completed",
+                    'body' => "The Travel Order has been successfully completed. Thank you for choosing us! <br> If you have any questions, feel free to contact us. <br> We look forward to serving you again.",
+                    'lastline' => '',
+                    'regards' => ""
                 ];
 
                 Notification::send($users, new CustomerNotification($details));

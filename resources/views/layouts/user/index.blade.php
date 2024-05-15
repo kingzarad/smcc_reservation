@@ -146,6 +146,41 @@
 
         }
     </style>
+    <style>
+        .nav-tabs .nav-linkx.active,
+        .nav-tabs .nav-item.show .nav-linkx {
+            background: #120D4F !important;
+            color: #fff !important;
+        }
+
+        .nav-tabs .nav-linkx {
+            background: #EFF2F7 !important;
+            color: #000;
+        }
+
+        .nav-tabs .nav-linkx {
+            margin-bottom: -1px;
+            background: none;
+            border: 1px solid transparent;
+            border-top-left-radius: 0.25rem;
+            border-top-right-radius: 0.25rem;
+        }
+
+        .nav-linkx {
+            display: block;
+            padding: 0.5rem 1rem;
+
+            text-decoration: none;
+            -webkit-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+        }
+
+        .nav-linkx:hover {
+
+            color: #fff;
+
+        }
+    </style>
     @include('layouts.user.navbar')
 
     @yield('content')
@@ -181,6 +216,7 @@
     <script src="https://cdn.datatables.net/v/bs4/dt-2.0.5/datatables.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
     <script>
         function alertSwift(icon, position, title) {
             const Toast = Swal.mixin({

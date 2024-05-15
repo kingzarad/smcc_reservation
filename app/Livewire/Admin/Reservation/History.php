@@ -9,6 +9,7 @@ use App\Models\Venue;
 use Livewire\Component;
 
 use App\Models\Department;
+use App\Models\remarks;
 use App\Models\Reservation;
 
 use App\Models\UserDetails;
@@ -23,6 +24,7 @@ class History extends Component
     public $item = [], $details = [], $users = [], $itemCount, $reservation_id, $referenceNumber, $status, $expire_status = false, $image;
     public $venue_list = [];
     public $item_list = [];
+    public $remarks_msg;
 
 
     public function render()
@@ -47,7 +49,7 @@ class History extends Component
                     'reference_num' => $reservation->reference_num,
                     'date_filled' => $reservation->date_filled,
                     'status' => $reservation->status,
-                    'departname' => $departname->department_name,
+                    'departname' => ucfirst(strtolower($departname->department_name)),
                     'name' =>  $name
                 ];
 
@@ -163,6 +165,8 @@ class History extends Component
 
     public function doneReservation()
     {
+
+
         $reservation = Reservation::where('id', $this->reservation_id)->first();
         $users = User::where('id', $reservation->users_id)->first();
         $items = ReservationItem::where('reservation_id', $reservation->id)->get();
@@ -197,6 +201,12 @@ class History extends Component
         //     $venue_list->update(['quantity' => max(0, $newQuantity)]);
         // }
 
+        $data = [
+            'reservation_id' => $this->reservation_id,
+            'remarks_msg' => $this->remarks_msg ?? 'blank'
+        ];
+        remarks::create($data);
+
         $reservation->update([
             'status' => 3,
         ]);
@@ -210,6 +220,6 @@ class History extends Component
         ];
         Notification::send($users, new CustomerNotification($details));
 
-        $this->dispatch('destroyModal', status: 'success', position: 'top', message: 'Reservation mark as done successfully.', modal: '#showHistory');
+        $this->dispatch('destroyModal', status: 'success', position: 'top', message: 'Reservation mark as done successfully.', modal: '#completedtModal');
     }
 }

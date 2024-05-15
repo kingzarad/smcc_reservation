@@ -96,7 +96,7 @@ class Index extends Component
             $name .= " " . ucfirst($userDetails->lastname);
             return [
                 'classNames' => 'a',
-                'title' =>  "<div class=' text-wrap'>Reserved:$name <br>Venue/Rooms: <strong>$venueString</strong> <br>Item: <strong>$itemsString</strong> <br>Date: $startDate - $endDate <br>Time: $startTime - $endTime</div>",
+                'title' =>  "<div class=' text-wrap'>Reserved By:$name <br>Venue/Rooms: <strong>$venueString</strong> <br>Item: <strong>$itemsString</strong> <br>Date: $startDate - $endDate <br>Time: $startTime - $endTime</div>",
                 'start' => $startDateTime,
                 'end' => $endDateTime,
 
@@ -104,7 +104,7 @@ class Index extends Component
             ];
         })->toArray();
     }
-    
+
     public function checkUser()
     {
         if (Auth::check()) {

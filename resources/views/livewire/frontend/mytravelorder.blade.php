@@ -36,9 +36,9 @@
                                         {{ $item->status == 1 ? 'Pending' : 'Approved' }}
                                     </span>
                                     <br>
-                                    Travel Time: {{ \Carbon\Carbon::parse($item->time)->format('h:i A') }} <br>
-                                    Travel Date: {{ \Carbon\Carbon::parse($item->date)->format('F j, Y') }} <br>
-
+                                    Travel Time: {{ $item->time }} <br>
+                                    Travel Date: {{ $item->date }} <br>
+                                    Travel Unit: {{ $item->unit }} <br>
                                 </small>
                             </td>
                             <td style=" padding: 0px 20px 0px 0px !important;">

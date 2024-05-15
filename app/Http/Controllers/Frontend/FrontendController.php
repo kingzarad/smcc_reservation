@@ -13,7 +13,7 @@ class FrontendController extends Controller
     {
         $expirationChecker = new ExpirationChecker();
         $expirationChecker->checkReservation();
-
+        $expirationChecker->checkTravelOrder();
     }
 
     public function index()

@@ -31,11 +31,14 @@ class PDFController extends Controller
             $users = UserDetails::where('users_id', $reservation->users_id)->first();
             $signature =  ImageConverter::toBase64Dynamic($reservation->signature);
             $logo =  ImageConverter::toBase64Local('assets/images/smcc-logo.png');
+            $tmo_logo =  ImageConverter::toBase64Local('tmo_sig/signature.png');
+
 
             $this->content = [
                 'itemsString' =>  $itemsString,
                 'venueString' =>  $venueString,
                 'logo' => $logo,
+                'tmo_logo' => $tmo_logo,
                 'signature' => $signature,
                 'users' =>  $users,
                 'details' => $reservation

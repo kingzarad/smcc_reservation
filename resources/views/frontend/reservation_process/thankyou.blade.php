@@ -99,8 +99,22 @@
 
         </div>
     </section>
+    @if ($remarks != null && $remarks->remarks_msg != 'blank')
+        <section class="section-b-space cart-section order-details-table">
+            <div class="alert alert-warning alert-dismissible fade show m-3 text-center text-wrap" role="alert">
+
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                    <use xlink:href="#check-circle-fill" />
+                </svg>
+
+                <strong>Remarks: {{ Str::ucfirst(Str::lower($remarks->remarks_msg)) }}</strong>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+        </section>
+    @endif
     <!-- Order Success Section End -->
-    @if ($details->status != 2)
+    @if ($details->status != 3)
         <section class="section-b-space cart-section order-details-table">
             <div class="container">
                 <div class="title title1 title-effect mb-1 title-left">
@@ -109,7 +123,10 @@
                         class="mx-3 btn btn-sm btn-primary">PRINT</a>
 
                 </div>
+
                 @livewire('frontend.receipt', ['details' => $details, 'users' => $users])
+
+
             </div>
         </section>
     @endif

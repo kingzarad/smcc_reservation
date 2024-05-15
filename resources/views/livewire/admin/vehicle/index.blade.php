@@ -21,9 +21,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($vehicle_list as $items)
+                        @foreach ($vehicle_list as $index => $items)
                             <tr>
-                                <td>{{ $items->id }}</td>
+                                <td>{{ $index+1 }}</td>
                                 <td>{{ $items->name }}</td>
 
                                 <td>
