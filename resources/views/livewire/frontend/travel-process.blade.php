@@ -62,6 +62,11 @@
                                 placeholder="Enter Department">
                         </div>
                         <div class="col-md-12">
+                            <label for="name" class="form-label">Contact #</label>
+                            <input type="text" readonly class="form-control"
+                                value="{{ Str::ucfirst($users?->contact) }}" placeholder="Enter Address">
+                        </div>
+                        <div class="col-md-12">
                             <label for="name" class="form-label">Address</label>
                             <input type="text" readonly class="form-control"
                                 value="{{ Str::ucfirst($users?->address) }}" placeholder="Enter Address">
@@ -89,6 +94,15 @@
                             @enderror
                         </div>
 
+
+                        <div class="col-md-12">
+                            <label for="phone" class="form-label">TRAVEL DATE RETURN</label>
+                            <input type="date" wire:model="date" class="form-control" id="date" onkeypress="return false">
+                            @error('date')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="col-md-12">
                             <label for="phone" class="form-label">SELECT VEHICLE</label>
                             <select class="form-control" wire:model="vehicle_id">
@@ -102,6 +116,14 @@
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="col-md-12">
+                            <label for="phone" class="form-label">TRAVEL PURPOSE</label>
+                            <input type="text" wire:model="purpose" class="form-control" id="purpose">
+                            @error('purpose')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                         <div class="col-md-12">
                             <label for="phone" class="form-label">UPLOAD TRAVEL ORDER</label>
                             <input type="file" wire:model="upload" class="form-control" accept="image/*">

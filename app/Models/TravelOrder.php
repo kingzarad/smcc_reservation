@@ -15,6 +15,9 @@ class TravelOrder extends Model
         'user_id',
         'date',
         'time',
+        'returndate',
+        'destanation',
+        'purpose',
         'image',
         'status'
     ];

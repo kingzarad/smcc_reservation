@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('middlename')->nullable();
             $table->string('department')->nullable();
             $table->string('position')->nullable();
+            $table->string('contact')->nullable();
             $table->string('address')->nullable();
             $table->timestamps();
         });

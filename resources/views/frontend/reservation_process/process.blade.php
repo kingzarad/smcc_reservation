@@ -50,6 +50,11 @@
                                 placeholder="Enter Department">
                         </div>
                         <div class="col-md-12">
+                            <label for="name" class="form-label">Contact #</label>
+                            <input type="text" readonly class="form-control"
+                                value="{{ Str::ucfirst($users?->contact) }}" placeholder="Enter Address">
+                        </div>
+                        <div class="col-md-12">
                             <label for="name" class="form-label">Address</label>
                             <input type="text" readonly class="form-control"
                                 value="{{ Str::ucfirst($users?->address) }}" placeholder="Enter Address">

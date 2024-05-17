@@ -20,6 +20,7 @@ class UserDetails extends Model
         'department',
         'position',
         'address',
+        'contact',
     ];
 
 

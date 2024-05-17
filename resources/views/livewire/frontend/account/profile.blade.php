@@ -48,6 +48,14 @@
             </li>
             <li>
                 <div class="left">
+                    <h6 class="font-light">Contact #</h6>
+                </div>
+                <div class="right">
+                    <h6>{{ Str::ucfirst($users->contact ?? '?') }}</h6>
+                </div>
+            </li>
+            <li>
+                <div class="left">
                     <h6 class="font-light">Address</h6>
                 </div>
                 <div class="right">
@@ -184,6 +192,15 @@
 
                                 </div>
                             </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact" class="form-label">Contact # <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" wire:model="contact" class="form-control" id="contact">
+                            @error('contact')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+
                         </div>
                         <div class="mb-3">
                             <label for="address" class="form-label">Complete Address <span
